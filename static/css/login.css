@@ -12,6 +12,8 @@
     --text-muted: #6c757d;
     --border-radius: 12px;
     --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    --primary-gradient: linear-gradient(135deg, var(--navy), var(--turquoise));
+
 }
 
 * {
@@ -395,12 +397,27 @@ svg {
 }
 
 .cover {
-    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(0deg, var(--navy), var(--dark));
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    padding: 15px;
+    background: var(--primary-gradient);
+    box-shadow: 0 3px 10px rgba(0, 0, 128, 0.2);
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+}
+
+.cover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%);
+    z-index: 1;
 }

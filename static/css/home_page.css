@@ -42,21 +42,15 @@ body {
     scroll-behavior: smooth;
 }
 
-/* Improved Circuit Overlay */
 .circuit-overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image:
-        radial-gradient(circle at 25% 25%, rgba(0, 206, 209, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(0, 0, 128, 0.05) 0%, transparent 50%),
-        repeating-linear-gradient(0deg, rgba(0, 206, 209, 0.08) 0px, rgba(0, 206, 209, 0.08) 1px, transparent 1px, transparent 25px),
-        repeating-linear-gradient(90deg, rgba(0, 206, 209, 0.08) 0px, rgba(0, 206, 209, 0.08) 1px, transparent 1px, transparent 25px);
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.6;
+    background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 10px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 10px);
+    opacity: 0.4;
 }
 
 /* Enhanced Logo Container */
@@ -193,7 +187,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Hero Section */
 .hero {
     background: var(--primary-gradient);
     color: white;
@@ -213,16 +206,6 @@ body {
     left: -25%;
     border-radius: 50%;
     z-index: 2;
-}
-
-.hero .circuit-overlay {
-    opacity: 0.15;
-    position: absolute;
-    background-image:
-        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.1) 0%, transparent 25%),
-        radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.1) 0%, transparent 25%),
-        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 1px, transparent 1px, transparent 10px),
-        repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 1px, transparent 1px, transparent 10px);
 }
 
 .hero-content {
@@ -698,11 +681,6 @@ footer {
     padding: 5rem 2rem 1.5rem;
     position: relative;
     overflow: hidden;
-}
-
-footer .circuit-overlay {
-    opacity: 0.1;
-    position: absolute;
 }
 
 .footer-content {
