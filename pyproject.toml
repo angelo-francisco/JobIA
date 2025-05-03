@@ -9,7 +9,8 @@ license = {text = "ALL RIGHTS RESERVED BY JOBIA ENTERPRISE"}
 readme = "README.md"
 requires-python = ">=3.13,<4.0.0"
 dependencies = [
-    "django (>=5.2,<6.0)"
+    "django (>=5.2,<6.0)",
+    "redis (>=6.0.0,<7.0.0)"
 ]
 
 [tool.taskipy.tasks]

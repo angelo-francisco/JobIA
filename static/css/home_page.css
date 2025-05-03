@@ -86,12 +86,13 @@ body {
     z-index: 2;
 }
 
-/* Modern Navbar */
 .navbar {
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 0 2rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
