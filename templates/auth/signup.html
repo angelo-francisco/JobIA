@@ -1,0 +1,85 @@
+{% extends 'auth/auth.html' %}
+{% load static cache %}
+{% block title %}Cadastre-se{% endblock %}
+{% block head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script defer
+        src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet" />
+    {% cache 86400 'static-libs' %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    {% endcache %}
+    <script src="{% static 'js/auth/signup.js' %}"></script>
+{% endblock %}
+{% block content %}
+    {% include 'partials/messages.html' %}
+    <div class="login-container">
+        <div class="circuit-overlay"></div>
+        <div class="login-side">
+            <div class="login-header">
+                <div class="cover">
+                    <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo-img" />
+                </div>
+                <h2>Cadastre-se</h2>
+                <p>Os seus dados estão seguros connosco!</p>
+            </div>
+            <form class="login-form"
+                  method="POST"
+                  action="{% url 'signup' %}"
+                  id="form"
+                  x-data="signupForm()"
+                  x-init="init()">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text"
+                           id="username"
+                           placeholder=" "
+                           x-model="username"
+                           @input.debounce.500ms="checkUsername"
+                           autocomplete="off"
+                           required
+                           name="username"
+                           :class="usernameValid === true ? 'valid' : usernameValid === false ? 'invalid' : ''" />
+                    <label for="username">Username</label>
+                    <p class="help-text"
+                       x-html="usernameMessage"
+                       :class="usernameValid ? 'success' : 'error'"></p>
+                </div>
+                <div class="input-group" x-show="usernameValid" x-transition>
+                    <input type="email"
+                           id="email"
+                           placeholder=" "
+                           x-model="email"
+                           @input="checkEmail"
+                           required 
+                           name="email"/>
+                    <label for="email">Email</label>
+                    <p class="help-text"
+                       x-html="emailMessage"
+                       :class="emailValid ? 'success' : 'error'"></p>
+                </div>
+                <div class="input-group"
+                     style="margin-bottom: 20px"
+                     x-show="emailValid"
+                     x-transition>
+                    <input type="password"
+                           id="password"
+                           placeholder=" "
+                           x-model="password"
+                           required
+                           name="password" />
+                    <label for="password">Palavra-passe</label>
+                    <p class="help-text password-help">A senha deve conter pelo menos 8 caracteres .</p>
+                </div>
+                <button type="submit"
+                        class="btn-login"
+                        :disabled="!(usernameValid && emailValid && password.length >= 8)">Cadastrar</button>
+            </form>
+            <div class="register-now">
+                Já tem uma conta? <a href="{% url 'login' %}" class="register-link">Iniciar Sessão</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
