@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        
+      {% endblock %} | JobIA
+    </title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" />
+    {% block extra_css %}
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-left">
+        <div class="logo">
+            <div class="cover">
+                <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo-img" />
+            </div>
+        </div>
+      </div>
+
+      <div class="navbar-center">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Pesquisar..." />
+        </div>
+      </div>
+
+      <div class="navbar-right">
+        <button class="dashboard-toggle" id="dashboardToggle">
+          <i class="fas fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </button>
+
+        <div class="profile-dropdown">
+          <button class="profile-btn">
+            <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img" />
+            <span class="profile-name">John Doe</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#"><i class="fas fa-user"></i> Perfil</a>
+            <a href="#"><i class="fas fa-cog"></i> Configurações</a>
+            <a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="dashboard-panel" id="dashboardPanel">
+      <div class="dashboard-header">
+        <h2>Visão Geral</h2>
+        <button class="close-panel" id="closePanel"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="dashboard-content">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-overlay" id="panelOverlay"></div>
+
+    <main class="main-content">
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}
+    {% endblock %}
+  </body>
+</html>
