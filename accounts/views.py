@@ -9,9 +9,6 @@ from django.contrib.auth import (
 from django.contrib.auth import (
     login as django_login,
 )
-from django.contrib.auth import (
-    logout as django_logout,
-)
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET
