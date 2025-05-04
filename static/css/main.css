@@ -324,15 +324,13 @@ body {
     .navbar {
         padding: 1rem;
     }
+
+    .dashboard-panel {
+        width: 350px;
+    }
 }
 
 @media (max-width: 768px) {
-    .navbar-left,
-    .navbar-right {
-        width: 100%;
-        margin: 0;
-    }
-
     .dashboard-panel {
         width: 100%;
         max-width: 400px;
@@ -476,11 +474,6 @@ body {
 }
 
 @media (max-width: 576px) {
-    .dashboard-panel {
-        width: 100%;
-        max-width: none;
-    }
-
     .dashboard-toggle span {
         display: none;
     }
