@@ -2,16 +2,16 @@
 {% load static cache %}
 {% block title %}Cadastre-se{% endblock %}
 {% block head %}
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<script defer
-        src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+          rel="stylesheet" />
     {% cache 86400 'static-libs' %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}" />
-    {% endcache %}
-    <script src="{% static 'js/auth/signup.js' %}"></script>
+{% endcache %}
+<script src="{% static 'js/auth/signup.js' %}"></script>
 {% endblock %}
 {% block content %}
     {% include 'partials/messages.html' %}
@@ -53,8 +53,8 @@
                            placeholder=" "
                            x-model="email"
                            @input="checkEmail"
-                           required 
-                           name="email"/>
+                           required
+                           name="email" />
                     <label for="email">Email</label>
                     <p class="help-text"
                        x-html="emailMessage"

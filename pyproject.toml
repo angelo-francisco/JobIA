@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [tool.taskipy.tasks]
-run = 'python manage.py runserver'
+run = 'python manage.py runserver 0.0.0.0:8000'
 mkmg = 'python manage.py makmigrations'
 mg = 'python manage.py migrate'
 all = 'task mkmg && task mg && task run'
