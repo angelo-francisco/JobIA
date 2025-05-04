@@ -1,13 +1,15 @@
-{% load static cache %}
+{% load static cache compress %}
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Home Page | JobIA</title>
+        {% compress css %}
         {% cache 86400 'home-page' %}
-        <link rel="stylesheet" href="{% static 'css/home_page.css' %}" />
-    {% endcache %}
+            <link rel="stylesheet" href="{% static 'css/home_page.css' %}" />
+            {% endcache %}
+            {% endcompress %}
     <link rel="shortcut icon"
           href="{% static 'imgs/logo.png' %}"
           type="image/x-icon" />
@@ -203,7 +205,8 @@
             <p>&copy; 2025 JobIA. Todos os direitos reservados.</p>
         </div>
     </footer>
-    <script>
+    {% compress js %}
+        <script>
       const menuToggle = document.querySelector('.menu-toggle')
       const navLinks = document.querySelector('.nav-links')
       
@@ -219,6 +222,7 @@
           menuToggle.classList.remove('active')
         })
       })
-    </script>
+        </script>
+    {% endcompress %}
 </body>
 </html>

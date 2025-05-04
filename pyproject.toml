@@ -10,12 +10,17 @@ readme = "README.md"
 requires-python = ">=3.13,<4.0.0"
 dependencies = [
     "django (>=5.2,<6.0)",
-    "redis (>=6.0.0,<7.0.0)"
+    "redis (>=6.0.0,<7.0.0)",
+    "whitenoise (>=6.9.0,<7.0.0)",
+    "gunicorn (>=23.0.0,<24.0.0)",
+    "psycopg (>=3.2.7,<4.0.0)",
+    "dj-database-url (>=2.3.0,<3.0.0)",
+    "django-compressor (>=4.5.1,<5.0.0)"
 ]
 
 [tool.taskipy.tasks]
 run = 'python manage.py runserver 0.0.0.0:8000'
-mkmg = 'python manage.py makmigrations'
+mkmg = 'python manage.py makemigrations'
 mg = 'python manage.py migrate'
 all = 'task mkmg && task mg && task run'
 

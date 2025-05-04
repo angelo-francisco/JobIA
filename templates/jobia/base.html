@@ -1,173 +1,187 @@
-{% load static %}
+{% load static compress %}
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {% block title %}
-      {% endblock %}| JobIA
-    </title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" />
-    {% block extra_css %}
-    {% endblock %}
-  </head>
-  <body>
-    <div class="exclusive-modal" id="exclusiveModal">
-      <div class="modal-content">
-        <button class="close-modal">&times;</button>
-        <div class="modal-header">
-          <i class="fas fa-crown"></i>
-          <h3>Recurso Exclusivo</h3>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            {% block title %}{% endblock %}
+            | JobIA
+        </title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+              rel="stylesheet" />
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        {% compress css %}
+            <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+        {% endcompress %}
+        <link rel="shortcut icon"
+              href="{% static 'imgs/logo.png' %}"
+              type="image/x-icon" />
+        {% block extra_css %}{% endblock %}
+    </head>
+    <body>
+        <div class="exclusive-modal" id="exclusiveModal">
+            <div class="modal-content">
+                <button class="close-modal">&times;</button>
+                <div class="modal-header">
+                    <i class="fas fa-crown"></i>
+                    <h3>Recurso Exclusivo</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        O recurso <span id="featureName"></span> está disponível apenas para assinantes do plano Premium.
+                    </p>
+                    <p>Atualize seu plano para desbloquear todos os recursos exclusivos!</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary close-modal">Fechar</button>
+                    <button class="btn btn-primary" id="upgradePlan">Atualizar Plano</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <p>
-            O recurso <span id="featureName"></span> está disponível apenas para assinantes do plano Premium.
-          </p>
-          <p>Atualize seu plano para desbloquear todos os recursos exclusivos!</p>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <div class="logo">
+                    <div class="cover">
+                        <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo-img" />
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-right">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="dashboard-toggle" id="dashboardToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <div class="dashboard-panel" id="dashboardPanel">
+            <div class="dashboard-header">
+                <div class="user-profile">
+                    <img width="32"
+                         height="32"
+                         src="https://img.icons8.com/puffy/32/user.png"
+                         alt="user"
+                         class="profile-img" />
+                    <div class="user-info">
+                        <h3>{{ request.user.username }}</h3>
+                        <p class="user-plan">Plano Free</p>
+                    </div>
+                </div>
+                <button class="close-panel" id="closePanel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="dashboard-content">
+                <div class="panel-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-home section-icon"></i>
+                        <span>Principal</span>
+                    </h3>
+                    <ul class="section-list">
+                        <li class="list-item">
+                            <i class="fas fa-briefcase item-icon"></i>
+                            <span>Workspace</span>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-file-alt item-icon"></i>
+                            <span>Currículos</span>
+                        </li>
+                        <li class="list-item exclusive-feature"
+                            data-feature="Simulação de Entrevistas">
+                            <i class="fas fa-comments item-icon"></i>
+                            <span>Simulação de Entrevistas</span>
+                            <i class="fas fa-crown exclusive-icon"></i>
+                        </li>
+                        <li class="list-item exclusive-feature" data-feature="Grupos Exclusivos">
+                            <i class="fas fa-users item-icon"></i>
+                            <span>Grupos Exclusivos</span>
+                            <i class="fas fa-crown exclusive-icon"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-tools section-icon"></i>
+                        <span>Ferramentas</span>
+                    </h3>
+                    <ul class="section-list">
+                        <li class="list-item">
+                            <i class="fas fa-edit item-icon"></i>
+                            <span>Pedir Revisão de Currículo</span>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-envelope-open-text item-icon"></i>
+                            <span>Carta de apresentação</span>
+                        </li>
+                        <li class="list-item exclusive-feature" data-feature="Personal Branding">
+                            <i class="fas fa-bullhorn item-icon"></i>
+                            <span>Personal Branding</span>
+                            <i class="fas fa-crown exclusive-icon"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-credit-card section-icon"></i>
+                        <span>Pagamentos</span>
+                    </h3>
+                    <ul class="section-list">
+                        <li class="list-item">
+                            <i class="fas fa-box-open item-icon"></i>
+                            <span>Planos</span>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-sync-alt item-icon"></i>
+                            <span>Renovar Plano</span>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-history item-icon"></i>
+                            <span>Histórico</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-section last-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-cog section-icon"></i>
+                        <span>Configurações</span>
+                    </h3>
+                    <ul class="section-list">
+                        <li class="list-item">
+                            <i class="fas fa-user-cog item-icon"></i>
+                            <span>Definições</span>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-headset item-icon"></i>
+                            <span>Suporte</span>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-sign-out-alt item-icon"></i>
+                            <span>Sair</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="upgrade-banner">
+                    <div class="crown-container">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h4>Desbloqueie recursos exclusivos</h4>
+                    <p>Atualize para o plano Premium e tenha acesso completo</p>
+                    <button class="upgrade-btn">Atualizar Agora</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary close-modal">Fechar</button>
-          <button class="btn btn-primary" id="upgradePlan">Atualizar Plano</button>
-        </div>
-      </div>
-    </div>
-    <nav class="navbar">
-      <div class="navbar-left">
-        <div class="logo">
-          <div class="cover">
-            <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo-img" />
-          </div>
-        </div>
-      </div>
-      <div class="navbar-right">
-        <button class="notification-btn">
-          <i class="fas fa-bell"></i>
-          <span class="notification-badge">3</span>
-        </button>
-        <button class="dashboard-toggle" id="dashboardToggle"><i class="fas fa-bars"></i></button>
-      </div>
-    </nav>
-    <div class="dashboard-panel" id="dashboardPanel">
-      <div class="dashboard-header">
-        <div class="user-profile">
-          <img width="32" height="32" src="https://img.icons8.com/puffy/32/user.png" alt="user" class="profile-img" />
-          <div class="user-info">
-            <h3>{{ request.user.username }}</h3>
-            <p class="user-plan">Plano Free</p>
-          </div>
-        </div>
-        <button class="close-panel" id="closePanel"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="dashboard-content">
-        <div class="panel-section">
-          <h3 class="section-title">
-            <i class="fas fa-home section-icon"></i>
-            <span>Principal</span>
-          </h3>
-          <ul class="section-list">
-            <li class="list-item">
-              <i class="fas fa-briefcase item-icon"></i>
-              <span>Workspace</span>
-            </li>
-            <li class="list-item">
-              <i class="fas fa-file-alt item-icon"></i>
-              <span>Currículos</span>
-            </li>
-            <li class="list-item exclusive-feature" data-feature="Simulação de Entrevistas">
-              <i class="fas fa-comments item-icon"></i>
-              <span>Simulação de Entrevistas</span>
-              <i class="fas fa-crown exclusive-icon"></i>
-            </li>
-            <li class="list-item exclusive-feature" data-feature="Grupos Exclusivos">
-              <i class="fas fa-users item-icon"></i>
-              <span>Grupos Exclusivos</span>
-              <i class="fas fa-crown exclusive-icon"></i>
-            </li>
-          </ul>
-        </div>
-        <div class="panel-section">
-          <h3 class="section-title">
-            <i class="fas fa-tools section-icon"></i>
-            <span>Ferramentas</span>
-          </h3>
-          <ul class="section-list">
-            <li class="list-item">
-              <i class="fas fa-edit item-icon"></i>
-              <span>Pedir Revisão de Currículo</span>
-            </li>
-            <li class="list-item">
-              <i class="fas fa-envelope-open-text item-icon"></i>
-              <span>Carta de apresentação</span>
-            </li>
-            <li class="list-item exclusive-feature" data-feature="Personal Branding">
-              <i class="fas fa-bullhorn item-icon"></i>
-              <span>Personal Branding</span>
-              <i class="fas fa-crown exclusive-icon"></i>
-            </li>
-          </ul>
-        </div>
-        <div class="panel-section">
-          <h3 class="section-title">
-            <i class="fas fa-credit-card section-icon"></i>
-            <span>Pagamentos</span>
-          </h3>
-          <ul class="section-list">
-            <li class="list-item">
-              <i class="fas fa-box-open item-icon"></i>
-              <span>Planos</span>
-            </li>
-            <li class="list-item">
-              <i class="fas fa-sync-alt item-icon"></i>
-              <span>Renovar Plano</span>
-            </li>
-            <li class="list-item">
-              <i class="fas fa-history item-icon"></i>
-              <span>Histórico</span>
-            </li>
-          </ul>
-        </div>
-        <div class="panel-section last-section">
-          <h3 class="section-title">
-            <i class="fas fa-cog section-icon"></i>
-            <span>Configurações</span>
-          </h3>
-          <ul class="section-list">
-            <li class="list-item">
-              <i class="fas fa-user-cog item-icon"></i>
-              <span>Definições</span>
-            </li>
-            <li class="list-item">
-              <i class="fas fa-headset item-icon"></i>
-              <span>Suporte</span>
-            </li>
-            <li class="list-item">
-              <i class="fas fa-sign-out-alt item-icon"></i>
-              <span>Sair</span>
-            </li>
-          </ul>
-        </div>
-        <div class="upgrade-banner">
-          <div class="crown-container">
-            <i class="fas fa-crown"></i>
-          </div>
-          <h4>Desbloqueie recursos exclusivos</h4>
-          <p>Atualize para o plano Premium e tenha acesso completo</p>
-          <button class="upgrade-btn">Atualizar Agora</button>
-        </div>
-      </div>
-    </div>
-    <div class="panel-overlay" id="panelOverlay"></div>
-    <main class="main-content">
-      <div class="circuit-overlay"></div>
-      {% block content %}
-      {% endblock %}
-    </main>
-    <script src="{% static 'js/main.js' %}"></script>
-    {% block extra_js %}
-    {% endblock %}
-  </body>
+        <div class="panel-overlay" id="panelOverlay"></div>
+        <main class="main-content">
+            <div class="circuit-overlay"></div>
+            {% block content %}{% endblock %}
+        </main>
+        {% compress js %}
+            <script src="{% static 'js/main.js' %}"></script>
+        {% endcompress %}
+        {% block extra_js %}{% endblock %}
+    </body>
 </html>
