@@ -5,7 +5,7 @@ import dj_database_url
 import environ
 
 env = environ.Env(
-    DEBUG=(bool, False),
+    DEBUG=(bool, True),
     SECRET_KEY=(str, "django-insecure-key"),
 )
 
@@ -140,7 +140,6 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_URL = "/auth/login/"
 
 if not DEBUG:
-
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
