@@ -1,0 +1,7 @@
+plano, selecionar o plano, renovar o plano, stripe, etc.x
+reduzir o css dos arquivos, tem css demais
+montar o card de adicionar novo item ao workspace
+montar models dos planos integrar com stripe
+criar apps de payments 
+limitar o acesso de acordo ao plano
+

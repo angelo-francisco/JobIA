@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "compressor",
     "accounts",
     "jobia",
+    "payments"
 ]
 
 MIDDLEWARE = [
