@@ -137,7 +137,7 @@ LOGIN_URL = "/auth/login/"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "rediss://red-d0bkks95pdvs73cpage0:70OoGbmDgApkhOKvvky5co4iyHrURc0f@oregon-keyvalue.render.com:6379",
+        "LOCATION": "redis://red-d0bkks95pdvs73cpage0:6379",
     }
 }
 
