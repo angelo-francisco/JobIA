@@ -50,7 +50,7 @@
         <span></span>
       </div>
     </nav>
-    {% cache 3600 "home-page-cache-2" %}
+    {% cache 3600 'home-page-cache-2' %}
     <section class="hero" id="hero-section">
       <div class="circuit-overlay"></div>
       <div class="hero-content">
@@ -88,6 +88,7 @@
       <p>Nossa plataforma oferece simulações realistas com feedback instantâneo para você chegar confiante na entrevista real. Pratique com perguntas adaptadas ao mercado de trabalho angolano.</p>
       <a href="{% url 'dashboard' %}" class="cta-button">Experimente agora</a>
     </section>
+    {% endcache %}
     <section class="pricing" id="pricing-section">
       <h2>Nossos Planos</h2>
       <div class="pricing-grid">
@@ -103,6 +104,11 @@
             <li>1 simulação de entrevista</li>
             <li>Suporte simples</li>
           </ul>
+          
+          {% if request.user.subscriptions.latest. %}
+            
+          {% endif %}
+            
           <button class="pricing-button">Assinar</button>
         </div>
         <div class="pricing-card popular">
@@ -149,6 +155,7 @@
         </div>
       </div>
     </section>
+    {% cache 3600 'home-page-cache-3' %}
     <footer class="footer" id="footer-section">
       <div class="circuit-overlay"></div>
       <div class="footer-content">
@@ -216,16 +223,16 @@
           menuToggle.classList.remove('active')
         })
       })
-
-      {% if request.user.is_anonymous %}
-      document.querySelectorAll('.pricing-button')
-      .forEach(btn => {
-        btn.addEventListener('click', () => {
-          window.location.href = '{% url "login" %}'
-        })
-      })
-      {% endif %}
     </script>
     {% endcompress %}
+    {% if request.user.is_anonymous %}
+      <script>
+        document.querySelectorAll('.pricing-button').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            window.location.href = '{% url "login" %}'
+          })
+        })
+      </script>
+    {% endif %}
   </body>
 </html>
