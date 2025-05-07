@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.conf import settings
 
-User = get_user_model()
+User = settings.AUTH_USER_MODEL
 
 
 class Plan(models.Model):
@@ -27,6 +27,9 @@ class Subscription(models.Model):
 
 
 class ResouceUsage(models.Model):
-    subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE, )
+    subscription = models.ForeignKey(
+        Subscription,
+        on_delete=models.CASCADE,
+    )
     resource = models.CharField(max_length=50, null=True, blank=True)
     amount_used = models.PositiveIntegerField(default=0)

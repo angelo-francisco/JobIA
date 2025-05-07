@@ -940,3 +940,16 @@ footer {
         gap: 2rem;
     }
 }
+
+.deactivated {
+    background: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    opacity: 0.7;
+}
+
+.deactivated::after {
+    display: none;
+}

@@ -104,12 +104,13 @@
             <li>1 simulação de entrevista</li>
             <li>Suporte simples</li>
           </ul>
-          
-          {% if request.user.subscriptions.latest. %}
             
+          {% if request.user.actual_subscription_plan.plan.name == "Essencial" %}
+          <button class="pricing-button deactivated">Plano Actual</button>
+          {% else %}
+          <button class="pricing-button">Assinar</button>
           {% endif %}
             
-          <button class="pricing-button">Assinar</button>
         </div>
         <div class="pricing-card popular">
           <div class="popular-tag">Popular</div>
@@ -123,7 +124,11 @@
             <li>Até 5 simulações de entrevistas</li>
             <li>Suporte prioritário</li>
           </ul>
+          {% if request.user.actual_subscription_plan.plan.name == "Profissional" %}
+          <button class="pricing-button deactivated">Plano Actual</button>
+          {% else %}
           <button class="pricing-button">Assinar</button>
+          {% endif %}
         </div>
         <div class="pricing-card">
           <h3>Executivo</h3>
@@ -137,7 +142,11 @@
             <li>Suporte dedicado</li>
             <li>Carta de apresentação</li>
           </ul>
+          {% if request.user.actual_subscription_plan.plan.name == "Executivo" %}
+          <button class="pricing-button deactivated">Plano Actual</button>
+          {% else %}
           <button class="pricing-button">Assinar</button>
+          {% endif %}
         </div>
         <div class="pricing-card">
           <h3>Elite</h3>
@@ -151,7 +160,11 @@
             <li>Feedback avançado</li>
             <li>Personal branding</li>
           </ul>
+          {% if request.user.actual_subscription_plan.plan.name == "Elite" %}
+          <button class="pricing-button deactivated">Plano Actual</button>
+          {% else %}
           <button class="pricing-button">Assinar</button>
+          {% endif %}
         </div>
       </div>
     </section>
