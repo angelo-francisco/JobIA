@@ -23,7 +23,7 @@ class Subscription(models.Model):
     raw_data = models.JSONField(default=dict, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.user} - {self.plan.name}"
+        return f"{self.user.username} - {self.plan.name}"
 
 
 class ResouceUsage(models.Model):

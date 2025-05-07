@@ -16,21 +16,11 @@ function closeDashboard() {
     panelOverlay.classList.remove('active');
 }
 
-const profileDropdown = document.querySelector('.profile-dropdown');
-const profileBtn = document.querySelector('.profile-btn');
-
-profileBtn.addEventListener('click', () => {
-    profileDropdown.classList.toggle('active');
-});
-
-document.addEventListener('click', (e) => {
-    if (!profileDropdown.contains(e.target)) {
-        profileDropdown.classList.remove('active');
-    }
-});
+function redirectTo(link) {
+    window.location.href=link
+}
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Modal de recursos exclusivos
     const exclusiveFeatures = document.querySelectorAll('.exclusive-feature');
     const exclusiveModal = document.getElementById('exclusiveModal');
     const featureNameElement = document.getElementById('featureName');
@@ -51,14 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('upgradePlan').addEventListener('click', function () {
-        // Redirecionar para página de planos
-        window.location.href = '#planos'; // Substitua pelo link real
+        window.location.href = '#planos';
     });
 
-    // Fechar modal ao clicar fora
     exclusiveModal.addEventListener('click', function (e) {
         if (e.target === this) {
             this.classList.remove('active');
         }
     });
+
 });
+

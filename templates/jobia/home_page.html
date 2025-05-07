@@ -216,6 +216,15 @@
           menuToggle.classList.remove('active')
         })
       })
+
+      {% if request.user.is_anonymous %}
+      document.querySelectorAll('.pricing-button')
+      .forEach(btn => {
+        btn.addEventListener('click', () => {
+          window.location.href = '{% url "login" %}'
+        })
+      })
+      {% endif %}
     </script>
     {% endcompress %}
   </body>
