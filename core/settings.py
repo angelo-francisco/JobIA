@@ -150,8 +150,7 @@ if not DEBUG:
 else:
     CACHES = {
         "default": {
-            "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://localhost:6381/0",
+            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
         }
     }
 

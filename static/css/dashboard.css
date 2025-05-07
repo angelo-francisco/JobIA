@@ -58,6 +58,7 @@
     border: 1px solid #ddd;
     border-radius: var(--border-radius-md);
     min-width: 250px;
+    outline: none;
 }
 
 
