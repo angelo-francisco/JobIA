@@ -68,7 +68,7 @@
                          class="profile-img" />
                     <div class="user-info">
                         <h3>{{ request.user.username }}</h3>
-                        <p class="user-plan">Plano Free</p>
+                        <p class="user-plan">Plano {{ request.user.subscription.plan.name }}</p>
                     </div>
                 </div>
                 <button class="close-panel" id="closePanel">
@@ -86,44 +86,57 @@
                             <i class="fas fa-briefcase item-icon"></i>
                             <span>Workspace</span>
                         </li>
-                        <li class="list-item">
-                            <i class="fas fa-file-alt item-icon"></i>
-                            <span>Currículos</span>
-                        </li>
-                        <li class="list-item exclusive-feature"
-                            data-feature="Simulação de Entrevistas">
-                            <i class="fas fa-comments item-icon"></i>
-                            <span>Simulação de Entrevistas</span>
-                            <i class="fas fa-crown exclusive-icon"></i>
-                        </li>
-                        <li class="list-item exclusive-feature" data-feature="Grupos Exclusivos">
-                            <i class="fas fa-users item-icon"></i>
-                            <span>Grupos Exclusivos</span>
-                            <i class="fas fa-crown exclusive-icon"></i>
-                        </li>
-                    </ul>
-                </div>
-                <div class="panel-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-tools section-icon"></i>
-                        <span>Ferramentas</span>
-                    </h3>
-                    <ul class="section-list">
-                        <li class="list-item">
-                            <i class="fas fa-edit item-icon"></i>
-                            <span>Pedir Revisão de Currículo</span>
-                        </li>
-                        <li class="list-item">
-                            <i class="fas fa-envelope-open-text item-icon"></i>
-                            <span>Carta de apresentação</span>
-                        </li>
-                        <li class="list-item exclusive-feature" data-feature="Personal Branding">
-                            <i class="fas fa-bullhorn item-icon"></i>
-                            <span>Personal Branding</span>
-                            <i class="fas fa-crown exclusive-icon"></i>
-                        </li>
-                    </ul>
-                </div>
+                        {{ request.user.subscription.plan.limits }}
+                        {% with limits=request.user.subscription.plan.limits %}
+                            {% if limits.simulacoes_entrevista and limits.simulacoes_entrevista > 0 %}
+                                <li class="list-item">
+                                    <i class="fas fa-comments item-icon"></i>
+                                    <span>Simulação de Entrevistas</span>
+                                </li>
+                            {% else %}
+                                <li class="list-item exclusive-feature"
+                                    data-feature="Simulação de Entrevistas">
+                                    <i class="fas fa-comments item-icon"></i>
+                                    <span>Simulação de Entrevistas</span>
+                                    <i class="fas fa-crown exclusive-icon"></i>
+                                </li>
+                            {% endif %}
+                            {% if limits.grupo_exclusivo %}
+                            <li class="list-item" data-feature="Grupos Exclusivos">
+                                <i class="fas fa-users item-icon"></i>
+                                <span>Grupos Exclusivos</span>
+                            </li>
+                            {% else %}
+                            <li class="list-item exclusive-feature" data-feature="Grupos Exclusivos">
+                                <i class="fas fa-users item-icon"></i>
+                                <span>Grupos Exclusivos</span>
+                                <i class="fas fa-crown exclusive-icon"></i>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="panel-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-tools section-icon"></i>
+                            <span>Ferramentas</span>
+                        </h3>
+                        <ul class="section-list">
+                            <li class="list-item">
+                                <i class="fas fa-edit item-icon"></i>
+                                <span>Pedir Revisão de Currículo</span>
+                            </li>
+                            <li class="list-item">
+                                <i class="fas fa-envelope-open-text item-icon"></i>
+                                <span>Carta de apresentação</span>
+                            </li>
+                            <li class="list-item exclusive-feature" data-feature="Personal Branding">
+                                <i class="fas fa-bullhorn item-icon"></i>
+                                <span>Personal Branding</span>
+                                <i class="fas fa-crown exclusive-icon"></i>
+                            </li>
+                        </ul>
+                    </div>
+                {% endwith %}
                 <div class="panel-section">
                     <h3 class="section-title">
                         <i class="fas fa-credit-card section-icon"></i>
