@@ -4,6 +4,7 @@ from django.views.decorators.cache import never_cache
 
 
 def home_page(request):
+    print(request.user.is_authenticated)
     return render(request, "jobia/home_page.html")
 
 

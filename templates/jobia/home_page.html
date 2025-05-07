@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page | JobIA</title>
     {% compress css %}
-    {% cache 86400 'home-page' %}
+    {% cache 86400 'static-libs-home-page' %}
     <link rel="stylesheet" href="{% static 'css/home_page.css' %}" />
     {% endcache %}
     {% endcompress %}
@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    {{ request.user.username }}
     {% include 'partials/messages.html' %}
     <nav class="navbar">
       <div class="logo">
@@ -50,7 +51,7 @@
         <span></span>
       </div>
     </nav>
-    {% cache 86400 "home-page-cache2" %}
+    {% cache 86400 "home-page-cache-2" %}
     <section class="hero" id="hero-section">
       <div class="circuit-overlay"></div>
       <div class="hero-content">
