@@ -75,7 +75,7 @@ def login(request):
             django_login(request, user)
 
             messages.success(request, "Autenticado com sucesso.")
-            return redirect("home_page")
+            return redirect("dashboard")
         messages.error(request, "Email ou Palavra-passe incorrectos.")
         return redirect("login")
     return render(request, "auth/login.html")
