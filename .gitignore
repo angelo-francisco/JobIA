@@ -40,3 +40,6 @@ MANIFEST
 
 # dotenv
 .env
+
+#staticfiles
+staticfiles/
