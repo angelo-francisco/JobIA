@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
       {% block title %}
+
       {% endblock %}| JobIA
     </title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -15,6 +16,7 @@
     {% endcompress %}
     <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" />
     {% block extra_css %}
+
     {% endblock %}
   </head>
   <body>
@@ -65,18 +67,18 @@
         <button class="close-panel" id="closePanel"><i class="fas fa-times"></i></button>
       </div>
       <div class="dashboard-content">
-        <div class="panel-section">
-          <h3 class="section-title">
-            <i class="fas fa-home section-icon"></i>
-            <span>Principal</span>
-          </h3>
-          <ul class="section-list">
-            <li class="list-item">
-              <i class="fas fa-briefcase item-icon"></i>
-              <span>Workspace</span>
-            </li>
-            {{ request.user.subscription.plan.limits }}
-            {% with limits=request.user.subscription.plan.limits %}
+        {% with limits=request.user.subscription.plan.limits %}
+          <div class="panel-section">
+            <h3 class="section-title">
+              <i class="fas fa-home section-icon"></i>
+              <span>Principal</span>
+            </h3>
+            <ul class="section-list">
+              <li class="list-item">
+                <i class="fas fa-briefcase item-icon"></i>
+                <span>Workspace</span>
+              </li>
+              {{ request.user.subscription.plan.limits }}
               {% if limits.simulacoes_entrevista and limits.simulacoes_entrevista > 0 %}
                 <li class="list-item">
                   <i class="fas fa-comments item-icon"></i>
@@ -101,30 +103,29 @@
                   <i class="fas fa-crown exclusive-icon"></i>
                 </li>
               {% endif %}
-            {% endwith %}
-          </ul>
-        </div>
-        <div class="panel-section">
-          <h3 class="section-title">
-            <i class="fas fa-tools section-icon"></i>
-            <span>Ferramentas</span>
-          </h3>
-          <ul class="section-list">
-            <li class="list-item">
-              <i class="fas fa-edit item-icon"></i>
-              <span>Pedir Revisão de Currículo</span>
-            </li>
-            <li class="list-item">
-              <i class="fas fa-envelope-open-text item-icon"></i>
-              <span>Carta de apresentação</span>
-            </li>
-            <li class="list-item exclusive-feature" data-feature="Personal Branding">
-              <i class="fas fa-bullhorn item-icon"></i>
-              <span>Personal Branding</span>
-              <i class="fas fa-crown exclusive-icon"></i>
-            </li>
-          </ul>
-        </div>
+            </ul>
+          </div>
+          <div class="panel-section">
+            <h3 class="section-title">
+              <i class="fas fa-tools section-icon"></i>
+              <span>Ferramentas</span>
+            </h3>
+            <ul class="section-list">
+              <li class="list-item">
+                <i class="fas fa-edit item-icon"></i>
+                <span>Pedir Revisão de Currículo</span>
+              </li>
+              <li class="list-item">
+                <i class="fas fa-envelope-open-text item-icon"></i>
+                <span>Carta de apresentação</span>
+              </li>
+              <li class="list-item exclusive-feature" data-feature="Personal Branding">
+                <i class="fas fa-bullhorn item-icon"></i>
+                <span>Personal Branding</span>
+                <i class="fas fa-crown exclusive-icon"></i>
+              </li>
+            </ul>
+          </div>
         {% endwith %}
         <div class="panel-section">
           <h3 class="section-title">
@@ -176,12 +177,14 @@
     <main class="main-content">
       <div class="circuit-overlay"></div>
       {% block content %}
+
       {% endblock %}
     </main>
     {% compress js %}
     <script src="{% static 'js/main.js' %}"></script>
     {% endcompress %}
     {% block extra_js %}
+
     {% endblock %}
   </body>
 </html>
