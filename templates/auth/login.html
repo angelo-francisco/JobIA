@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   {% compress css %}
-  {% cache 86400 'login-static-libs' %}
+  {% cache 3600 'login-static-libs' %}
   <link rel="stylesheet" href="{% static 'css/login.css' %}" />
   {% endcache %}
   {% endcompress %}

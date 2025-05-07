@@ -1,9 +1,28 @@
 {% extends 'jobia/base.html' %}
-{% load static %}
-{% block title %}Dashboard{% endblock %}
-{% block extra_css %}{% endblock %}
-{% block content %}
-    <h1>Workspace</h1>
-    <small>Seu espaço de trabalho. Veja as suas criações!</small>
+{% load static compress cache %}
+{% block title %}
+  Dashboard
 {% endblock %}
-{% block extra_js %}{% endblock %}
+{% block extra_css %}
+  {% compress css %}
+  {% cache 3600 'dashboard-static-files' %}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+  {% endcache %}
+{% endblock %}
+{% endblock %}
+{% block content %}
+  <h1>Workspace</h1>
+  <small>Seu espaço de trabalho. Veja as suas criações!</small>
+
+  <div class="projects">
+    <div class="card-add">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="12" y1="5" x2="12" y2="19" stroke="black" stroke-width="2" />
+        <line x1="5" y1="12" x2="19" y2="12" stroke="black" stroke-width="2" />
+      </svg>
+    </div>
+  </div>
+{% endblock %}
+{% block extra_js %}
+
+{% endblock %}
