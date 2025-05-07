@@ -43,3 +43,4 @@ MANIFEST
 
 #staticfiles
 staticfiles/
+*.sqlite3
