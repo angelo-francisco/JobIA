@@ -23,7 +23,9 @@ dependencies = [
 run = 'python manage.py runserver 0.0.0.0:8000'
 mkmg = 'python manage.py makemigrations'
 mg = 'python manage.py migrate'
-all = 'task mkmg && task mg && task run'
+collect = 'python manage.py collectstatic'
+compress = 'python manage.py compress'
+all = 'task mkmg && task mg && task collect && task compress && task run'
 
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.14.1"

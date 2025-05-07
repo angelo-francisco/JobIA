@@ -1,212 +1,205 @@
 {% load static cache compress %}
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Home Page | JobIA</title>
-        {% compress css %}
-        {% cache 86400 'home-page' %}
-            <link rel="stylesheet" href="{% static 'css/home_page.css' %}" />
-            {% endcache %}
-            {% endcompress %}
-    <link rel="shortcut icon"
-          href="{% static 'imgs/logo.png' %}"
-          type="image/x-icon" />
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-          rel="stylesheet" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page | JobIA</title>
+    {% compress css %}
+    {% cache 86400 'home-page' %}
+    <link rel="stylesheet" href="{% static 'css/home_page.css' %}" />
+    {% endcache %}
+    {% endcompress %}
+    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="logo">
-            <div class="cover">
-                <img src="{% static 'imgs/logo.png' %}" alt="JobIA Logo" class="logo-img" />
-            </div>
+      <div class="logo">
+        <div class="cover">
+          <img src="{% static 'imgs/logo.png' %}" alt="JobIA Logo" class="logo-img" />
         </div>
-        <ul class="nav-links">
-            <li>
-                <a href="#hero-section">Início</a>
-            </li>
-            <li>
-                <a href="#features-section">Serviços</a>
-            </li>
-            <li>
-                <a href="#pricing-section">Planos</a>
-            </li>
-            <li>
-                <a href="#">Sobre</a>
-            </li>
-            <li>
-                <a href="#footer-section">Contactos</a>
-            </li>
-            {% if request.user.is_authenticated %}
-                <li>
-                    <a href="{% url 'dashboard' %}">Dashboard</a>
-                </li>
-            {% endif %}
-        </ul>
-        <div class="menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="#hero-section">Início</a>
+        </li>
+        <li>
+          <a href="#features-section">Serviços</a>
+        </li>
+        <li>
+          <a href="#pricing-section">Planos</a>
+        </li>
+        <li>
+          <a href="#">Sobre</a>
+        </li>
+        <li>
+          <a href="#footer-section">Contactos</a>
+        </li>
+        {% if request.user.is_authenticated %}
+          <li>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+        {% endif %}
+      </ul>
+      <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
+    {% cache 86400 "home-page-cache2" %}
     <section class="hero" id="hero-section">
-        <div class="circuit-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <h2>
-                    Impulsione sua carreira <span>com tecnologia inteligente</span>
-                </h2>
-                <p>JobIA - É sobre todos nós. Conectamos angolanos com tecnologia para maiores oportunidades.</p>
-                <a href="{% url 'dashboard' %}" class="cta-button">Comece Já</a>
-            </div>
-            <div class="hero-image">
-                <img src="{% static 'imgs/person_resume.png' %}"
-                     alt="Homem angolano profissional sorrindo" />
-            </div>
+      <div class="circuit-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h2>Impulsione sua carreira <span>com tecnologia inteligente</span></h2>
+          <p>JobIA - É sobre todos nós. Conectamos angolanos com tecnologia para maiores oportunidades.</p>
+          <a href="{% url 'dashboard' %}" class="cta-button">Comece Já</a>
         </div>
+        <div class="hero-image">
+          <img src="{% static 'imgs/person_resume.png' %}" alt="Homem angolano profissional sorrindo" />
+        </div>
+      </div>
     </section>
     <section class="features" id="features-section">
-        <h2>Como o JobIA pode te ajudar?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-file"></i>
-                </div>
-                <h3>Currículo Perfeito</h3>
-                <p>Nossa IA recolhe informações suas e monta um currículo moderno.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <h3>Preparação Inteligente</h3>
-                <p>Simulações de entrevistas com feedback em tempo real para você se destacar nas empresas.</p>
-            </div>
+      <h2>Como o JobIA pode te ajudar?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-file"></i>
+          </div>
+          <h3>Currículo Perfeito</h3>
+          <p>Nossa IA recolhe informações suas e monta um currículo moderno.</p>
         </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>Preparação Inteligente</h3>
+          <p>Simulações de entrevistas com feedback em tempo real para você se destacar nas empresas.</p>
+        </div>
+      </div>
     </section>
     <section class="interview-prep">
-        <h2>Preparação para Entrevistas</h2>
-        <p>
-            Nossa plataforma oferece simulações realistas com feedback instantâneo para você chegar confiante na entrevista real. Pratique com perguntas adaptadas ao mercado de trabalho angolano.
-        </p>
-        <a href="{% url 'dashboard' %}" class="cta-button">Experimente agora</a>
+      <h2>Preparação para Entrevistas</h2>
+      <p>Nossa plataforma oferece simulações realistas com feedback instantâneo para você chegar confiante na entrevista real. Pratique com perguntas adaptadas ao mercado de trabalho angolano.</p>
+      <a href="{% url 'dashboard' %}" class="cta-button">Experimente agora</a>
     </section>
     <section class="pricing" id="pricing-section">
-        <h2>Nossos Planos</h2>
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>Essencial</h3>
-                <div class="price">
-                    0 Kz<span></span>
-                </div>
-                <ul class="pricing-features">
-                    <li>Até 3 CVs básicos</li>
-                    <li>Dicas iniciais</li>
-                    <li>Design de currículo simples</li>
-                    <li>1 simulação de entrevista</li>
-                    <li>Suporte simples</li>
-                </ul>
-                <button class="pricing-button">Assinar</button>
-            </div>
-            <div class="pricing-card popular">
-                <div class="popular-tag">Popular</div>
-                <h3>Profissional</h3>
-                <div class="price">
-                    2.500 Kz<span>/mês</span>
-                </div>
-                <ul class="pricing-features">
-                    <li>Até 10 CVs modernos/mês</li>
-                    <li>Currículos com Design Elegante</li>
-                    <li>Até 5 simulações de entrevistas</li>
-                    <li>Suporte prioritário</li>
-                </ul>
-                <button class="pricing-button">Assinar</button>
-            </div>
-            <div class="pricing-card">
-                <h3>Executivo</h3>
-                <div class="price">
-                    4.000 Kz<span>/mês</span>
-                </div>
-                <ul class="pricing-features">
-                    <li>Número ilimitado de CVs</li>
-                    <li>Até 12 simulações de entrevistas</li>
-                    <li>Revisão manual</li>
-                    <li>Suporte dedicado</li>
-                    <li>Carta de apresentação</li>
-                </ul>
-                <button class="pricing-button">Assinar</button>
-            </div>
-            <div class="pricing-card">
-                <h3>Elite</h3>
-                <div class="price">
-                    7.000 Kz<span>/mês</span>
-                </div>
-                <ul class="pricing-features">
-                    <li>Inclui o plano anterior</li>
-                    <li>Mentoria mensal</li>
-                    <li>Grupo exclusivo</li>
-                    <li>Feedback avançado</li>
-                    <li>Personal branding</li>
-                </ul>
-                <button class="pricing-button">Assinar</button>
-            </div>
+      <h2>Nossos Planos</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Essencial</h3>
+          <div class="price">
+            0 Kz<span></span>
+          </div>
+          <ul class="pricing-features">
+            <li>Até 3 CVs básicos</li>
+            <li>Dicas iniciais</li>
+            <li>Design de currículo simples</li>
+            <li>1 simulação de entrevista</li>
+            <li>Suporte simples</li>
+          </ul>
+          <button class="pricing-button">Assinar</button>
         </div>
+        <div class="pricing-card popular">
+          <div class="popular-tag">Popular</div>
+          <h3>Profissional</h3>
+          <div class="price">
+            2.500 Kz<span>/mês</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Até 10 CVs modernos/mês</li>
+            <li>Currículos com Design Elegante</li>
+            <li>Até 5 simulações de entrevistas</li>
+            <li>Suporte prioritário</li>
+          </ul>
+          <button class="pricing-button">Assinar</button>
+        </div>
+        <div class="pricing-card">
+          <h3>Executivo</h3>
+          <div class="price">
+            4.000 Kz<span>/mês</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Número ilimitado de CVs</li>
+            <li>Até 12 simulações de entrevistas</li>
+            <li>Revisão manual</li>
+            <li>Suporte dedicado</li>
+            <li>Carta de apresentação</li>
+          </ul>
+          <button class="pricing-button">Assinar</button>
+        </div>
+        <div class="pricing-card">
+          <h3>Elite</h3>
+          <div class="price">
+            7.000 Kz<span>/mês</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Inclui o plano anterior</li>
+            <li>Mentoria mensal</li>
+            <li>Grupo exclusivo</li>
+            <li>Feedback avançado</li>
+            <li>Personal branding</li>
+          </ul>
+          <button class="pricing-button">Assinar</button>
+        </div>
+      </div>
     </section>
     <footer class="footer" id="footer-section">
-        <div class="circuit-overlay"></div>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>JobIA</h3>
-                <p>É sobre todos nós - Transformando sonhos com tecnologia inteligente.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h3>Links Rápidos</h3>
-                <ul>
-                    <li>
-                        <a href="#hero-section">Início</a>
-                    </li>
-                    <li>
-                        <a href="#features-section">Serviços</a>
-                    </li>
-                    <li>
-                        <a href="#pricing-section">Planos</a>
-                    </li>
-                    <li>
-                        <a href="#">Sobre</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Contacto</h3>
-                <div class="contact-info">
-                    <p>
-                        <i class="fas fa-phone"></i> +244 926 422 462
-                    </p>
-                    <p>
-                        <i class="fas fa-envelope"></i> jobiasupport@gmail.ao
-                    </p>
-                    <p>
-                        <i class="fas fa-clock"></i> Seg-Sex: 8h00 - 18h00
-                    </p>
-                </div>
-            </div>
+      <div class="circuit-overlay"></div>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>JobIA</h3>
+          <p>É sobre todos nós - Transformando sonhos com tecnologia inteligente.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 JobIA. Todos os direitos reservados.</p>
+        <div class="footer-column">
+          <h3>Links Rápidos</h3>
+          <ul>
+            <li>
+              <a href="#hero-section">Início</a>
+            </li>
+            <li>
+              <a href="#features-section">Serviços</a>
+            </li>
+            <li>
+              <a href="#pricing-section">Planos</a>
+            </li>
+            <li>
+              <a href="#">Sobre</a>
+            </li>
+          </ul>
         </div>
+        <div class="footer-column">
+          <h3>Contacto</h3>
+          <div class="contact-info">
+            <p>
+              <i class="fas fa-phone"></i> +244 926 422 462
+            </p>
+            <p>
+              <i class="fas fa-envelope"></i> jobiasupport@gmail.ao
+            </p>
+            <p>
+              <i class="fas fa-clock"></i> Seg-Sex: 8h00 - 18h00
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 JobIA. Todos os direitos reservados.</p>
+      </div>
     </footer>
+    {% endcache %}
     {% compress js %}
-        <script>
+    <script>
       const menuToggle = document.querySelector('.menu-toggle')
       const navLinks = document.querySelector('.nav-links')
       
@@ -222,7 +215,7 @@
           menuToggle.classList.remove('active')
         })
       })
-        </script>
+    </script>
     {% endcompress %}
-</body>
+  </body>
 </html>
