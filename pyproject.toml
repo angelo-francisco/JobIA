@@ -25,7 +25,8 @@ mkmg = 'python manage.py makemigrations'
 mg = 'python manage.py migrate'
 collect = 'python manage.py collectstatic'
 compress = 'python manage.py compress'
-all = 'task mkmg && task mg && task collect && task compress && task run'
+cplan = 'python manage.py create_plans'
+all = 'task mkmg && task mg && task cplan && task collect && task compress && task run'
 
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.14.1"
