@@ -43,6 +43,21 @@ body {
     opacity: 0.4;
 }
 
+.home-icon {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.home-icon:hover {
+    background-color: #efefef;
+}
+
 .login-side {
     margin: 0 auto;
     scale: 0.9;
