@@ -10,7 +10,7 @@ def user_has_feature_access(feature):
             subscription = request.user.subscription
             feature_value = subscription.plan.get_limit(feature)
 
-            if isinstance(feature_value, [int, float]):
+            if isinstance(feature_value, (int, float)):
                 remaining_usage = subscription.get_remaining_usage(feature)
 
                 if remaining_usage <= 0:

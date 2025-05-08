@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 
+from payments.decorators import user_has_feature_access
 
 def home_page(request):
     print(request.user.is_authenticated)
@@ -16,5 +17,6 @@ def dashboard(request):
 
 
 @login_required
+@user_has_feature_access('max_curriculos')
 def new_curriculum(request):
     return render(request, 'jobia/new_curriculum.html')

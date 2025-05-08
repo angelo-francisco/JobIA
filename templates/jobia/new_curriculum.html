@@ -1,14 +1,31 @@
 {% extends 'jobia/base_no_nav.html' %}
 {% load static compress cache %}
-{% block title %}Gerar Currículo{% endblock %}
+{% block title %}
+  Gerar Currículo
+{% endblock %}
 {% block extra_css %}
-    {% compress css %}
-        {% cache 3600 'dashboard-static-files' %}
-        <link rel="stylesheet" href="{% static 'css/new_curriculum.css' %}" />
-    {% endcache %}
-{% endcompress %}
+  {% compress css %}
+  {% cache 3600 'dashboard-static-files' %}
+  <link rel="stylesheet" href="{% static 'css/new_curriculum.css' %}" />
+  {% endcache %}
+  {% endcompress %}
 {% endblock %}
 {% block content %}
-    
+  <div id="typeform-container" class="typeform-widget"></div>
 {% endblock %}
-{% block extra_js %}{% endblock %}
+{% block extra_js %}
+  <script>
+    function loadRandomForm() {
+      const formIds = ['ABC123', 'DEF456', 'GHI789']
+      const randomFormId = formIds[Math.floor(Math.random() * formIds.length)]
+      new TypeformEmbed({
+        container: document.getElementById('typeform-container'),
+        url: `https://form.typeform.com/to/${randomFormId}`,
+        hideHeaders: true,
+        onSubmit: function () {
+        }
+      })
+    }
+    loadRandomForm()
+  </script>
+{% endblock %}
