@@ -90,6 +90,35 @@
 {% endblock %}
 {% block extra_js %}
   <script>
-    document.querySelector('#new-curriculum-btn').addEventListener('click', () => {})
+    document.querySelector('#new-curriculum-btn').addEventListener('click', () => {
+      window.location.href = '{% url 'new_curriculum' %}'
+    })
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const upgradeModal = document.getElementById('upgradeModal');
+      const closeButtons = document.querySelectorAll('.close-modal-2');
+    
+      if (params.get('upgrade_plan') === '1') {
+        upgradeModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    
+      closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          upgradeModal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+          history.replaceState(null, null, window.location.pathname);
+        });
+      });
+    
+      upgradeModal.addEventListener('click', function(e) {
+        if (e.target === upgradeModal) {
+          upgradeModal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+          history.replaceState(null, null, window.location.pathname);
+        }
+      });
+    });
   </script>
 {% endblock %}

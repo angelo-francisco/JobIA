@@ -1,5 +1,6 @@
 from functools import wraps
 from django.shortcuts import redirect
+from django.urls import reverse
 
 
 def user_has_feature_access(feature):
@@ -13,9 +14,9 @@ def user_has_feature_access(feature):
                 remaining_usage = subscription.get_remaining_usage(feature)
 
                 if remaining_usage <= 0:
-                    return redirect("upgrade_your_plan")
+                    return redirect(reverse("dashboard")+'?upgrade_plan=1')
             elif isinstance(feature_value, bool) and not subscription.can_use_feature(feature):
-                return redirect("upgrade_your_plan")
+                return redirect(reverse("dashboard")+'?upgrade_plan=1')
 
             return view(request, *args, **kwargs)
 

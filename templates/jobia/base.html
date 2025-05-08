@@ -1,4 +1,4 @@
-{% load static compress %}
+{% load static compress cache %}
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -7,7 +7,7 @@
     <title>
       {% block title %}
 
-      {% endblock %} | JobAI
+      {% endblock %}| JobAI
     </title>
     {% cache 84600 'google-fonts' %}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,6 +43,26 @@
         </div>
       </div>
     </div>
+    <div class="upgrade-modal" id="upgradeModal">
+      <div class="upgrade-modal-content">
+        <div class="upgrade-card">
+          <div class="upgrade-header">
+            <i class="fas fa-crown upgrade-icon"></i>
+            <h2>Recurso Exclusivo</h2>
+          </div>
+
+          <div class="upgrade-body">
+            <p>Para acessar esta funcionalidade, você precisa atualizar seu plano atual.</p>
+          </div>
+
+          <div class="upgrade-footer">
+            <button class="btn btn-secondary close-modal-btn-upgrade"><i class="fas fa-arrow-left"></i> Voltar ao Workspace</button>
+            <a href="{% url 'home_page' %}#pricing-section" class="btn btn-primary"><i class="fas fa-gem"></i> Ver Planos</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <nav class="navbar">
       <div class="navbar-left">
         <div class="logo">
