@@ -11,4 +11,10 @@ def home_page(request):
 @login_required
 @never_cache
 def dashboard(request):
+    print(request.user.subscription.get_remaining_usage('max_curriculos'))
     return render(request, "jobia/dashboard.html")
+
+
+@login_required
+def new_curriculum(request):
+    return render(request, 'jobia/new_curriculum.html')

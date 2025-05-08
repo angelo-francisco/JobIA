@@ -1,0 +1,14 @@
+{% extends 'jobia/base.html' %}
+{% load static compress cache %}
+{% block title %}Gerar Currículo{% endblock %}
+{% block extra_css %}
+    {% compress css %}
+        {% cache 3600 'dashboard-static-files' %}
+        <link rel="stylesheet" href="{% static 'css/new_curriculum.css' %}" />
+    {% endcache %}
+{% endcompress %}
+{% endblock %}
+{% block content %}
+    
+{% endblock %}
+{% block extra_js %}{% endblock %}

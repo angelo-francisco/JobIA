@@ -1,94 +1,95 @@
 {% extends 'jobia/base.html' %}
 {% load static compress cache %}
-{% block title %}Dashboard{% endblock %}
+{% block title %}
+  Dashboard
+{% endblock %}
 {% block extra_css %}
-    {% compress css %}
-        {% cache 3600 'dashboard-static-files' %}
-        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
-    {% endcache %}
-{% endcompress %}
+  {% compress css %}
+  {% cache 3600 'dashboard-static-files' %}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+  {% endcache %}
+  {% endcompress %}
 {% endblock %}
 {% block content %}
-    <div class="workspace-container">
-        <div class="workspace-header">
-            <h1>Workspace</h1>
-            <p class="subtitle">Gerencie e simule seus currículos criados</p>
-        </div>
-        <div class="workspace-actions">
-            <button class="btn-primary">
-                <svg width="20"
-                     height="20"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" />
-                    <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" />
-                </svg>
-                Novo Currículo
-            </button>
-            <div class="search-filter">
-                <input type="text" placeholder="Pesquisar currículos...">
-                <select>
-                    <option value="">Todos</option>
-                    <option value="recentes">Mais recentes</option>
-                    <option value="antigos">Mais antigos</option>
-                    <option value="favoritos">Favoritos</option>
-                </select>
-            </div>
-        </div>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="card-header">
-                    <span class="favorite-icon active">★</span>
-                    <div class="card-actions">
-                        <button class="icon-btn">✎</button>
-                        <button class="icon-btn">⋮</button>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <h3>Currículo Profissional</h3>
-                    <p class="date">Última edição: 15/05/2023</p>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-outline">Visualizar</button>
-                    <button class="btn-outline">Simular</button>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="card-header">
-                    <span class="favorite-icon">★</span>
-                    <div class="card-actions">
-                        <button class="icon-btn">✎</button>
-                        <button class="icon-btn">⋮</button>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <h3>Currículo Acadêmico</h3>
-                    <p class="date">Última edição: 02/05/2023</p>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-outline">Visualizar</button>
-                    <button class="btn-outline">Simular</button>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="card-header">
-                    <span class="favorite-icon">★</span>
-                    <div class="card-actions">
-                        <button class="icon-btn">✎</button>
-                        <button class="icon-btn">⋮</button>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <h3>Currículo Criativo</h3>
-                    <p class="date">Última edição: 28/04/2023</p>
-                </div>
-                <div class="card-footer">
-                    <button class="btn-outline">Visualizar</button>
-                    <button class="btn-outline">Simular</button>
-                </div>
-            </div>
-        </div>
+  <div class="workspace-container">
+    <div class="workspace-header">
+      <h1>Workspace</h1>
+      <p class="subtitle">Gerencie e simule seus currículos criados</p>
     </div>
+    <div class="workspace-actions">
+      <button class="btn-primary" id="new-curriculum-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" />
+          <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" />
+        </svg>Novo Currículo
+      </button>
+      <div class="search-filter">
+        <input type="text" placeholder="Pesquisar currículos..." />
+        <select>
+          <option value="">Todos</option>
+          <option value="recentes">Mais recentes</option>
+          <option value="antigos">Mais antigos</option>
+          <option value="favoritos">Favoritos</option>
+        </select>
+      </div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-header">
+          <span class="favorite-icon active">★</span>
+          <div class="card-actions">
+            <button class="icon-btn">✎</button>
+            <button class="icon-btn">⋮</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Currículo Profissional</h3>
+          <p class="date">Última edição: 15/05/2023</p>
+        </div>
+        <div class="card-footer">
+          <button class="btn-outline">Visualizar</button>
+          <button class="btn-outline">Simular</button>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-header">
+          <span class="favorite-icon">★</span>
+          <div class="card-actions">
+            <button class="icon-btn">✎</button>
+            <button class="icon-btn">⋮</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Currículo Acadêmico</h3>
+          <p class="date">Última edição: 02/05/2023</p>
+        </div>
+        <div class="card-footer">
+          <button class="btn-outline">Visualizar</button>
+          <button class="btn-outline">Simular</button>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-header">
+          <span class="favorite-icon">★</span>
+          <div class="card-actions">
+            <button class="icon-btn">✎</button>
+            <button class="icon-btn">⋮</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Currículo Criativo</h3>
+          <p class="date">Última edição: 28/04/2023</p>
+        </div>
+        <div class="card-footer">
+          <button class="btn-outline">Visualizar</button>
+          <button class="btn-outline">Simular</button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
-{% block extra_js %}{% endblock %}
+{% block extra_js %}
+  <script>
+    document.querySelector('#new-curriculum-btn').addEventListener('click', () => {})
+  </script>
+{% endblock %}

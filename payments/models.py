@@ -10,6 +10,9 @@ class Plan(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_limit(self, feature, default=False):
+        return self.limits.get(feature, default)
 
 
 class Subscription(models.Model):
@@ -24,6 +27,25 @@ class Subscription(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.plan.name}"
+
+    def can_use_feature(self, feature):
+        return (
+            self.plan.get_limit(feature)
+            if self.is_active else False
+        )
+
+    def get_remaining_usage(self, feature):
+        if not self.can_use_feature(feature):
+            return 0
+        
+        used = ResouceUsage.objects.filter(
+            subscription=self,
+            resource=feature
+        ).count()
+
+        total_allowed = self.can_use_feature(feature)
+        return max(0, total_allowed - used)
+
 
 
 class ResouceUsage(models.Model):
