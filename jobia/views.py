@@ -31,10 +31,11 @@ def new_curriculum(request):
 def typeform_webhook(request):
     if request.method == "POST":
         payload = json.loads(request.body)
-        request.session["typeform-payload"] = payload
-        return redirect("")
+        request.session["typeform_payload"] = payload
+        return redirect("generate_curriculum")
     return redirect("dashboard")
 
 
 @login_required
-def generate_curriculum(request): ...
+def generate_curriculum(request):
+    return render(request, 'jobia/generate_curriculum.html')
