@@ -7,5 +7,5 @@ urlpatterns = [
     path("dashboard/", dashboard, name="dashboard"),
     path("curriculum/new/", new_curriculum, name="new_curriculum"),
     path("curriculum/generate/", generate_curriculum, name="generate_curriculum"),
-    path("curriculum/typeform-webhook/", typeform_webhook, name="typeform_webhook")
+    path("curriculum/typeform/webhook/", typeform_webhook, name="typeform_webhook")
 ]

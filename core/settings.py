@@ -172,3 +172,8 @@ COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 
 AUTH_USER_MODEL = 'accounts.User'
+
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS = [
+        'https://*.ngrok-free.app',
+    ]
