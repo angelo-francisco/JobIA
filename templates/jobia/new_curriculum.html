@@ -7,25 +7,75 @@
   {% compress css %}
   {% cache 3600 'dashboard-static-files' %}
   <link rel="stylesheet" href="{% static 'css/new_curriculum.css' %}" />
+  <style>
+    body {
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .start-card {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .start-card h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    .start-card p {
+      margin-bottom: 2rem;
+      color: #666;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .btn-primary {
+      background-color: #4f46e5;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #4338ca;
+    }
+    .btn-secondary {
+      background-color: #f3f4f6;
+      color: #4b5563;
+    }
+    .btn-secondary:hover {
+      background-color: #e5e7eb;
+    }
+  </style>
   {% endcache %}
   {% endcompress %}
 {% endblock %}
+
 {% block content %}
-  <div id="typeform-container" class="typeform-widget"></div>
+  <div id="startCard" class="start-card">
+    <h2>Gerar Novo Currículo</h2>
+    <p>Vamos te guiar através de um questionário. Este processo levará aproximadamente 5 minutos. A partir daqui não cancele a geração do currículo, nem saia da página.</p>
+    <div class="btn-group">
+      <button id="cancelBtn" class="btn btn-secondary"
+      onclick="window.location.href='{% url 'dashboard' %}'"
+      >Cancelar</button>
+      <div id="typeformContainer" data-tf-live="01JTSSHVQHWGQ8FA4WKA46S6ZW"></div>
+    </div>
+  </div>
 {% endblock %}
+
 {% block extra_js %}
-  <script>
-    function loadRandomForm() {
-      const formIds = ['ABC123', 'DEF456', 'GHI789']
-      const randomFormId = formIds[Math.floor(Math.random() * formIds.length)]
-      new TypeformEmbed({
-        container: document.getElementById('typeform-container'),
-        url: `https://form.typeform.com/to/${randomFormId}`,
-        hideHeaders: true,
-        onSubmit: function () {
-        }
-      })
-    }
-    loadRandomForm()
-  </script>
+  <script src="//embed.typeform.com/next/embed.js"></script>
 {% endblock %}
