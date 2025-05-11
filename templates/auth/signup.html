@@ -5,13 +5,11 @@
     <script defer
             src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     {% compress css %}
-        {% cache 3600 'signup-static-libs' %}
         <link rel="stylesheet" href="{% static 'css/login.css' %}" />
-    {% endcache %}
-{% endcompress %}
-{% compress js %}
-    <script src="{% static 'js/auth/signup.js' %}"></script>
-{% endcompress %}
+    {% endcompress %}
+    {% compress js %}
+        <script src="{% static 'js/auth/signup.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
 {% block content %}
     {% include 'partials/messages.html' %}

@@ -1,39 +1,35 @@
 {% load static compress cache %}
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {% block title %}
-
-      {% endblock %}| JobAI
-    </title>
-
-    {% cache 84600 'google-fonts' %}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            {% block title %}{% endblock %}
+            | JobAI
+        </title>
+        {% cache 84600 'google-fonts' %}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     {% endcache %}
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+          rel="stylesheet" />
     {% compress css %}
-    <style>
+        <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
       }
-    </style> 
+        </style>
     {% endcompress %}
-    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" />
-    {% block extra_css %}
-
-    {% endblock %}
-  </head>
-  <body>
-    {% block content %}
-
-    {% endblock %}
-  </body>
+    <link rel="shortcut icon"
+          href="{% static 'imgs/logo.png' %}"
+          type="image/x-icon" />
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
 </html>

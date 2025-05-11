@@ -11,19 +11,20 @@
         {% cache 84600 'google-fonts' %}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        {% endcache %}
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-        
-        <title>
-            {% block title %}{% endblock %} | JobIA
-        </title>
-    </head>
-    <body>
-        {% block content %}{% endblock %}
-        <script>
+    {% endcache %}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+          rel="stylesheet" />
+    <title>
+        {% block title %}{% endblock %}
+        | JobIA
+    </title>
+</head>
+<body>
+    {% block content %}{% endblock %}
+    <script>
       document.querySelector('.home-icon').addEventListener('click', function () {
         window.location.href = '{% url "home_page" %}'
       })
-        </script>
-    </body>
+    </script>
+</body>
 </html>

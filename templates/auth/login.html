@@ -1,76 +1,99 @@
 {% extends 'auth/auth.html' %}
 {% load static cache compress %}
-{% block title %}
-  Iniciar Sessão
-{% endblock %}
+{% block title %}Iniciar Sessão{% endblock %}
 {% block head %}
- {% compress css %}
-  {% cache 3600 'login-static-libs' %}
-  <link rel="stylesheet" href="{% static 'css/login.css' %}" />
-  {% endcache %}
-  {% endcompress %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    {% endcompress %}
 {% endblock %}
 {% block content %}
-  {% include 'partials/messages.html' %}
-  <div class="login-container">
-    <div class="circuit-overlay"></div>
-    <div class="login-side">
-      <div class="home-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-          <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
-        </svg>
-      </div>
-      <div class="login-header">
-        <div class="cover">
-          <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo-img" />
+    {% include 'partials/messages.html' %}
+    <div class="login-container">
+        <div class="circuit-overlay"></div>
+        <div class="login-side">
+            <div class="home-icon">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="15"
+                     height="15"
+                     fill="currentColor"
+                     class="bi bi-house"
+                     viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                </svg>
+            </div>
+            <div class="login-header">
+                <div class="cover">
+                    <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo-img" />
+                </div>
+                <h2>Iniciar Sessão</h2>
+                <p>Por favor, faça login na sua conta para continuar.</p>
+            </div>
+            <form class="login-form" action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="email" id="email" placeholder=" " name="email" />
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder=" " name="password" />
+                    <label for="password">Palavra-passe</label>
+                </div>
+                <div class="remember-forgot">
+                    <div class="remember">
+                        <input type="checkbox" id="remember" name="remember" />
+                        <label for="remember">Lembrar-me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn-login">Avançar</button>
+            </form>
+            <div class="divider">
+                <span>Ou continue com</span>
+            </div>
+            <div class="social-login">
+                <div class="social-btn">
+                    <svg width="24"
+                         height="24"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.5"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </div>
+                <div class="social-btn">
+                    <svg width="24"
+                         height="24"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.5"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                    </svg>
+                </div>
+                <div class="social-btn">
+                    <svg width="24"
+                         height="24"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.5"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M12 2a10 10 0 0 0-3.16 19.5c.5.08.66-.23.66-.5v-1.69C6.73 19.91 6.14 18 6.14 18A2.69 2.69 0 0 0 5 16.5c-.91-.62.07-.6.07-.6a2.1 2.1 0 0 1 1.53 1 2.15 2.15 0 0 0 2.91.83 2.16 2.16 0 0 1 .63-1.34c-2.22-.25-4.55-1.11-4.55-4.92a3.86 3.86 0 0 1 1-2.69 3.58 3.58 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.37.83.4 1.82.1 2.64a3.86 3.86 0 0 1 1 2.69c0 3.83-2.34 4.66-4.57 4.91a2.39 2.39 0 0 1 .69 1.85V21c0 .27.16.59.67.5A10 10 0 0 0 12 2z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+            <div class="register-now">
+                Ainda não tem uma conta? <a href="{% url 'signup' %}" class="register-link">Registre-se agora</a>
+            </div>
         </div>
-        <h2>Iniciar Sessão</h2>
-        <p>Por favor, faça login na sua conta para continuar.</p>
-      </div>
-      <form class="login-form" action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        <div class="input-group">
-          <input type="email" id="email" placeholder=" " name="email" />
-          <label for="email">Email</label>
-        </div>
-        <div class="input-group">
-          <input type="password" id="password" placeholder=" " name="password" />
-          <label for="password">Palavra-passe</label>
-        </div>
-        <div class="remember-forgot">
-          <div class="remember">
-            <input type="checkbox" id="remember" name="remember" />
-            <label for="remember">Lembrar-me</label>
-          </div>
-          <a href="#" class="forgot-password">Esqueceu a senha?</a>
-        </div>
-        <button type="submit" class="btn-login">Avançar</button>
-      </form>
-      <div class="divider">
-        <span>Ou continue com</span>
-      </div>
-      <div class="social-login">
-        <div class="social-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-          </svg>
-        </div>
-        <div class="social-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
-            <rect x="2" y="9" width="4" height="12" />
-            <circle cx="4" cy="4" r="2" />
-          </svg>
-        </div>
-        <div class="social-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2a10 10 0 0 0-3.16 19.5c.5.08.66-.23.66-.5v-1.69C6.73 19.91 6.14 18 6.14 18A2.69 2.69 0 0 0 5 16.5c-.91-.62.07-.6.07-.6a2.1 2.1 0 0 1 1.53 1 2.15 2.15 0 0 0 2.91.83 2.16 2.16 0 0 1 .63-1.34c-2.22-.25-4.55-1.11-4.55-4.92a3.86 3.86 0 0 1 1-2.69 3.58 3.58 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.37.83.4 1.82.1 2.64a3.86 3.86 0 0 1 1 2.69c0 3.83-2.34 4.66-4.57 4.91a2.39 2.39 0 0 1 .69 1.85V21c0 .27.16.59.67.5A10 10 0 0 0 12 2z"></path>
-          </svg>
-        </div>
-      </div>
-      <div class="register-now">
-        Ainda não tem uma conta? <a href="{% url 'signup' %}" class="register-link">Registre-se agora</a>
-      </div>
     </div>
-  </div>
 {% endblock %}

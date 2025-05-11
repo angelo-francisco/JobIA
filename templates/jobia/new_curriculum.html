@@ -1,93 +1,80 @@
 {% extends 'jobia/base_no_nav.html' %}
 {% load static compress cache %}
-
-{% block title %}
-  Gerar Currículo
-{% endblock %}
-
+{% block title %}Gerar Currículo{% endblock %}
 {% block extra_css %}
-  {% compress css %}
-  {% cache 3600 'new-curriculum-static-files' %}
-  <link rel="stylesheet" href="{% static 'css/new_curriculum.css' %}" />
-  {% endcache %}
-  {% endcompress %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/new_curriculum.css' %}" />
+    {% endcompress %}
 {% endblock %}
-
 {% block content %}
-  <div id="startCard" class="start-card">
-    <h2>Gerar Novo Currículo</h2>
-    <p>Vamos te guiar através de um questionário. Este processo levará aproximadamente 5 minutos. A partir daqui não cancele a geração do currículo, nem saia da página.</p>
-    <div class="btn-group">
-      <button id="cancelBtn" class="btn btn-secondary" onclick="window.location.href='{% url 'dashboard' %}'">Cancelar</button>
-      <button id="startBtn" class="btn btn-primary">Iniciar</button>
+    <div id="startCard" class="start-card">
+        <h2>Gerar Novo Currículo</h2>
+        <p>
+            Vamos te guiar através de um questionário. Este processo levará aproximadamente 5 minutos. A partir daqui não cancele a geração do currículo, nem saia da página.
+        </p>
+        <div class="btn-group">
+            <button id="cancelBtn"
+                    class="btn btn-secondary"
+                    onclick="window.location.href='{% url 'dashboard' %}'">Cancelar</button>
+            <button id="startBtn" class="btn btn-primary">Iniciar</button>
+        </div>
     </div>
-  </div>
-
-  <div id="curriculumModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <img src="{% static 'imgs/logo4.png' %}" alt="JobAI Logo" class="modal-logo" />
-        <h2>Currículo Essencial</h2>
-        <span class="subtitle">Preencha os campos abaixo para gerar seu currículo</span>
-      </div>
-
-      <form id="curriculumForm" class="modal-form">
-        <div class="form-group">
-          <label for="fullName">Qual é o seu nome completo?</label>
-          <input type="text" id="fullName" name="fullName" required />
+    <div id="curriculumModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="{% static 'imgs/logo4.png' %}"
+                     alt="JobAI Logo"
+                     class="modal-logo" />
+                <h2>Currículo Essencial</h2>
+                <span class="subtitle">Preencha os campos abaixo para gerar seu currículo</span>
+            </div>
+            <form id="curriculumForm" class="modal-form">
+                <div class="form-group">
+                    <label for="fullName">Qual é o seu nome completo?</label>
+                    <input type="text" id="fullName" name="fullName" required />
+                </div>
+                <div class="form-group">
+                    <label for="desiredPosition">Qual cargo deseja ocupar?</label>
+                    <input type="text" id="desiredPosition" name="desiredPosition" required />
+                </div>
+                <div class="form-group">
+                    <label for="professionalGoal">Qual é o seu objetivo profissional?</label>
+                    <textarea id="professionalGoal" name="professionalGoal" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="education">Qual é a sua formação acadêmica?</label>
+                    <textarea id="education" name="education" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="skills">Liste 5 habilidades suas</label>
+                    <textarea id="skills" name="skills" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Descreva suas experiências profissionais</label>
+                    <textarea id="experience" name="experience" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="email">Qual é o seu email?</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="contact">Qual é o seu contacto?</label>
+                    <input type="tel" id="contact" name="contact" required />
+                </div>
+                <div class="form-group">
+                    <label for="address">Qual é o seu endereço?</label>
+                    <input type="text" id="address" name="address" required />
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="backBtn" class="btn btn-secondary">Voltar</button>
+                    <button type="submit" class="btn btn-primary">Gerar Currículo</button>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group">
-          <label for="desiredPosition">Qual cargo deseja ocupar?</label>
-          <input type="text" id="desiredPosition" name="desiredPosition" required />
-        </div>
-
-        <div class="form-group">
-          <label for="professionalGoal">Qual é o seu objetivo profissional?</label>
-          <textarea id="professionalGoal" name="professionalGoal" rows="3" required></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="education">Qual é a sua formação acadêmica?</label>
-          <textarea id="education" name="education" rows="3" required></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="skills">Liste 5 habilidades suas</label>
-          <textarea id="skills" name="skills" rows="5" required></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="experience">Descreva suas experiências profissionais</label>
-          <textarea id="experience" name="experience" rows="5" required></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="email">Qual é o seu email?</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-
-        <div class="form-group">
-          <label for="contact">Qual é o seu contacto?</label>
-          <input type="tel" id="contact" name="contact" required />
-        </div>
-
-        <div class="form-group">
-          <label for="address">Qual é o seu endereço?</label>
-          <input type="text" id="address" name="address" required />
-        </div>
-
-        <div class="form-actions">
-          <button type="button" id="backBtn" class="btn btn-secondary">Voltar</button>
-          <button type="submit" class="btn btn-primary">Gerar Currículo</button>
-        </div>
-      </form>
     </div>
-  </div>
 {% endblock %}
-
 {% block extra_js %}
-  <script>
+    <script>
     const curriculumRawData = {
       userId: parseInt('{{ request.user.id }}'),
       questions: []
@@ -162,5 +149,5 @@
         })
       })
     })
-  </script>
+    </script>
 {% endblock %}
