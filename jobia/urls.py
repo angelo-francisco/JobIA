@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home_page, dashboard, new_curriculum, typeform_webhook, generate_curriculum
+from .views import home_page, dashboard, new_curriculum, generate_curriculum, get_form_data
 
 
 urlpatterns = [
@@ -7,5 +7,5 @@ urlpatterns = [
     path("dashboard/", dashboard, name="dashboard"),
     path("curriculum/new/", new_curriculum, name="new_curriculum"),
     path("curriculum/generate/", generate_curriculum, name="generate_curriculum"),
-    path("curriculum/typeform/webhook/", typeform_webhook, name="typeform_webhook")
+    path("curriculum/get-form-data/", get_form_data, name="get_form_data")
 ]
