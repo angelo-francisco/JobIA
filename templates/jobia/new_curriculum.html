@@ -94,32 +94,26 @@
     const backBtn = document.getElementById('backBtn');
     const form = document.getElementById('curriculumForm');
     
-    // Open modal when start button is clicked
     startBtn.addEventListener('click', function() {
       startCard.style.display = 'none';
       modal.style.display = 'flex';
     });
     
-    // Close modal and show start card when back button is clicked
     backBtn.addEventListener('click', function() {
       modal.style.display = 'none';
       startCard.style.display = 'flex';
     });
     
-    // Handle form submission
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       
-      // Show loading state
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Gerando...';
       
-      // Collect form data
       const formData = new FormData(form);
       
-      // Submit form data to backend (replace with your actual endpoint)
       fetch('', {
         method: 'POST',
         body: formData,
@@ -134,7 +128,6 @@
         return response.json();
       })
       .then(data => {
-        // Redirect to the generated CV page or show success message
         window.location.href = data.redirect_url || '';
       })
       .catch(error => {
@@ -142,27 +135,11 @@
         console.error('Error:', error);
       })
       .finally(() => {
-        // Reset button state
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
       });
     });
     
-    // Helper function to get CSRF token from cookies
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-        }
-      }
-      return cookieValue;
-    }
   });
 </script>
 {% endblock %}
