@@ -127,7 +127,20 @@
             answer: input.value
           })
         })
-        console.log(curriculumRawData)
+        
+        fetch('{% url 'get_form_data' %}', {
+          method: 'POST',
+          body: JSON.stringify(curriculumRawData),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(function(response) {
+          return response.json()
+        })
+        .then(function(data) {
+          console.log(data)
+        })
       })
     })
   </script>
