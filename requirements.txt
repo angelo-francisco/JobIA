@@ -15,3 +15,4 @@ typing-extensions==4.13.2
 tzdata==2025.2 
 whitenoise==6.9.0 
 regex
+shortuuid==1.0.13
