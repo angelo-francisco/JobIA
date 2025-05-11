@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from payments.decorators import user_has_feature_access
 from .models import Curriculum
@@ -73,5 +74,30 @@ def get_form_data(request):
 
 @login_required
 @user_has_feature_access("max_curriculos")
-def generate_curriculum(request):
-    return render(request, "jobia/generate_curriculum.html")
+def generate_curriculum(request, slug):
+    try:
+        curriculum = Curriculum.objects.get(slug=slug)
+    except Curriculum.DoesNotExist:
+        return JsonResponse({'error': 'Currículo Inexistente'}, status=400)
+    
+
+    if curriculum.status == "C":
+        return JsonResponse({'error': 'Currículo completo'}, status=400)
+    
+    ...
+
+
+
+@login_required
+@require_POST
+@csrf_exempt
+def delete_curriculum(request, slug):
+    try:
+        curriculum = Curriculum.objects.get(slug=slug)
+    except Curriculum.DoesNotExist:
+        return JsonResponse({"status": "not_found"}, status=404)
+
+    if request.user == curriculum.user:
+        curriculum.delete()
+        return JsonResponse({'status': 'deletado'})
+    return JsonResponse({'error': 'Esse currículo não é seu'}, status=400)
