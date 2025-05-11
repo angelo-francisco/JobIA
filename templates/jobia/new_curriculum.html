@@ -115,6 +115,7 @@
     
         const submitBtn = form.querySelector('button[type="submit"]')
         const originalText = submitBtn.textContent
+
         submitBtn.disabled = true
         submitBtn.textContent = 'Gerando...'
     
@@ -144,7 +145,16 @@
           }
       })
         .then(data => {
-          console.log(data)
+          const slug = data.slug
+
+          modal.style.display = 'none'
+          startCard.style.display = 'flex'
+
+          const btnGroup = document.querySelector('.btn-group')
+
+          if (btnGroup) {
+            btnGroup.innerHTML = '<div class="loader"></div>'
+          }
         })
       })
     })
