@@ -136,10 +136,8 @@
             "X-CSRF-Token": "{{ csrf_token }}"
           }
         })
-        .then(function(response) {
-          return response.json()
-        })
-        .then(function(data) {
+        .then(response => response.json())
+        .then(data => {
           console.log(data)
         })
       })
