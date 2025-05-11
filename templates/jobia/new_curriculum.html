@@ -155,6 +155,10 @@
           if (btnGroup) {
             btnGroup.innerHTML = '<div class="loader"></div>'
           }
+
+          setTimeout(() => {
+            window.location.href = `/curriculum/generate/${slug}/`
+          }, 1500)
         })
       })
     })
