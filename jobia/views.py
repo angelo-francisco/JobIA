@@ -64,14 +64,11 @@ def get_form_data(request):
         except User.DoesNotExist:
             return JsonResponse({"error": "Por favor, tenta mais tarde."}, status=400)
 
-        curriculum = Curriculum.objects.create(
-            user=user,
-            form_data=form_data
-        )
+        curriculum = Curriculum.objects.create(user=user, form_data=form_data)
 
-        return JsonResponse({"status": "created", 'slug': curriculum.slug})
+        return JsonResponse({"status": "created", "slug": curriculum.slug})
     except Exception as error:
-        return JsonResponse({"error": error}, status=500)
+        return JsonResponse({"error": str(error)}, status=500)
 
 
 @login_required
