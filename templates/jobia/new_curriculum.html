@@ -133,7 +133,7 @@
           body: JSON.stringify(curriculumRawData),
           headers: {
             "Content-Type": "application/json",
-            "X-CSRF-Token": "{{ csrf_token }}"
+            "X-CSRFToken": "{{ csrf_token }}"
           }
         })
         .then(response => response.json())
