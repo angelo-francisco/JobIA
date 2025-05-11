@@ -143,6 +143,10 @@ body {
 }
 
 .modal-header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
   background: var(--secondary-gradient);
   padding: 20px 30px;
   text-align: center;
