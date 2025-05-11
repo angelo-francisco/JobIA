@@ -1,13 +1,13 @@
 {% extends 'jobia/base_no_nav.html' %}
 {% load static compress cache %}
-{% block title %}
-  Gerar Currículo
-{% endblock %}
+
+{% block title %} Gerar Currículo {% endblock %}
+
 {% block extra_css %}
   {% compress css %}
-  {% cache 3600 'new-curriculum-static-files' %}
-  <link rel="stylesheet" href="{% static 'css/new_curriculum.css' %}" />
-  {% endcache %}
+    {% cache 3600 'new-curriculum-static-files' %}
+      <link rel="stylesheet" href="{% static 'css/new_curriculum.css' %}" />
+    {% endcache %}
   {% endcompress %}
 {% endblock %}
 
@@ -17,9 +17,152 @@
     <p>Vamos te guiar através de um questionário. Este processo levará aproximadamente 5 minutos. A partir daqui não cancele a geração do currículo, nem saia da página.</p>
     <div class="btn-group">
       <button id="cancelBtn" class="btn btn-secondary" onclick="window.location.href='{% url 'dashboard' %}'">Cancelar</button>
-      <div data-fillout-id="cGEVY4GvY6us" data-fillout-embed-type="popup" data-fillout-button-text="Iniciar" data-fillout-dynamic-resize data-fillout-button-color="#000080" data-fillout-button-size="medium" data-fillout-inherit-parameters data-fillout-popup-size="medium"></div>    </div>
+      <button id="startBtn" class="btn btn-primary">Iniciar</button>
+    </div>
+  </div>
+
+  <!-- Modal Form -->
+  <div id="curriculumModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="{% static 'imgs/logo4.png' %}" alt="JobAI Logo" class="modal-logo">
+        <h2>Currículo Essencial</h2>
+        <span class="subtitle">Preencha os campos abaixo para gerar seu currículo</span>
+      </div>
+      
+      <form id="curriculumForm" class="modal-form">
+        <div class="form-group">
+          <label for="fullName">Qual é o seu nome completo?</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="desiredPosition">Qual cargo deseja ocupar?</label>
+          <input type="text" id="desiredPosition" name="desiredPosition" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="professionalGoal">Qual é o seu objetivo profissional?</label>
+          <textarea id="professionalGoal" name="professionalGoal" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="education">Qual é a sua formação acadêmica?</label>
+          <textarea id="education" name="education" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="skills">Liste 5 habilidades suas</label>
+          <textarea id="skills" name="skills" rows="5" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="experience">Descreva suas experiências profissionais</label>
+          <textarea id="experience" name="experience" rows="5" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Qual é o seu email?</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="contact">Qual é o seu contacto?</label>
+          <input type="tel" id="contact" name="contact" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="address">Qual é o seu endereço?</label>
+          <input type="text" id="address" name="address" required>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" id="backBtn" class="btn btn-secondary">Voltar</button>
+          <button type="submit" class="btn btn-primary">Gerar Currículo</button>
+        </div>
+      </form>
+    </div>
   </div>
 {% endblock %}
+
 {% block extra_js %}
-  <script src="https://server.fillout.com/embed/v1/"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const startCard = document.getElementById('startCard');
+    const startBtn = document.getElementById('startBtn');
+    const modal = document.getElementById('curriculumModal');
+    const backBtn = document.getElementById('backBtn');
+    const form = document.getElementById('curriculumForm');
+    
+    // Open modal when start button is clicked
+    startBtn.addEventListener('click', function() {
+      startCard.style.display = 'none';
+      modal.style.display = 'flex';
+    });
+    
+    // Close modal and show start card when back button is clicked
+    backBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+      startCard.style.display = 'flex';
+    });
+    
+    // Handle form submission
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Gerando...';
+      
+      // Collect form data
+      const formData = new FormData(form);
+      
+      // Submit form data to backend (replace with your actual endpoint)
+      fetch('', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao gerar currículo');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Redirect to the generated CV page or show success message
+        window.location.href = data.redirect_url || '';
+      })
+      .catch(error => {
+        alert('Ocorreu um erro ao gerar seu currículo. Por favor, tente novamente.');
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      });
+    });
+    
+    // Helper function to get CSRF token from cookies
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  });
+</script>
 {% endblock %}

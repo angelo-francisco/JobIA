@@ -10,7 +10,6 @@ from payments.decorators import user_has_feature_access
 
 
 def home_page(request):
-    print(request.user.is_authenticated)
     return render(request, "jobia/home_page.html")
 
 
@@ -31,7 +30,7 @@ def typeform_webhook(request):
     if request.method == "POST":
         try:
             payload = json.loads(request.body)
-            print(payload)
+            print(payload, request.GET.get('user_id'))
             return JsonResponse({'status': 'ok'})
         except Exception as error:
             return JsonResponse({"error": error}, status=500)
