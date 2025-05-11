@@ -132,7 +132,8 @@
           method: 'POST',
           body: JSON.stringify(curriculumRawData),
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "X-CSRF-Token": "{{ csrf_token }}"
           }
         })
         .then(function(response) {
