@@ -1,9 +1,9 @@
-import json
+from json import loads
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 
 from payments.decorators import user_has_feature_access
@@ -27,7 +27,16 @@ def new_curriculum(request):
 
 @login_required
 @user_has_feature_access("max_curriculos")
-def get_form_data(request): ...
+@require_POST
+def get_form_data(request):
+    try:
+        form_data = loads(request.body)
+
+        print(form_data)
+
+        return JsonResponse({'status': 'ok'})
+    except Exception as error:
+        return JsonResponse({'error': error})
 
 
 @login_required
