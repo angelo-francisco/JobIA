@@ -28,7 +28,7 @@ class Curriculum(models.Model):
         if not self.slug:
             generated_uuid = uuid()
 
-            while self.objects.filter(slug__iexact=generated_uuid).exists():
+            while Curriculum.objects.filter(slug__iexact=generated_uuid).exists():
                 generated_uuid = uuid()
             
             self.slug = generated_uuid
