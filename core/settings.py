@@ -177,5 +177,3 @@ if DEBUG:
     CSRF_TRUSTED_ORIGINS = [
         'https://*.ngrok-free.app',
     ]
-
-CSRF_HEADER_NAME = 'X-CSRF-Token'
