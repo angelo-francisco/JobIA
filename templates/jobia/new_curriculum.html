@@ -136,7 +136,13 @@
             "X-CSRFToken": "{{ csrf_token }}"
           }
         })
-        .then(response => response.json())
+        .then(response => {
+          if(!response.ok) {
+            throw new Error('Falha ao enviar formulário')
+          } else {
+            return response.json()
+          }
+      })
         .then(data => {
           console.log(data)
         })
