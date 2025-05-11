@@ -25,18 +25,13 @@ def new_curriculum(request):
     return render(request, "jobia/new_curriculum.html")
 
 
-@csrf_exempt
-def typeform_webhook(request):
-    if request.method == "POST":
-        try:
-            payload = json.loads(request.body)
-            print(payload, request.GET.get('user_id'))
-            return JsonResponse({'status': 'ok'})
-        except Exception as error:
-            return JsonResponse({"error": error}, status=500)
-    return JsonResponse({"error": "Method not allowed"}, status=405)
+@login_required
+@user_has_feature_access("max_curriculos")
+def get_form_data(request): ...
 
 
 @login_required
+@user_has_feature_access("max_curriculos")
+
 def generate_curriculum(request):
     return render(request, 'jobia/generate_curriculum.html')
