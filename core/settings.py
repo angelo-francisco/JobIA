@@ -1,8 +1,8 @@
 from pathlib import Path
 
 import dj_database_url
-import environ  
-import cloudinary 
+import environ
+import cloudinary
 
 env = environ.Env()
 
@@ -20,16 +20,7 @@ SECRET_KEY = env("SECRET_KEY", default="django-insecure-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=True)
 
-API_KEY = env("AI_API_KEY")
-
 ALLOWED_HOSTS = ["*"]
-
-cloudinary.config( 
-    cloud_name = env("CLOUDINARY_CLOUD_NAME"), 
-    api_key = env("CLOUDINARY_API_KEY"), 
-    api_secret = env("CLOUDINARY_API_SECRET"),
-    secure=True
-)
 
 # Application definition
 
@@ -44,6 +35,7 @@ INSTALLED_APPS = [
     "accounts",
     "jobia",
     "payments",
+    "cloudinary",
 ]
 
 MIDDLEWARE = [
@@ -84,16 +76,15 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+DATABASES = {}
 
 if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 else:
-    DATABASES = {"default": dj_database_url.config(default=env("DATABASE_URL"))}
+    DATABASES["default"] = dj_database_url.config(default=env("DATABASE_URL"))
 
 
 # Password validation
@@ -131,8 +122,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
 STATICFILES_DIRS = [BASE_DIR.joinpath("static")]
+
 STATIC_ROOT = BASE_DIR.joinpath("staticfiles")
+
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -186,5 +181,16 @@ if DEBUG:
     CSRF_TRUSTED_ORIGINS = [
         "https://*.ngrok-free.app",
     ]
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+API_KEY = env("AI_API_KEY", default=None)
+
+cloudinary.config( 
+    cloud_name = env("CLOUDINARY_CLOUD_NAME", default=None), 
+    api_key = env("CLOUDINARY_API_KEY", default=None), 
+    api_secret = env("CLOUDINARY_API_SECRET", default=None),
+    secure=True
+)
 
 IA_BASE_MESSAGE_CURRICULUM = "Você um agente útil que cria currículos, em html e css. Algumas informações importante: tenho planos na plataforma aumenta o nível conforme o plano, os planos sao essencial, profissional, executivo e elite. qnd eu pedir currículo apenas retorne o html/css, escreva nada mais além disso. Se algum campo faltar preenche com o nome do campo"

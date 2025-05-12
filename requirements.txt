@@ -18,3 +18,5 @@ regex
 shortuuid==1.0.13
 requests
 weasyprint
+cloudinary
+django-cloudinary-storage
