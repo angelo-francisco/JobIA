@@ -25,9 +25,10 @@ def generate_and_store_pdf(curriculum, html):
     upload_result = upload(
         pdf_io,
         resource_type="raw",
-        public_id=f"curriculums/{curriculum.slug}"
+        public_id=f"{curriculum.slug}.pdf"
     )
-
+    
+    print(upload_result)
     curriculum.curriculum = upload_result['secure_url']
     curriculum.status = 'C'
     curriculum.save()

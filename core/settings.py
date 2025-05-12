@@ -184,7 +184,7 @@ if DEBUG:
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-API_KEY = env("AI_API_KEY", default=None)
+AI_API_KEY = env("AI_API_KEY", default=None)
 
 cloudinary.config( 
     cloud_name = env("CLOUDINARY_CLOUD_NAME", default=None), 

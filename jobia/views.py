@@ -88,37 +88,37 @@ def generate_curriculum(request, slug):
     if curriculum.user != request.user:
         return JsonResponse({"error": "Esse currículo não é seu"}, status=400)
 
-    headers = {
-        "Authorization": f"Bearer {settings.API_KEY}",
-        "Content-Type": "application/json",
-    }
-
-    print(settings.API_KEY)
-
-    payload = {
-        "model": "gpt-3.5-turbo",
-        "messages": [
-            {"role": "system", "content": settings.IA_BASE_MESSAGE_CURRICULUM},
-            {
-                "role": "user",
-                "content": get_prompt_for_plan(curriculum.user, curriculum.form_data),
-            },
-        ],
-    }
-
-    response = requests.post(
-        "https://api.piapi.ai/v1/chat/completions", headers=headers, json=payload
-    )
-
-    data = response.json()
-    curriculum_html = data['choices'][0]['message']['content']
-
     try:
-        generate_and_store_pdf(curriculum, curriculum_html)
+        headers = {
+            "Authorization": f"Bearer {settings.AI_API_KEY}",
+            "Content-Type": "application/json",
+        }
 
+        payload = {
+            "model": "gpt-3.5-turbo",
+            "messages": [
+                {"role": "system", "content": settings.IA_BASE_MESSAGE_CURRICULUM},
+                {
+                    "role": "user",
+                    "content": get_prompt_for_plan(curriculum.user, curriculum.form_data),
+                },
+            ],
+        }
+
+        response = requests.post(
+            "https://api.piapi.ai/v1/chat/completions", headers=headers, json=payload
+        )
+
+        data = response.json()
+        curriculum_html = data['choices'][0]['message']['content']
+        curriculum_html = curriculum_html.replace('```html', '').replace('```', '')
+        
+        generate_and_store_pdf(curriculum, curriculum_html)
         return JsonResponse({'status': 'ok'})
     except Exception as error:
+        print(error)
         return JsonResponse({"error": str(error)}, status=500)
+    
 
 
 @login_required
