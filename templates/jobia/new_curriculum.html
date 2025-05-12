@@ -157,7 +157,22 @@
               }
             })
     
-            fetch().then().then()
+            fetch(`/curriculum/generate/${slug}/`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              }
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error("Erro: " + response.error)
+              }
+
+              return response.json()
+            })
+            .then(data => {
+              console.log(data)
+            })
           })
       })
     })

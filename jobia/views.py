@@ -84,29 +84,31 @@ def generate_curriculum(request, slug):
 
     if curriculum.status == "C":
         return JsonResponse({"error": "Currículo completo"}, status=400)
-        
+
     headers = {
         "Authorization": f"Bearer {settings.API_KEY}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
 
     payload = {
         "model": "gpt-3.5-turbo",
         "messages": [
-            {"role": "system", "content": "Você um agente útil, vou precisar de você para gerar html e css."},
-            {"role": "user", "content": "Consegue?"}
-        ]
+            {"role": "system", "content": settings.IA_BASE_MESSAGE_CURRICULUM},
+            {
+                "role": "user",
+                "content": f"",
+            },
+        ],
     }
 
     response = requests.post(
-        "https://api.piapi.ai/v1/chat/completions",
-        headers=headers,
-        json=payload
+        "https://api.piapi.ai/v1/chat/completions", headers=headers, json=payload
     )
 
     data = response.json()
 
-    return JsonResponse({'response': data["choices"][0]["message"]["content"]})
+    return JsonResponse({"response": data["choices"][0]["message"]["content"]})
+
 
 @login_required
 @require_POST
