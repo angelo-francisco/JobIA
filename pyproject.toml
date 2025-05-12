@@ -36,6 +36,7 @@ all = 'task mkmg && task mg && task cplan && task collect && task compress && ta
 taskipy = "^1.14.1"
 ruff = "^0.11.7"
 djlint = "^1.36.4"
+django-debug-toolbar = "^5.2.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

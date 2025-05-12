@@ -20,12 +20,14 @@ SECRET_KEY = env("SECRET_KEY", default="django-insecure-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=True)
 
+API_KEY = env("AI_API_KEY")
+
 ALLOWED_HOSTS = ["*"]
 
 cloudinary.config( 
-    cloud_name = "dlnqu4z4m", 
-    api_key = "556983966797867", 
-    api_secret = "8NvyBb6kbpnH4gpnI6-tYOq2VlI",
+    cloud_name = env("CLOUDINARY_CLOUD_NAME"), 
+    api_key = env("CLOUDINARY_API_KEY"), 
+    api_secret = env("CLOUDINARY_API_SECRET"),
     secure=True
 )
 
@@ -185,5 +187,4 @@ if DEBUG:
         "https://*.ngrok-free.app",
     ]
 
-API_KEY = "07e1db3503489902d5ed538f8a83bb015da9d6b8ce2dfc091e87cc7de0c93ab5"
 IA_BASE_MESSAGE_CURRICULUM = "Você um agente útil que cria currículos, em html e css. Algumas informações importante: tenho planos na plataforma aumenta o nível conforme o plano, os planos sao essencial, profissional, executivo e elite. qnd eu pedir currículo apenas retorne o html/css, escreva nada mais além disso. Se algum campo faltar preenche com o nome do campo"

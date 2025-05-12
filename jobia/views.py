@@ -113,7 +113,7 @@ def generate_curriculum(request, slug):
     curriculum_html = response.json()
 
     try:
-        
+        ...
     except Exception as error:
         return JsonResponse({"error": str(error)}, status=500)
 
