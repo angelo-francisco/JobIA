@@ -2,6 +2,7 @@ from pathlib import Path
 
 import dj_database_url
 import environ  
+import cloudinary 
 
 env = environ.Env()
 
@@ -9,7 +10,6 @@ environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -22,6 +22,12 @@ DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = ["*"]
 
+cloudinary.config( 
+    cloud_name = "dlnqu4z4m", 
+    api_key = "556983966797867", 
+    api_secret = "8NvyBb6kbpnH4gpnI6-tYOq2VlI",
+    secure=True
+)
 
 # Application definition
 

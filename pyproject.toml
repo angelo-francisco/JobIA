@@ -20,6 +20,7 @@ dependencies = [
     "shortuuid (>=1.0.13,<2.0.0)",
     "requests (>=2.32.3,<3.0.0)",
     "weasyprint (>=65.1,<66.0)",
+    "cloudinary (>=1.44.0,<2.0.0)",
 ]
 
 [tool.taskipy.tasks]

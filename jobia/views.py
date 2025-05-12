@@ -1,6 +1,7 @@
 import requests
 from json import loads
-
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -109,9 +110,12 @@ def generate_curriculum(request, slug):
         "https://api.piapi.ai/v1/chat/completions", headers=headers, json=payload
     )
 
-    data = response.json()
+    curriculum_html = response.json()
 
-    return JsonResponse({"response": data["choices"][0]["message"]["content"]})
+    try:
+        
+    except Exception as error:
+        return JsonResponse({"error": str(error)}, status=500)
 
 
 @login_required

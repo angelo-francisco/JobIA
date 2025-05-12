@@ -1,5 +1,0 @@
-plano, selecionar o plano, renovar o plano, stripe, etc.x
-reduzir o css dos arquivos, tem css demais
-integrar stripe
-limitar o acesso de acordo ao plano
-
