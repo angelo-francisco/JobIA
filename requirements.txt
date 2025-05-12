@@ -16,3 +16,4 @@ tzdata==2025.2
 whitenoise==6.9.0 
 regex
 shortuuid==1.0.13
+httpx==0.28.1
