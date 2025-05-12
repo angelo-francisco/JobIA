@@ -178,3 +178,5 @@ if DEBUG:
     CSRF_TRUSTED_ORIGINS = [
         "https://*.ngrok-free.app",
     ]
+
+API_KEY = "07e1db3503489902d5ed538f8a83bb015da9d6b8ce2dfc091e87cc7de0c93ab5"

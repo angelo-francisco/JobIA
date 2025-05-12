@@ -1,3 +1,4 @@
+import requests
 from json import loads
 
 from django.shortcuts import render
@@ -6,6 +7,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from payments.decorators import user_has_feature_access
 from .models import Curriculum
@@ -82,9 +84,29 @@ def generate_curriculum(request, slug):
 
     if curriculum.status == "C":
         return JsonResponse({"error": "Currículo completo"}, status=400)
+        
+    headers = {
+        "Authorization": f"Bearer {settings.API_KEY}",
+        "Content-Type": "application/json"
+    }
 
-    ...
+    payload = {
+        "model": "gpt-3.5-turbo",
+        "messages": [
+            {"role": "system", "content": "Você um agente útil, vou precisar de você para gerar html e css."},
+            {"role": "user", "content": "Consegue?"}
+        ]
+    }
 
+    response = requests.post(
+        "https://api.piapi.ai/v1/chat/completions",
+        headers=headers,
+        json=payload
+    )
+
+    data = response.json()
+
+    return JsonResponse({'response': data["choices"][0]["message"]["content"]})
 
 @login_required
 @require_POST
