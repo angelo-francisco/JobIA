@@ -14,9 +14,11 @@ def user_has_feature_access(feature):
                 remaining_usage = subscription.get_remaining_usage(feature)
 
                 if remaining_usage <= 0:
-                    return redirect(reverse("dashboard")+'?upgrade_plan=1')
-            elif isinstance(feature_value, bool) and not subscription.can_use_feature(feature):
-                return redirect(reverse("dashboard")+'?upgrade_plan=1')
+                    return redirect(reverse("dashboard") + "?upgrade_plan=1")
+            elif isinstance(feature_value, bool) and not subscription.can_use_feature(
+                feature
+            ):
+                return redirect(reverse("dashboard") + "?upgrade_plan=1")
 
             return view(request, *args, **kwargs)
 

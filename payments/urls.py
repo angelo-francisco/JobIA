@@ -1,6 +1,5 @@
-from django.urls import path
-from .views import *
+from django.urls import path  # noqa
+from .views import *  # noqa
 
 
-urlpatterns = [
-]
+urlpatterns = []

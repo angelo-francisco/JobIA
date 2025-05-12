@@ -10,4 +10,3 @@ class User(AbstractUser):
             )
         except Exception:
             return None
-    

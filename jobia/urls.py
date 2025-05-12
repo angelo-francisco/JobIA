@@ -5,7 +5,7 @@ from .views import (
     new_curriculum,
     generate_curriculum,
     get_form_data,
-    delete_curriculum
+    delete_curriculum,
 )
 
 
@@ -17,5 +17,5 @@ urlpatterns = [
         "curriculum/generate/<slug>/", generate_curriculum, name="generate_curriculum"
     ),
     path("curriculum/get-form-data/", get_form_data, name="get_form_data"),
-    path("curriculum/del/<slug>/", delete_curriculum, name="delete_curriculum")
+    path("curriculum/del/<slug>/", delete_curriculum, name="delete_curriculum"),
 ]

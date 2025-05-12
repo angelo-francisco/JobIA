@@ -12,7 +12,6 @@ from django.contrib.auth import (
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET
-from django.views.decorators.cache import never_cache
 
 User = get_user_model()
 

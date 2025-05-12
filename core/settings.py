@@ -1,8 +1,7 @@
-import os
 from pathlib import Path
 
 import dj_database_url
-import environ
+import environ  
 
 env = environ.Env()
 
@@ -173,9 +172,9 @@ COMPRESS_OFFLINE = True
 COMPRESS_ROOT = STATIC_ROOT
 COMPRESS_URL = STATIC_URL
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = "accounts.User"
 
 if DEBUG:
     CSRF_TRUSTED_ORIGINS = [
-        'https://*.ngrok-free.app',
+        "https://*.ngrok-free.app",
     ]

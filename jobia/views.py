@@ -78,14 +78,12 @@ def generate_curriculum(request, slug):
     try:
         curriculum = Curriculum.objects.get(slug=slug)
     except Curriculum.DoesNotExist:
-        return JsonResponse({'error': 'Currículo Inexistente'}, status=400)
-    
+        return JsonResponse({"error": "Currículo Inexistente"}, status=400)
 
     if curriculum.status == "C":
-        return JsonResponse({'error': 'Currículo completo'}, status=400)
-    
-    ...
+        return JsonResponse({"error": "Currículo completo"}, status=400)
 
+    ...
 
 
 @login_required
@@ -99,5 +97,5 @@ def delete_curriculum(request, slug):
 
     if request.user == curriculum.user:
         curriculum.delete()
-        return JsonResponse({'status': 'deletado'})
-    return JsonResponse({'error': 'Esse currículo não é seu'}, status=400)
+        return JsonResponse({"status": "deletado"})
+    return JsonResponse({"error": "Esse currículo não é seu"}, status=400)

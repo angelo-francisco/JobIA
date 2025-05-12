@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,32 +14,74 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Plan',
+            name="Plan",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, max_length=50, null=True)),
-                ('limits', models.JSONField(default=dict)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(blank=True, max_length=50, null=True)),
+                ("limits", models.JSONField(default=dict)),
             ],
         ),
         migrations.CreateModel(
-            name='Subscription',
+            name="Subscription",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('start_date', models.DateTimeField(auto_now_add=True)),
-                ('end_date', models.DateTimeField(blank=True, null=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('raw_data', models.JSONField(blank=True, default=dict, null=True)),
-                ('plan', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='payments.plan')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='subscriptions', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("start_date", models.DateTimeField(auto_now_add=True)),
+                ("end_date", models.DateTimeField(blank=True, null=True)),
+                ("is_active", models.BooleanField(default=True)),
+                ("raw_data", models.JSONField(blank=True, default=dict, null=True)),
+                (
+                    "plan",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="payments.plan"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="subscriptions",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ResouceUsage',
+            name="ResouceUsage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('resource', models.CharField(blank=True, max_length=50, null=True)),
-                ('amount_used', models.PositiveIntegerField(default=0)),
-                ('subscription', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='payments.subscription')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("resource", models.CharField(blank=True, max_length=50, null=True)),
+                ("amount_used", models.PositiveIntegerField(default=0)),
+                (
+                    "subscription",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="payments.subscription",
+                    ),
+                ),
             ],
         ),
     ]

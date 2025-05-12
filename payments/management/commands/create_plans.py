@@ -80,7 +80,5 @@ class Command(BaseCommand):
                 )
             else:
                 self.stdout.write(
-                    self.style.WARNING(
-                        f"⚠️ Plano {plan.name} já existia   "
-                    )
+                    self.style.WARNING(f"⚠️ Plano {plan.name} já existia   ")
                 )
