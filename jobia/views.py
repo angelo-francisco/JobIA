@@ -93,6 +93,8 @@ def generate_curriculum(request, slug):
         "Content-Type": "application/json",
     }
 
+    print(settings.API_KEY)
+
     payload = {
         "model": "gpt-3.5-turbo",
         "messages": [

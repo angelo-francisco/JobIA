@@ -29,6 +29,7 @@ def generate_and_store_pdf(curriculum, html):
     )
 
     curriculum.curriculum = upload_result['secure_url']
+    curriculum.status = 'C'
     curriculum.save()
 
 

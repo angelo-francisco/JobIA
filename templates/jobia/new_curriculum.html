@@ -145,18 +145,6 @@
     
             const textloader = document.querySelector('.textloader')
     
-            function deleteCurriculumOnExit() {
-              navigator.sendBeacon(`/curriculum/del/${slug}/`)
-            }
-    
-            window.addEventListener('beforeunload', deleteCurriculumOnExit)
-    
-            document.addEventListener('visibilitychange', function () {
-              if (document.visibilityState === 'hidden') {
-                deleteCurriculumOnExit()
-              }
-            })
-    
             fetch(`/curriculum/generate/${slug}/`, {
               method: 'GET',
               headers: {
@@ -167,7 +155,9 @@
                 textloader.innerText = 'Organizando o currículo'
     
                 if (!response.ok) {
-                  throw new Error('Erro: ' + response.error)
+                  return response.json().then((err) => {
+                    throw new Error('Error: ' + err.message)
+                  })
                 }
     
                 return response.json()
