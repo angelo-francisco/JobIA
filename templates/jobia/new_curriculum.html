@@ -158,24 +158,35 @@
             })
     
             fetch(`/curriculum/generate/${slug}/`, {
-              method: "GET",
+              method: 'GET',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json'
               }
             })
-            .then(response => {
-              textloader.innerText = "Organizando o currículo"
-
-              if (!response.ok) {
-                throw new Error("Erro: " + response.error)
-              }
-
-              return response.json()
-            })
-            .then(data => {
-              textloader.innerText = "Processando dados"
-
-            })
+              .then((response) => {
+                textloader.innerText = 'Organizando o currículo'
+    
+                if (!response.ok) {
+                  throw new Error('Erro: ' + response.error)
+                }
+    
+                return response.json()
+              })
+              .then((data) => {
+                textloader.innerText = 'Processando dados'
+    
+                setTimeout(() => {
+                  textloader.innerText = 'Guardando currículo'
+                }, 1000)
+    
+                setTimeout(() => {
+                  textloader.innerText = 'Redicionando para dashboard'
+                }, 1500)
+    
+                setTimeout(() => {
+                  window.location.href = '/dashboard/'
+                }, 2000)
+              })
           })
       })
     })

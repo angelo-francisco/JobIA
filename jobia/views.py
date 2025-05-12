@@ -1,7 +1,5 @@
 import requests
 from json import loads
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -12,7 +10,7 @@ from django.conf import settings
 
 from payments.decorators import user_has_feature_access
 from .models import Curriculum
-from .utils import get_prompt_for_plan
+from .utils import get_prompt_for_plan, generate_and_store_pdf
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -110,10 +108,13 @@ def generate_curriculum(request, slug):
         "https://api.piapi.ai/v1/chat/completions", headers=headers, json=payload
     )
 
-    curriculum_html = response.json()
+    data = response.json()
+    curriculum_html = data['choices'][0]['message']['content']
 
     try:
-        ...
+        generate_and_store_pdf(curriculum, curriculum_html)
+
+        return JsonResponse({'status': 'ok'})
     except Exception as error:
         return JsonResponse({"error": str(error)}, status=500)
 

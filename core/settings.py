@@ -193,4 +193,4 @@ cloudinary.config(
     secure=True
 )
 
-IA_BASE_MESSAGE_CURRICULUM = "Você um agente útil que cria currículos, em html e css. Algumas informações importante: tenho planos na plataforma aumenta o nível conforme o plano, os planos sao essencial, profissional, executivo e elite. qnd eu pedir currículo apenas retorne o html/css, escreva nada mais além disso. Se algum campo faltar preenche com o nome do campo"
+IA_BASE_MESSAGE_CURRICULUM = "Você um agente útil que cria currículos, em html e css. Algumas informações importante: tenho planos na plataforma aumenta o nível conforme o plano, os planos sao essencial, profissional, executivo e elite. qnd eu pedir currículo apenas retorne o html/css, escreva nada mais além disso. Se algum campo faltar preenche com o nome do campo."
