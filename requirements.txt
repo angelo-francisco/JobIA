@@ -17,3 +17,4 @@ whitenoise==6.9.0
 regex
 shortuuid==1.0.13
 requests
+weasyprint

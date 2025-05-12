@@ -11,6 +11,7 @@ from django.conf import settings
 
 from payments.decorators import user_has_feature_access
 from .models import Curriculum
+from .utils import get_prompt_for_plan
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -84,6 +85,9 @@ def generate_curriculum(request, slug):
 
     if curriculum.status == "C":
         return JsonResponse({"error": "Currículo completo"}, status=400)
+    
+    if curriculum.user != request.user:
+        return JsonResponse({"error": "Esse currículo não é seu"}, status=400)
 
     headers = {
         "Authorization": f"Bearer {settings.API_KEY}",
@@ -96,7 +100,7 @@ def generate_curriculum(request, slug):
             {"role": "system", "content": settings.IA_BASE_MESSAGE_CURRICULUM},
             {
                 "role": "user",
-                "content": f"",
+                "content": get_prompt_for_plan(curriculum.user, curriculum.form_data),
             },
         ],
     }

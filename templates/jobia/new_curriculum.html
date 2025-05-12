@@ -164,6 +164,8 @@
               }
             })
             .then(response => {
+              textloader.innerText = "Organizando o currículo"
+
               if (!response.ok) {
                 throw new Error("Erro: " + response.error)
               }
@@ -171,7 +173,9 @@
               return response.json()
             })
             .then(data => {
-              console.log(data)
+              textloader.innerText = "Processando dados"
+
+              localStorage.setItem('curriculum', JSON.stringify(data.response))
             })
           })
       })
