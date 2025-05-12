@@ -23,7 +23,11 @@ def home_page(request):
 @login_required
 @never_cache
 def dashboard(request):
-    return render(request, "jobia/dashboard.html")
+    curriculums = Curriculum.objects.filter(
+        user=request.user,
+        status__in='C'
+    )
+    return render(request, "jobia/dashboard.html", {'curriculums': curriculums})
 
 
 @login_required
