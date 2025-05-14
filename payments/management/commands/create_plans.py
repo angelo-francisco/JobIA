@@ -21,7 +21,7 @@ class Command(BaseCommand):
                 },
             },
             {
-                "name": "Popular",
+                "name": "Profissional",
                 "limits": {
                     "max_curriculos": 10,
                     "tipo_curriculo": "moderno",
