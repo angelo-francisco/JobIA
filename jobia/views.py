@@ -1,6 +1,6 @@
 import requests
 from json import loads
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
@@ -123,7 +123,14 @@ def generate_curriculum(request, slug):
         print(error)
         return JsonResponse({"error": str(error)}, status=500)
     
+@login_required
+def finish_curriculum(request, slug):
+    curriculum = get_object_or_404(Curriculum, slug=slug)
 
+    if request.method == "POST":
+        ...
+
+    return render(request, 'jobia/finish_curriculum_generation.html')
 
 @login_required
 @require_POST
