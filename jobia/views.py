@@ -86,11 +86,20 @@ def generate_curriculum(request, slug):
     except Curriculum.DoesNotExist:
         return JsonResponse({"error": "Currículo Inexistente"}, status=400)
 
+    new_name = request.GET.get("rename", "").strip()
+    if new_name:
+        curriculum.title = new_name
+        curriculum.save()
+
+        return JsonResponse({'status': 'renamed'})
+
     if curriculum.status == "C":
         return JsonResponse({"error": "Currículo completo"}, status=400)
     
     if curriculum.user != request.user:
         return JsonResponse({"error": "Esse currículo não é seu"}, status=400)
+
+    print(f"Chave da api: {settings.AI_API_KEY}")
 
     try:
         headers = {
@@ -99,7 +108,7 @@ def generate_curriculum(request, slug):
         }
 
         payload = {
-            "model": "gpt-3.5-turbo",
+            "model": "deepseek/deepseek-r1:free",
             "messages": [
                 {"role": "system", "content": settings.IA_BASE_MESSAGE_CURRICULUM},
                 {
@@ -109,28 +118,29 @@ def generate_curriculum(request, slug):
             ],
         }
 
+        API_URL = "https://openrouter.ai/api/v1/chat/completions"
+
         response = requests.post(
-            "https://api.piapi.ai/v1/chat/completions", headers=headers, json=payload
+            API_URL, headers=headers, json=payload
         )
 
-        data = response.json()
-        curriculum_html = data['choices'][0]['message']['content']
+        try:
+            data = response.json()
+            print(f"Todos os dados: {data}")
+            curriculum_html = data['choices'][0]['message']['content']
+        except Exception as e:
+            print("Erro: ", e)
+            print("Erro ao processar resposta da IA:", response.text)
+            return JsonResponse({"error": "Erro ao gerar currículo com IA"}, status=502)
+        
         curriculum_html = curriculum_html.replace('```html', '').replace('```', '')
         
         generate_and_store_pdf(curriculum, curriculum_html)
-        return JsonResponse({'status': 'ok'})
+        return JsonResponse({'status': 'ok', "download_url": curriculum.curriculum})
     except Exception as error:
         print(error)
         return JsonResponse({"error": str(error)}, status=500)
     
-@login_required
-def finish_curriculum(request, slug):
-    curriculum = get_object_or_404(Curriculum, slug=slug)
-
-    if request.method == "POST":
-        ...
-
-    return render(request, 'jobia/finish_curriculum_generation.html')
 
 @login_required
 @require_POST
