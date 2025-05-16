@@ -26,7 +26,7 @@ def dashboard(request):
     curriculums = Curriculum.objects.filter(
         user=request.user,
         status__in='C'
-    )
+    ).order_by('-created_at')
     return render(request, "jobia/dashboard.html", {'curriculums': curriculums})
 
 
@@ -144,9 +144,9 @@ def generate_curriculum(request, slug):
 
 @login_required
 @require_POST
-@csrf_exempt
 def delete_curriculum(request, slug):
     try:
+        print(slug)
         curriculum = Curriculum.objects.get(slug=slug)
     except Curriculum.DoesNotExist:
         return JsonResponse({"status": "not_found"}, status=404)
