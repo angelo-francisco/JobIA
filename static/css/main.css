@@ -21,6 +21,7 @@
     --border-radius-xl: 30px;
     --transition-fast: 0.25s ease;
     --transition-normal: 0.4s ease;
+    --accent: #4895ef;
 }
 
 * {

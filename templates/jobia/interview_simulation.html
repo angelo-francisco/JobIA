@@ -1,0 +1,161 @@
+{% extends 'jobia/base_no_nav.html' %}
+
+{% load static compress cache %}
+
+{% block title %}
+  Simulação Entrevista
+{% endblock %}
+
+{% block extra_css %}
+  {% cache 3600 'alpine-js-cache' %}
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  {% endcache %}
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'css/interview_start.css' %}" />
+  <style>
+    .chat-container {
+      max-width: 700px;
+      margin: auto;
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+    .messages {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    .message {
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      max-width: 75%;
+    }
+    .user-msg {
+      background: #d1e7dd;
+      margin-left: auto;
+      text-align: right;
+    }
+    .ai-msg {
+      background: #e2e3e5;
+      margin-right: auto;
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+    .input-group input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    .btn:disabled {
+      background: #7ca5db;
+      cursor: wait;
+    }
+    .loader {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #007bff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 1s linear infinite;
+      margin-left: 8px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  {% endcompress %}
+{% endblock %}
+
+{% block content %}
+  <div class="chat-container" x-data="chatComponent()" x-init="loadMessages()">
+    <h2>Simulação de Entrevista</h2>
+
+    <div class="messages" id="messages">
+      <template x-for="(msg, index) in messages" :key="index">
+        <div
+          class="message"
+          :class="msg.sender === 'user' ? 'user-msg' : 'ai-msg'"
+          x-text="msg.text"
+        ></div>
+      </template>
+
+      <template x-if="loading">
+        <div class="message ai-msg">
+          <em>IA está pensando...</em>
+        </div>
+      </template>
+    </div>
+
+    <div class="input-group">
+      <input type="text" placeholder="Digite sua resposta..." x-model="userInput" @keydown.enter="sendMessage">
+      <button class="btn" @click="sendMessage" :disabled="loading">
+        Enviar
+        <span class="loader" x-show="loading"></span>
+      </button>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    function chatComponent() {
+      return {
+        messages: [],
+        userInput: '',
+        loading: false,
+
+        loadMessages() {
+        },
+
+        sendMessage() {
+          if (!this.userInput.trim()) return;
+          const userMessage = { sender: 'user', text: this.userInput };
+          this.messages.push(userMessage);
+          const payload = { message: this.userInput };
+          this.userInput = '';
+          this.loading = true;
+          this.scrollBottom();
+
+          fetch('/interview/get-interview-message/{{ interview.slug }}/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+            body: JSON.stringify(payload)
+          })
+            .then(res => res.json())
+            .then(data => {
+              this.messages.push({ sender: 'ai', text: data.reply });
+              console.log(data.reply)
+              this.loading = false;
+              this.scrollBottom();
+            })
+            .catch(() => {
+              this.messages.push({ sender: 'ai', text: 'Erro ao responder. Tente novamente.' });
+              this.loading = false;
+              this.scrollBottom();
+            });
+        },
+
+        scrollBottom() {
+          this.$nextTick(() => {
+            const el = document.getElementById('messages');
+            el.scrollTop = el.scrollHeight;
+          });
+        }
+      }
+    }
+  </script>
+{% endblock %}

@@ -5,12 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
 from payments.decorators import user_has_feature_access
-from .models import Curriculum
-from .utils import get_prompt_for_plan, generate_and_store_pdf
+from .models import Curriculum, Interview, InterviewMessage
+from .utils import (
+    get_prompt_for_plan,
+    generate_and_store_pdf,
+    get_interview_system_role,
+)
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -23,11 +26,10 @@ def home_page(request):
 @login_required
 @never_cache
 def dashboard(request):
-    curriculums = Curriculum.objects.filter(
-        user=request.user,
-        status__in='C'
-    ).order_by('-created_at')
-    return render(request, "jobia/dashboard.html", {'curriculums': curriculums})
+    curriculums = Curriculum.objects.filter(user=request.user, status__in="C").order_by(
+        "-created_at"
+    )
+    return render(request, "jobia/dashboard.html", {"curriculums": curriculums})
 
 
 @login_required
@@ -91,11 +93,11 @@ def generate_curriculum(request, slug):
         curriculum.title = new_name
         curriculum.save()
 
-        return JsonResponse({'status': 'renamed'})
+        return JsonResponse({"status": "renamed"})
 
     if curriculum.status == "C":
         return JsonResponse({"error": "Currículo completo"}, status=400)
-    
+
     if curriculum.user != request.user:
         return JsonResponse({"error": "Esse currículo não é seu"}, status=400)
 
@@ -113,34 +115,34 @@ def generate_curriculum(request, slug):
                 {"role": "system", "content": settings.IA_BASE_MESSAGE_CURRICULUM},
                 {
                     "role": "user",
-                    "content": get_prompt_for_plan(curriculum.user, curriculum.form_data),
+                    "content": get_prompt_for_plan(
+                        curriculum.user, curriculum.form_data
+                    ),
                 },
             ],
         }
 
         API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
-        response = requests.post(
-            API_URL, headers=headers, json=payload
-        )
+        response = requests.post(API_URL, headers=headers, json=payload)
 
         try:
             data = response.json()
             print(f"Todos os dados: {data}")
-            curriculum_html = data['choices'][0]['message']['content']
+            curriculum_html = data["choices"][0]["message"]["content"]
         except Exception as e:
             print("Erro: ", e)
             print("Erro ao processar resposta da IA:", response.text)
             return JsonResponse({"error": "Erro ao gerar currículo com IA"}, status=502)
-        
-        curriculum_html = curriculum_html.replace('```html', '').replace('```', '')
-        
+
+        curriculum_html = curriculum_html.replace("```html", "").replace("```", "")
+
         generate_and_store_pdf(curriculum, curriculum_html)
-        return JsonResponse({'status': 'ok', "download_url": curriculum.curriculum})
+        return JsonResponse({"status": "ok", "download_url": curriculum.curriculum})
     except Exception as error:
         print(error)
         return JsonResponse({"error": str(error)}, status=500)
-    
+
 
 @login_required
 @require_POST
@@ -155,3 +157,75 @@ def delete_curriculum(request, slug):
         curriculum.delete()
         return JsonResponse({"status": "deletado"})
     return JsonResponse({"error": "Esse currículo não é seu"}, status=400)
+
+
+@login_required
+@user_has_feature_access("simulacoes_entrevista")
+def interview_start(request):
+    if request.method == "POST":
+        data = loads(request.body)
+        role = data.get("role", "").strip()
+        level = data.get("level", "").strip()
+
+        if not role or not level:
+            return JsonResponse({"error": "Preencha todos os campos"}, status=400)
+
+        interview = Interview.objects.create(user=request.user, role=role, level=level)
+
+        return JsonResponse({"slug": interview.slug})
+
+    return render(request, "jobia/interview_start.html")
+
+
+@login_required
+def interview_simulation(request, slug):
+    interview = get_object_or_404(Interview, slug=slug)
+    return render(request, "jobia/interview_simulation.html", {"interview": interview})
+
+
+@login_required
+@require_POST
+def get_interviw_message(request, slug):
+    interview = get_object_or_404(Interview, slug=slug)
+    message = loads(request.body).get("message")
+
+    if not message:
+        return JsonResponse({"status": "Preencha o campo"}, status=400)
+
+    InterviewMessage.objects.create(interview=interview, sender="U", message=message)
+
+    headers = {
+        "Authorization": f"Bearer {settings.AI_API_KEY}",
+        "Content-Type": "application/json",
+    }
+
+    payload = {
+        "model": "deepseek/deepseek-r1:free",
+        "messages": [
+            {
+                "role": "system",
+                "content": get_interview_system_role(interview.role, interview.level),
+            },
+            {
+                "role": "user",
+                "content": message,
+            },
+        ],
+    }
+
+    API_URL = "https://openrouter.ai/api/v1/chat/completions"
+
+    try:
+        response = requests.post(API_URL, headers=headers, json=payload)
+        response.raise_for_status()
+
+        data = response.json()
+        reply = data["choices"][0]["message"]["content"]
+
+        interview_message = InterviewMessage.objects.create(
+            interview=interview, sender="I", message=reply
+        )
+
+        return JsonResponse({"reply": interview_message.message})
+    except Exception as e:
+        return JsonResponse({"error": f"Erro ao chamar IA: {str(e)}"}, status=500)

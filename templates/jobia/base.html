@@ -106,13 +106,12 @@
                         <span>Principal</span>
                     </h3>
                     <ul class="section-list">
-                        <li class="list-item">
+                        <li class="list-item" onclick="redirectTo('{% url 'dashboard' %}')">
                             <i class="fas fa-briefcase item-icon"></i>
                             <span>Workspace</span>
                         </li>
-                        {{ request.user.subscription.plan.limits }}
                         {% if limits.simulacoes_entrevista and limits.simulacoes_entrevista > 0 %}
-                            <li class="list-item">
+                            <li class="list-item" onclick="redirectTo('{% url 'interview_start' %}')">
                                 <i class="fas fa-comments item-icon"></i>
                                 <span>Simulação de Entrevistas</span>
                             </li>
