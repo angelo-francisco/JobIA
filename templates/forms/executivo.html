@@ -1,400 +1,502 @@
 <form id="curriculumForm" class="modal-form">
-  <div class="form-progress">
-    <div class="progress-step active" data-step="1">Perfil</div>
-    <div class="progress-step" data-step="2">Trajetória</div>
-    <div class="progress-step" data-step="3">Liderança</div>
-    <div class="progress-step" data-step="4">Formação</div>
-    <div class="progress-step" data-step="5">Diferenciais</div>
-  </div>
-  <!-- Passo 1: Perfil Executivo -->
-  <div class="form-step active" data-step="1">
-    <div class="form-section">
-      <h3><i class="fas fa-id-card"></i> Dados Executivos</h3>
-      <div class="form-group">
-        <label for="fullName">Nome Completo*</label>
-        <input type="text" id="fullName" name="fullName" required />
-      </div>
-      <div class="form-group">
-        <label for="executiveTitle">Título Executivo*</label>
-        <input type="text" id="executiveTitle" name="executiveTitle" required />
-        <small class="hint">Ex: Diretor Financeiro | VP de Operações | CEO</small>
-      </div>
-      <div class="form-row triple">
-        <div class="form-group">
-          <label for="email">Email Executivo*</label>
-          <input type="email" id="email" name="email" required />
+    <div class="form-progress">
+        <div class="progress-step active" data-step="1">Perfil</div>
+        <div class="progress-step" data-step="2">Trajetória</div>
+        <div class="progress-step" data-step="3">Liderança</div>
+        <div class="progress-step" data-step="4">Formação</div>
+        <div class="progress-step" data-step="5">Diferenciais</div>
+    </div>
+    <!-- Passo 1: Perfil Executivo -->
+    <div class="form-step active" data-step="1">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-id-card"></i> Dados Executivos
+            </h3>
+            <div class="form-group">
+                <label for="fullName">Nome Completo*</label>
+                <input type="text" id="fullName" name="fullName" required />
+            </div>
+            <div class="form-group">
+                <label for="executiveTitle">Título Executivo*</label>
+                <input type="text" id="executiveTitle" name="executiveTitle" required />
+                <small class="hint">Ex: Diretor Financeiro | VP de Operações | CEO</small>
+            </div>
+            <div class="form-row triple">
+                <div class="form-group">
+                    <label for="email">Email Executivo*</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone Executivo*</label>
+                    <input type="tel" id="phone" name="phone" required />
+                </div>
+                <div class="form-group">
+                    <label for="location">Localização*</label>
+                    <input type="text" id="location" name="location" required />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn*</label>
+                    <input type="url" id="linkedin" name="linkedin" required />
+                </div>
+                <div class="form-group">
+                    <label for="personalWebsite">Website Executivo</label>
+                    <input type="url" id="personalWebsite" name="personalWebsite" />
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="phone">Telefone Executivo*</label>
-          <input type="tel" id="phone" name="phone" required />
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-bullseye"></i> Resumo Executivo
+            </h3>
+            <div class="form-group">
+                <label for="executiveSummary">Resumo de Carreira (150-200 palavras)*</label>
+                <textarea id="executiveSummary" name="executiveSummary" rows="6" required></textarea>
+                <small class="hint">Destaque anos de experiência, setores de atuação e expertise estratégica</small>
+            </div>
+            <div class="form-group">
+                <label for="coreExpertise">Áreas de Expertise Executiva (3-5)*</label>
+                <input type="text" id="coreExpertise" name="coreExpertise" required />
+                <small class="hint">Ex: Transformação Digital, Fusões & Aquisições, Turnaround Empresarial</small>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="location">Localização*</label>
-          <input type="text" id="location" name="location" required />
+        <div class="form-navigation">
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="linkedin">LinkedIn*</label>
-          <input type="url" id="linkedin" name="linkedin" required />
+    </div>
+    <!-- Passo 2: Trajetória Executiva -->
+    <div class="form-step" data-step="2">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-briefcase"></i> Trajetória Executiva
+            </h3>
+            <div id="executiveExperienceContainer">
+                <div class="executive-experience-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="execCompany1">Empresa*</label>
+                            <input type="text" id="execCompany1" name="execCompany[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="execPosition1">Cargo*</label>
+                            <input type="text" id="execPosition1" name="execPosition[]" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="execStart1">De*</label>
+                            <input type="month" id="execStart1" name="execStart[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="execEnd1">Até</label>
+                            <input type="month" id="execEnd1" name="execEnd[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="execLocation1">Localidade</label>
+                            <input type="text" id="execLocation1" name="execLocation[]" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="execScope1">Escopo da Posição*</label>
+                        <textarea id="execScope1" name="execScope[]" rows="2" required></textarea>
+                        <small class="hint">Ex: "Diretor responsável por operações em 3 países com faturamento de R$120M/ano"</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="execAchievements1">Principais Realizações*</label>
+                        <div class="achievement-container">
+                            <div class="achievement-entry">
+                                <input type="text"
+                                       name="execAchievements[]"
+                                       required
+                                       class="achievement-input"
+                                       placeholder="Descreva uma realização com métricas" />
+                                <button type="button" class="btn-remove-achievement">×</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-add btn-add-achievement">
+                            <i class="fas fa-plus"></i> Adicionar Realização
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="addExecExperience" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Posição Executiva
+            </button>
         </div>
-        <div class="form-group">
-          <label for="personalWebsite">Website Executivo</label>
-          <input type="url" id="personalWebsite" name="personalWebsite" />
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-users"></i> Participação em Conselhos
+            </h3>
+            <div id="boardMembershipsContainer">
+                <div class="board-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="boardOrganization1">Organização</label>
+                            <input type="text" id="boardOrganization1" name="boardOrganization[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="boardRole1">Função</label>
+                            <input type="text" id="boardRole1" name="boardRole[]" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="boardStart1">De</label>
+                            <input type="month" id="boardStart1" name="boardStart[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="boardEnd1">Até</label>
+                            <input type="month" id="boardEnd1" name="boardEnd[]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="addBoardMembership" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Participação
+            </button>
         </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3><i class="fas fa-bullseye"></i> Resumo Executivo</h3>
-      <div class="form-group">
-        <label for="executiveSummary">Resumo de Carreira (150-200 palavras)*</label>
-        <textarea id="executiveSummary" name="executiveSummary" rows="6" required></textarea>
-        <small class="hint">Destaque anos de experiência, setores de atuação e expertise estratégica</small>
-      </div>
-      <div class="form-group">
-        <label for="coreExpertise">Áreas de Expertise Executiva (3-5)*</label>
-        <input type="text" id="coreExpertise" name="coreExpertise" required />
-        <small class="hint">Ex: Transformação Digital, Fusões & Aquisições, Turnaround Empresarial</small>
-      </div>
-    </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 2: Trajetória Executiva -->
-  <div class="form-step" data-step="2">
-    <div class="form-section">
-      <h3><i class="fas fa-briefcase"></i> Trajetória Executiva</h3>
-      <div id="executiveExperienceContainer">
-        <div class="executive-experience-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="execCompany1">Empresa*</label>
-              <input type="text" id="execCompany1" name="execCompany[]" required />
-            </div>
-            <div class="form-group">
-              <label for="execPosition1">Cargo*</label>
-              <input type="text" id="execPosition1" name="execPosition[]" required />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="execStart1">De*</label>
-              <input type="month" id="execStart1" name="execStart[]" required />
-            </div>
-            <div class="form-group">
-              <label for="execEnd1">Até</label>
-              <input type="month" id="execEnd1" name="execEnd[]" />
-            </div>
-            <div class="form-group">
-              <label for="execLocation1">Localidade</label>
-              <input type="text" id="execLocation1" name="execLocation[]" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="execScope1">Escopo da Posição*</label>
-            <textarea id="execScope1" name="execScope[]" rows="2" required></textarea>
-            <small class="hint">Ex: "Diretor responsável por operações em 3 países com faturamento de R$120M/ano"</small>
-          </div>
-          <div class="form-group">
-            <label for="execAchievements1">Principais Realizações*</label>
-            <div class="achievement-container">
-              <div class="achievement-entry">
-                <input type="text" name="execAchievements[]" required class="achievement-input" placeholder="Descreva uma realização com métricas" />
-                <button type="button" class="btn-remove-achievement">×</button>
-              </div>
-            </div>
-            <button type="button" class="btn btn-add btn-add-achievement"><i class="fas fa-plus"></i> Adicionar Realização</button>
-          </div>
+        <div class="form-navigation">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
-      <button type="button" id="addExecExperience" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Posição Executiva</button>
     </div>
-    <div class="form-section">
-      <h3><i class="fas fa-users"></i> Participação em Conselhos</h3>
-      <div id="boardMembershipsContainer">
-        <div class="board-entry">
-          <div class="form-row">
+    <!-- Passo 3: Liderança -->
+    <div class="form-step" data-step="3">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-chess-queen"></i> Estilo de Liderança
+            </h3>
             <div class="form-group">
-              <label for="boardOrganization1">Organização</label>
-              <input type="text" id="boardOrganization1" name="boardOrganization[]" />
+                <label for="leadershipStyle">Filosofia de Liderança*</label>
+                <textarea id="leadershipStyle" name="leadershipStyle" rows="4" required></textarea>
             </div>
             <div class="form-group">
-              <label for="boardRole1">Função</label>
-              <input type="text" id="boardRole1" name="boardRole[]" />
+                <label for="teamManagement">Gestão de Equipes*</label>
+                <textarea id="teamManagement" name="teamManagement" rows="4" required></textarea>
+                <small class="hint">Descreva sua abordagem para desenvolvimento de talentos e gestão de equipes</small>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="boardStart1">De</label>
-              <input type="month" id="boardStart1" name="boardStart[]" />
-            </div>
-            <div class="form-group">
-              <label for="boardEnd1">Até</label>
-              <input type="month" id="boardEnd1" name="boardEnd[]" />
-            </div>
-          </div>
         </div>
-      </div>
-      <button type="button" id="addBoardMembership" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Participação</button>
-    </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 3: Liderança -->
-  <div class="form-step" data-step="3">
-    <div class="form-section">
-      <h3><i class="fas fa-chess-queen"></i> Estilo de Liderança</h3>
-      <div class="form-group">
-        <label for="leadershipStyle">Filosofia de Liderança*</label>
-        <textarea id="leadershipStyle" name="leadershipStyle" rows="4" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="teamManagement">Gestão de Equipes*</label>
-        <textarea id="teamManagement" name="teamManagement" rows="4" required></textarea>
-        <small class="hint">Descreva sua abordagem para desenvolvimento de talentos e gestão de equipes</small>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3><i class="fas fa-trophy"></i> Competências Executivas</h3>
-      <div class="form-group">
-        <label>Selecione suas principais competências (8-12)*</label>
-        <div class="skills-grid executive-skills">
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill1" name="execSkills[]" value="Liderança estratégica" />
-            <label for="execSkill1">Liderança estratégica</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill2" name="execSkills[]" value="Tomada de decisão" />
-            <label for="execSkill2">Tomada de decisão</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill3" name="execSkills[]" value="Gestão de crise" />
-            <label for="execSkill3">Gestão de crise</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill4" name="execSkills[]" value="Visão de negócios" />
-            <label for="execSkill4">Visão de negócios</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill5" name="execSkills[]" value="Comunicação executiva" />
-            <label for="execSkill5">Comunicação executiva</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill6" name="execSkills[]" value="Negociação" />
-            <label for="execSkill6">Negociação</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill7" name="execSkills[]" value="Gestão de equipes" />
-            <label for="execSkill7">Gestão de equipes</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill8" name="execSkills[]" value="Foco em resultados" />
-            <label for="execSkill8">Foco em resultados</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill9" name="execSkills[]" value="Inovação" />
-            <label for="execSkill9">Inovação</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill10" name="execSkills[]" value="Gestão de mudanças" />
-            <label for="execSkill10">Gestão de mudanças</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill11" name="execSkills[]" value="Pensamento analítico" />
-            <label for="execSkill11">Pensamento analítico</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="execSkill12" name="execSkills[]" value="Mentoria e coaching" />
-            <label for="execSkill12">Mentoria e coaching</label>
-          </div>
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-trophy"></i> Competências Executivas
+            </h3>
+            <div class="form-group">
+                <label>Selecione suas principais competências (8-12)*</label>
+                <div class="skills-grid executive-skills">
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill1"
+                               name="execSkills[]"
+                               value="Liderança estratégica" />
+                        <label for="execSkill1">Liderança estratégica</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill2"
+                               name="execSkills[]"
+                               value="Tomada de decisão" />
+                        <label for="execSkill2">Tomada de decisão</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill3"
+                               name="execSkills[]"
+                               value="Gestão de crise" />
+                        <label for="execSkill3">Gestão de crise</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill4"
+                               name="execSkills[]"
+                               value="Visão de negócios" />
+                        <label for="execSkill4">Visão de negócios</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill5"
+                               name="execSkills[]"
+                               value="Comunicação executiva" />
+                        <label for="execSkill5">Comunicação executiva</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill6"
+                               name="execSkills[]"
+                               value="Negociação" />
+                        <label for="execSkill6">Negociação</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill7"
+                               name="execSkills[]"
+                               value="Gestão de equipes" />
+                        <label for="execSkill7">Gestão de equipes</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill8"
+                               name="execSkills[]"
+                               value="Foco em resultados" />
+                        <label for="execSkill8">Foco em resultados</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox" id="execSkill9" name="execSkills[]" value="Inovação" />
+                        <label for="execSkill9">Inovação</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill10"
+                               name="execSkills[]"
+                               value="Gestão de mudanças" />
+                        <label for="execSkill10">Gestão de mudanças</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill11"
+                               name="execSkills[]"
+                               value="Pensamento analítico" />
+                        <label for="execSkill11">Pensamento analítico</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="execSkill12"
+                               name="execSkills[]"
+                               value="Mentoria e coaching" />
+                        <label for="execSkill12">Mentoria e coaching</label>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 4: Formação Executiva -->
-  <div class="form-step" data-step="4">
-    <div class="form-section">
-      <h3><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h3>
-      <div id="educationContainer">
-        <div class="education-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="institution1">Instituição*</label>
-              <input type="text" id="institution1" name="institution[]" required />
-            </div>
-            <div class="form-group">
-              <label for="degree1">Grau*</label>
-              <select id="degree1" name="degree[]" required>
-                <option value="">Selecione</option>
-                <option value="Graduação">Graduação</option>
-                <option value="MBA">MBA</option>
-                <option value="Mestrado">Mestrado</option>
-                <option value="Doutorado">Doutorado</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fieldOfStudy1">Área de Estudo*</label>
-              <input type="text" id="fieldOfStudy1" name="fieldOfStudy[]" required />
-            </div>
-            <div class="form-group">
-              <label for="educationYear1">Ano de Conclusão*</label>
-              <input type="number" id="educationYear1" name="educationYear[]" required />
-            </div>
-          </div>
+        <div class="form-navigation">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
-      <button type="button" id="addEducation" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Formação</button>
     </div>
-    <div class="form-section">
-      <h3><i class="fas fa-certificate"></i> Educação Executiva</h3>
-      <div id="executiveDevelopmentContainer">
-        <div class="executive-development-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="execProgram1">Programa/Certificação</label>
-              <input type="text" id="execProgram1" name="execProgram[]" />
+    <!-- Passo 4: Formação Executiva -->
+    <div class="form-step" data-step="4">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-graduation-cap"></i> Formação Acadêmica
+            </h3>
+            <div id="educationContainer">
+                <div class="education-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="institution1">Instituição*</label>
+                            <input type="text" id="institution1" name="institution[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="degree1">Grau*</label>
+                            <select id="degree1" name="degree[]" required>
+                                <option value="">Selecione</option>
+                                <option value="Graduação">Graduação</option>
+                                <option value="MBA">MBA</option>
+                                <option value="Mestrado">Mestrado</option>
+                                <option value="Doutorado">Doutorado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fieldOfStudy1">Área de Estudo*</label>
+                            <input type="text" id="fieldOfStudy1" name="fieldOfStudy[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="educationYear1">Ano de Conclusão*</label>
+                            <input type="number" id="educationYear1" name="educationYear[]" required />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="execInstitution1">Instituição</label>
-              <input type="text" id="execInstitution1" name="execInstitution[]" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="execCompletionYear1">Ano</label>
-              <input type="number" id="execCompletionYear1" name="execCompletionYear[]" />
-            </div>
-            <div class="form-group">
-              <label for="execDuration1">Duração</label>
-              <input type="text" id="execDuration1" name="execDuration[]" placeholder="ex: 120 horas" />
-            </div>
-          </div>
+            <button type="button" id="addEducation" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Formação
+            </button>
         </div>
-      </div>
-      <button type="button" id="addExecutiveDevelopment" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Programa</button>
-    </div>
-    <div class="form-section">
-      <h3><i class="fas fa-award"></i> Certificações Globais</h3>
-      <div id="globalCertificationsContainer">
-        <div class="certification-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="certificationName1">Certificação</label>
-              <input type="text" id="certificationName1" name="certificationName[]" />
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-certificate"></i> Educação Executiva
+            </h3>
+            <div id="executiveDevelopmentContainer">
+                <div class="executive-development-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="execProgram1">Programa/Certificação</label>
+                            <input type="text" id="execProgram1" name="execProgram[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="execInstitution1">Instituição</label>
+                            <input type="text" id="execInstitution1" name="execInstitution[]" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="execCompletionYear1">Ano</label>
+                            <input type="number" id="execCompletionYear1" name="execCompletionYear[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="execDuration1">Duração</label>
+                            <input type="text"
+                                   id="execDuration1"
+                                   name="execDuration[]"
+                                   placeholder="ex: 120 horas" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="certificationYear1">Ano</label>
-              <input type="number" id="certificationYear1" name="certificationYear[]" />
-            </div>
-          </div>
+            <button type="button" id="addExecutiveDevelopment" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Programa
+            </button>
         </div>
-      </div>
-      <button type="button" id="addGlobalCertification" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Certificação</button>
-    </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 5: Diferenciais Executivos -->
-  <div class="form-step" data-step="5">
-    <div class="form-section">
-      <h3><i class="fas fa-language"></i> Idiomas</h3>
-      <div id="languagesContainer">
-        <div class="language-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="language1">Idioma*</label>
-              <input type="text" id="language1" name="language[]" required />
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-award"></i> Certificações Globais
+            </h3>
+            <div id="globalCertificationsContainer">
+                <div class="certification-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="certificationName1">Certificação</label>
+                            <input type="text" id="certificationName1" name="certificationName[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="certificationYear1">Ano</label>
+                            <input type="number" id="certificationYear1" name="certificationYear[]" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="proficiency1">Proficiência*</label>
-              <select id="proficiency1" name="proficiency[]" required>
-                <option value="Básico">Básico</option>
-                <option value="Intermediário">Intermediário</option>
-                <option value="Avançado">Avançado</option>
-                <option value="Fluente">Fluente</option>
-                <option value="Nativo">Nativo</option>
-              </select>
-            </div>
-          </div>
+            <button type="button" id="addGlobalCertification" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Certificação
+            </button>
         </div>
-      </div>
-      <button type="button" id="addLanguage" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Idioma</button>
-    </div>
-    <div class="form-section">
-      <h3><i class="fas fa-book"></i> Publicações e Mídia</h3>
-      <div class="form-group">
-        <label for="publications">Publicações Relevantes</label>
-        <textarea id="publications" name="publications" rows="3"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="mediaAppearances">Aparições na Mídia</label>
-        <textarea id="mediaAppearances" name="mediaAppearances" rows="3"></textarea>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3><i class="fas fa-trophy"></i> Prêmios e Reconhecimentos</h3>
-      <div id="awardsContainer">
-        <div class="award-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="awardName1">Prêmio/Reconhecimento</label>
-              <input type="text" id="awardName1" name="awardName[]" />
-            </div>
-            <div class="form-group">
-              <label for="awardYear1">Ano</label>
-              <input type="number" id="awardYear1" name="awardYear[]" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="awardOrganization1">Organização Concedente</label>
-            <input type="text" id="awardOrganization1" name="awardOrganization[]" />
-          </div>
+        <div class="form-navigation">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
-      <button type="button" id="addAward" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Prêmio</button>
     </div>
-    <div class="form-section">
-      <h3><i class="fas fa-hand-holding-heart"></i> Atividades Filantrópicas</h3>
-      <div id="philanthropyContainer">
-        <div class="philanthropy-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="philanthropyOrg1">Organização</label>
-              <input type="text" id="philanthropyOrg1" name="philanthropyOrg[]" />
+    <!-- Passo 5: Diferenciais Executivos -->
+    <div class="form-step" data-step="5">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-language"></i> Idiomas
+            </h3>
+            <div id="languagesContainer">
+                <div class="language-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="language1">Idioma*</label>
+                            <input type="text" id="language1" name="language[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="proficiency1">Proficiência*</label>
+                            <select id="proficiency1" name="proficiency[]" required>
+                                <option value="Básico">Básico</option>
+                                <option value="Intermediário">Intermediário</option>
+                                <option value="Avançado">Avançado</option>
+                                <option value="Fluente">Fluente</option>
+                                <option value="Nativo">Nativo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="philanthropyRole1">Função</label>
-              <input type="text" id="philanthropyRole1" name="philanthropyRole[]" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="philanthropyStart1">De</label>
-              <input type="month" id="philanthropyStart1" name="philanthropyStart[]" />
-            </div>
-            <div class="form-group">
-              <label for="philanthropyEnd1">Até</label>
-              <input type="month" id="philanthropyEnd1" name="philanthropyEnd[]" />
-            </div>
-          </div>
+            <button type="button" id="addLanguage" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Idioma
+            </button>
         </div>
-      </div>
-      <button type="button" id="addPhilanthropy" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Atividade</button>
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-book"></i> Publicações e Mídia
+            </h3>
+            <div class="form-group">
+                <label for="publications">Publicações Relevantes</label>
+                <textarea id="publications" name="publications" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="mediaAppearances">Aparições na Mídia</label>
+                <textarea id="mediaAppearances" name="mediaAppearances" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-trophy"></i> Prêmios e Reconhecimentos
+            </h3>
+            <div id="awardsContainer">
+                <div class="award-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="awardName1">Prêmio/Reconhecimento</label>
+                            <input type="text" id="awardName1" name="awardName[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="awardYear1">Ano</label>
+                            <input type="number" id="awardYear1" name="awardYear[]" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="awardOrganization1">Organização Concedente</label>
+                        <input type="text" id="awardOrganization1" name="awardOrganization[]" />
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="addAward" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Prêmio
+            </button>
+        </div>
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-hand-holding-heart"></i> Atividades Filantrópicas
+            </h3>
+            <div id="philanthropyContainer">
+                <div class="philanthropy-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="philanthropyOrg1">Organização</label>
+                            <input type="text" id="philanthropyOrg1" name="philanthropyOrg[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="philanthropyRole1">Função</label>
+                            <input type="text" id="philanthropyRole1" name="philanthropyRole[]" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="philanthropyStart1">De</label>
+                            <input type="month" id="philanthropyStart1" name="philanthropyStart[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="philanthropyEnd1">Até</label>
+                            <input type="month" id="philanthropyEnd1" name="philanthropyEnd[]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="addPhilanthropy" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Atividade
+            </button>
+        </div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-file-export"></i> Gerar Currículo Executivo
+            </button>
+        </div>
     </div>
-    <div class="form-actions">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="submit" class="btn btn-primary"><i class="fas fa-file-export"></i> Gerar Currículo Executivo</button>
-    </div>
-  </div>
 </form>

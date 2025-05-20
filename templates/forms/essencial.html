@@ -1,147 +1,178 @@
 <form id="curriculumForm" class="modal-form">
-  <div class="form-progress">
-    <div class="progress-step active" data-step="1">Dados Pessoais</div>
-    <div class="progress-step" data-step="2">Objetivo</div>
-    <div class="progress-step" data-step="3">Experiência</div>
-    <div class="progress-step" data-step="4">Formação</div>
-  </div>
-  <div class="form-step active" data-step="1">
-    <div class="form-section">
-      <h3><i class="fas fa-user"></i> Informações Pessoais</h3>
-      <div class="form-group">
-        <label for="fullName">Nome Completo*</label>
-        <input type="text" id="fullName" name="fullName" required />
-        <small class="hint">Como aparece em documentos oficiais</small>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="email">Email*</label>
-          <input type="email" id="email" name="email" required />
+    <div class="form-progress">
+        <div class="progress-step active" data-step="1">Dados Pessoais</div>
+        <div class="progress-step" data-step="2">Objetivo</div>
+        <div class="progress-step" data-step="3">Experiência</div>
+        <div class="progress-step" data-step="4">Formação</div>
+    </div>
+    <div class="form-step active" data-step="1">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-user"></i> Informações Pessoais
+            </h3>
+            <div class="form-group">
+                <label for="fullName">Nome Completo*</label>
+                <input type="text" id="fullName" name="fullName" required />
+                <small class="hint">Como aparece em documentos oficiais</small>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone*</label>
+                    <input type="tel" id="phone" name="phone" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Endereço (Cidade/Estado)*</label>
+                <input type="text" id="address" name="address" required />
+            </div>
         </div>
-        <div class="form-group">
-          <label for="phone">Telefone*</label>
-          <input type="tel" id="phone" name="phone" required />
+        <div class="form-navigation">
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="address">Endereço (Cidade/Estado)*</label>
-        <input type="text" id="address" name="address" required />
-      </div>
     </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <div class="form-step" data-step="2">
-    <div class="form-section">
-      <h3><i class="fas fa-bullseye"></i> Objetivo Profissional</h3>
-      <div class="form-group">
-        <label for="desiredPosition">Cargo Desejado*</label>
-        <input type="text" id="desiredPosition" name="desiredPosition" required />
-        <small class="hint">Ex: Desenvolvedor Front-End, Analista Financeiro</small>
-      </div>
-      <div class="form-group">
-        <label for="professionalGoal">Objetivo Profissional (3-4 frases)*</label>
-        <textarea id="professionalGoal" name="professionalGoal" rows="3" required></textarea>
-        <small class="hint">Destaque suas aspirações e o que pode contribuir</small>
-      </div>
-    </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 3: Experiência Profissional -->
-  <div class="form-step" data-step="3">
-    <div class="form-section">
-      <h3><i class="fas fa-briefcase"></i> Experiência Profissional</h3>
-      <div id="experienceContainer">
-        <div class="experience-entry">
-          <div class="form-row">
+    <div class="form-step" data-step="2">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-bullseye"></i> Objetivo Profissional
+            </h3>
             <div class="form-group">
-              <label for="company1">Empresa*</label>
-              <input type="text" id="company1" name="company[]"  />
+                <label for="desiredPosition">Cargo Desejado*</label>
+                <input type="text" id="desiredPosition" name="desiredPosition" required />
+                <small class="hint">Ex: Desenvolvedor Front-End, Analista Financeiro</small>
             </div>
             <div class="form-group">
-              <label for="position1">Cargo*</label>
-              <input type="text" id="position1" name="position[]"  />
+                <label for="professionalGoal">Objetivo Profissional (3-4 frases)*</label>
+                <textarea id="professionalGoal" name="professionalGoal" rows="3" required></textarea>
+                <small class="hint">Destaque suas aspirações e o que pode contribuir</small>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="startDate1">Data Início*</label>
-              <input type="month" id="startDate1" name="startDate[]"  />
-            </div>
-            <div class="form-group">
-              <label for="endDate1">Data Término</label>
-              <input type="month" id="endDate1" name="endDate[]" />
-              <small class="hint">Deixe em branco se for atual</small>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="responsibilities1">Principais Responsabilidades*</label>
-            <textarea id="responsibilities1" name="responsibilities[]" rows="3" ></textarea>
-          </div>
         </div>
-      </div>
-      <button type="button" id="addExperience" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Experiência</button>
-    </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 4: Formação e Habilidades -->
-  <div class="form-step" data-step="4">
-    <div class="form-section">
-      <h3><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h3>
-      <div id="educationContainer">
-        <div class="education-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="institution1">Instituição*</label>
-              <input type="text" id="institution1" name="institution[]"  />
-            </div>
-            <div class="form-group">
-              <label for="degree1">Curso/Nível*</label>
-              <input type="text" id="degree1" name="degree[]"  />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="educationStart1">Ano Início</label>
-              <input type="number" id="educationStart1" name="educationStart[]" />
-            </div>
-            <div class="form-group">
-              <label for="educationEnd1">Ano Conclusão*</label>
-              <input type="number" id="educationEnd1" name="educationEnd[]"  />
-            </div>
-          </div>
+        <div class="form-navigation">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
-      <button type="button" id="addEducation" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Formação</button>
     </div>
-    <div class="form-section">
-      <h3><i class="fas fa-star"></i> Habilidades</h3>
-      <div class="form-group">
-        <label>Selecione suas principais habilidades (5-8)*</label>
-        <div class="skills-grid">
-          {% for skill in common_skills %}
-            <div class="skill-checkbox">
-              <input type="checkbox" id="skill{{ forloop.counter }}" name="skills" value="{{ skill }}" />
-              <label for="skill{{ forloop.counter }}">{{ skill }}</label>
+    <!-- Passo 3: Experiência Profissional -->
+    <div class="form-step" data-step="3">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-briefcase"></i> Experiência Profissional
+            </h3>
+            <div id="experienceContainer">
+                <div class="experience-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company1">Empresa*</label>
+                            <input type="text" id="company1" name="company[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="position1">Cargo*</label>
+                            <input type="text" id="position1" name="position[]" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate1">Data Início*</label>
+                            <input type="month" id="startDate1" name="startDate[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate1">Data Término</label>
+                            <input type="month" id="endDate1" name="endDate[]" />
+                            <small class="hint">Deixe em branco se for atual</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="responsibilities1">Principais Responsabilidades*</label>
+                        <textarea id="responsibilities1" name="responsibilities[]" rows="3"></textarea>
+                    </div>
+                </div>
             </div>
-          {% endfor %}
+            <button type="button" id="addExperience" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Experiência
+            </button>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="otherSkills">Outras habilidades (separadas por vírgula)</label>
-        <input type="text" id="otherSkills" name="otherSkills" />
-      </div>
+        <div class="form-navigation">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
     </div>
-    <div class="form-actions">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="submit" class="btn btn-primary"><i class="fas fa-file-export"></i> Gerar Currículo</button>
+    <!-- Passo 4: Formação e Habilidades -->
+    <div class="form-step" data-step="4">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-graduation-cap"></i> Formação Acadêmica
+            </h3>
+            <div id="educationContainer">
+                <div class="education-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="institution1">Instituição*</label>
+                            <input type="text" id="institution1" name="institution[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="degree1">Curso/Nível*</label>
+                            <input type="text" id="degree1" name="degree[]" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="educationStart1">Ano Início</label>
+                            <input type="number" id="educationStart1" name="educationStart[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="educationEnd1">Ano Conclusão*</label>
+                            <input type="number" id="educationEnd1" name="educationEnd[]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="addEducation" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Formação
+            </button>
+        </div>
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-star"></i> Habilidades
+            </h3>
+            <div class="form-group">
+                <label>Selecione suas principais habilidades (5-8)*</label>
+                <div class="skills-grid">
+                    {% for skill in common_skills %}
+                        <div class="skill-checkbox">
+                            <input type="checkbox"
+                                   id="skill{{ forloop.counter }}"
+                                   name="skills"
+                                   value="{{ skill }}" />
+                            <label for="skill{{ forloop.counter }}">{{ skill }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="otherSkills">Outras habilidades (separadas por vírgula)</label>
+                <input type="text" id="otherSkills" name="otherSkills" />
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-file-export"></i> Gerar Currículo
+            </button>
+        </div>
     </div>
-  </div>
 </form>

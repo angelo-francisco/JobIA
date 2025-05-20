@@ -12,7 +12,7 @@ from .models import Curriculum, Interview, InterviewMessage
 from .utils import (
     get_prompt_for_plan,
     generate_and_store_pdf,
-    get_interview_system_role,
+    get_interview_system_message,
 )
 from django.contrib.auth import get_user_model
 
@@ -185,7 +185,7 @@ def interview_simulation(request, slug):
 
 @login_required
 @require_POST
-def get_interviw_message(request, slug):
+def get_interview_message(request, slug):
     interview = get_object_or_404(Interview, slug=slug)
     message = loads(request.body).get("message")
 
@@ -200,12 +200,11 @@ def get_interviw_message(request, slug):
     }
 
     payload = {
-        "model": "deepseek/deepseek-r1:free",
+        "model": "openai/gpt-4-turbo",
         "messages": [
             {
                 "role": "system",
-                "content": "Você é um entrevistador técnico! **não responda nada que não está relacionado a isso**"
-                # "content": get_interview_system_role(interview.role, interview.level),
+                "content": get_interview_system_message()
             },
             {
                 "role": "user",
@@ -229,4 +228,22 @@ def get_interviw_message(request, slug):
 
         return JsonResponse({"reply": interview_message.message})
     except Exception as e:
+        print(e)
         return JsonResponse({"error": f"Erro ao chamar IA: {str(e)}"}, status=500)
+
+
+@login_required
+def get_interview_messages(request, slug):
+    interview = get_object_or_404(Interview, slug=slug)
+    
+    if interview.user != request.user:
+        return JsonResponse({"error": "Não autorizado"}, status=403)
+    
+    messages = InterviewMessage.objects.filter(interview=interview).order_by('created_at')
+    
+    formatted_messages = [{
+        'sender': 'user' if msg.sender == 'U' else 'ai',
+        'text': msg.message
+    } for msg in messages]
+    
+    return JsonResponse({"messages": formatted_messages})

@@ -1,274 +1,346 @@
 <form id="curriculumForm" class="modal-form">
-  <div class="form-progress">
-    <div class="progress-step active" data-step="1">Dados</div>
-    <div class="progress-step" data-step="2">Perfil</div>
-    <div class="progress-step" data-step="3">Experiência</div>
-    <div class="progress-step" data-step="4">Formação</div>
-    <div class="progress-step" data-step="5">Competências</div>
-  </div>
-  <!-- Passo 1: Dados Pessoais -->
-  <div class="form-step active" data-step="1">
-    <div class="form-section">
-      <h3><i class="fas fa-id-card"></i> Dados Pessoais</h3>
-      <div class="form-group">
-        <label for="fullName">Nome Completo*</label>
-        <input type="text" id="fullName" name="fullName" required />
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="profileTitle">Título Profissional*</label>
-          <input type="text" id="profileTitle" name="profileTitle" required />
-          <small class="hint">Ex: Desenvolvedor Full Stack | Especialista em Marketing Digital</small>
+    <div class="form-progress">
+        <div class="progress-step active" data-step="1">Dados</div>
+        <div class="progress-step" data-step="2">Perfil</div>
+        <div class="progress-step" data-step="3">Experiência</div>
+        <div class="progress-step" data-step="4">Formação</div>
+        <div class="progress-step" data-step="5">Competências</div>
+    </div>
+    <!-- Passo 1: Dados Pessoais -->
+    <div class="form-step active" data-step="1">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-id-card"></i> Dados Pessoais
+            </h3>
+            <div class="form-group">
+                <label for="fullName">Nome Completo*</label>
+                <input type="text" id="fullName" name="fullName" required />
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="profileTitle">Título Profissional*</label>
+                    <input type="text" id="profileTitle" name="profileTitle" required />
+                    <small class="hint">Ex: Desenvolvedor Full Stack | Especialista em Marketing Digital</small>
+                </div>
+            </div>
+            <div class="form-row triple">
+                <div class="form-group">
+                    <label for="email">Email Profissional*</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone/WhatsApp*</label>
+                    <input type="tel" id="phone" name="phone" required />
+                </div>
+                <div class="form-group">
+                    <label for="location">Cidade/Estado*</label>
+                    <input type="text" id="location" name="location" required />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn</label>
+                    <input type="url"
+                           id="linkedin"
+                           name="linkedin"
+                           placeholder="https://linkedin.com/in/seu-perfil" />
+                </div>
+                <div class="form-group">
+                    <label for="portfolio">Portfólio/Site</label>
+                    <input type="url"
+                           id="portfolio"
+                           name="portfolio"
+                           placeholder="https://seusite.com" />
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="form-row triple">
-        <div class="form-group">
-          <label for="email">Email Profissional*</label>
-          <input type="email" id="email" name="email" required />
+        <div class="form-navigation">
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-        <div class="form-group">
-          <label for="phone">Telefone/WhatsApp*</label>
-          <input type="tel" id="phone" name="phone" required />
+    </div>
+    <!-- Passo 2: Perfil Profissional -->
+    <div class="form-step" data-step="2">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-user-tie"></i> Perfil Profissional
+            </h3>
+            <div class="form-group">
+                <label for="desiredPosition">Cargo Almejado*</label>
+                <input type="text" id="desiredPosition" name="desiredPosition" required />
+            </div>
+            <div class="form-group">
+                <label for="professionalSummary">Resumo Profissional (100-150 palavras)*</label>
+                <textarea id="professionalSummary" name="professionalSummary" rows="5" required></textarea>
+                <small class="hint">Destaque anos de experiência, especialidades e principais competências</small>
+            </div>
+            <div class="form-group">
+                <label for="careerAspiration">Objetivos de Carreira*</label>
+                <textarea id="careerAspiration" name="careerAspiration" rows="3" required></textarea>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="location">Cidade/Estado*</label>
-          <input type="text" id="location" name="location" required />
+        <div class="form-navigation">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="linkedin">LinkedIn</label>
-          <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/seu-perfil" />
+    </div>
+    <!-- Passo 3: Experiência Profissional -->
+    <div class="form-step" data-step="3">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-briefcase"></i> Experiência Profissional
+            </h3>
+            <div id="professionalExperienceContainer">
+                <div class="professional-experience-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="proCompany1">Empresa*</label>
+                            <input type="text" id="proCompany1" name="proCompany[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="proPosition1">Cargo*</label>
+                            <input type="text" id="proPosition1" name="proPosition[]" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="proStart1">De*</label>
+                            <input type="month" id="proStart1" name="proStart[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="proEnd1">Até</label>
+                            <input type="month" id="proEnd1" name="proEnd[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="proLocation1">Localidade</label>
+                            <input type="text" id="proLocation1" name="proLocation[]" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proDescription1">Descrição do Cargo*</label>
+                        <textarea id="proDescription1" name="proDescription[]" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="proAchievements1">Principais Realizações*</label>
+                        <textarea id="proAchievements1" name="proAchievements[]" rows="3" required></textarea>
+                        <small class="hint">Use números e métricas sempre que possível</small>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="addProfessionalExperience" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Experiência
+            </button>
         </div>
-        <div class="form-group">
-          <label for="portfolio">Portfólio/Site</label>
-          <input type="url" id="portfolio" name="portfolio" placeholder="https://seusite.com" />
+        <div class="form-navigation">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
     </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 2: Perfil Profissional -->
-  <div class="form-step" data-step="2">
-    <div class="form-section">
-      <h3><i class="fas fa-user-tie"></i> Perfil Profissional</h3>
-      <div class="form-group">
-        <label for="desiredPosition">Cargo Almejado*</label>
-        <input type="text" id="desiredPosition" name="desiredPosition" required />
-      </div>
-      <div class="form-group">
-        <label for="professionalSummary">Resumo Profissional (100-150 palavras)*</label>
-        <textarea id="professionalSummary" name="professionalSummary" rows="5" required></textarea>
-        <small class="hint">Destaque anos de experiência, especialidades e principais competências</small>
-      </div>
-      <div class="form-group">
-        <label for="careerAspiration">Objetivos de Carreira*</label>
-        <textarea id="careerAspiration" name="careerAspiration" rows="3" required></textarea>
-      </div>
-    </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 3: Experiência Profissional -->
-  <div class="form-step" data-step="3">
-    <div class="form-section">
-      <h3><i class="fas fa-briefcase"></i> Experiência Profissional</h3>
-      <div id="professionalExperienceContainer">
-        <div class="professional-experience-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="proCompany1">Empresa*</label>
-              <input type="text" id="proCompany1" name="proCompany[]" required />
+    <!-- Passo 4: Formação Acadêmica -->
+    <div class="form-step" data-step="4">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-graduation-cap"></i> Formação Acadêmica
+            </h3>
+            <div id="educationContainer">
+                <div class="education-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="institution1">Instituição*</label>
+                            <input type="text" id="institution1" name="institution[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="degree1">Grau*</label>
+                            <select id="degree1" name="degree[]" required>
+                                <option value="">Selecione</option>
+                                <option value="Ensino Médio">Ensino Médio</option>
+                                <option value="Graduação">Graduação</option>
+                                <option value="Pós-Graduação">Pós-Graduação</option>
+                                <option value="MBA">MBA</option>
+                                <option value="Mestrado">Mestrado</option>
+                                <option value="Doutorado">Doutorado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fieldOfStudy1">Área de Estudo*</label>
+                            <input type="text" id="fieldOfStudy1" name="fieldOfStudy[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="educationYear1">Ano de Conclusão*</label>
+                            <input type="number" id="educationYear1" name="educationYear[]" required />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="proPosition1">Cargo*</label>
-              <input type="text" id="proPosition1" name="proPosition[]" required />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="proStart1">De*</label>
-              <input type="month" id="proStart1" name="proStart[]" required />
-            </div>
-            <div class="form-group">
-              <label for="proEnd1">Até</label>
-              <input type="month" id="proEnd1" name="proEnd[]" />
-            </div>
-            <div class="form-group">
-              <label for="proLocation1">Localidade</label>
-              <input type="text" id="proLocation1" name="proLocation[]" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="proDescription1">Descrição do Cargo*</label>
-            <textarea id="proDescription1" name="proDescription[]" rows="3" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="proAchievements1">Principais Realizações*</label>
-            <textarea id="proAchievements1" name="proAchievements[]" rows="3" required></textarea>
-            <small class="hint">Use números e métricas sempre que possível</small>
-          </div>
+            <button type="button" id="addEducation" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Formação
+            </button>
         </div>
-      </div>
-      <button type="button" id="addProfessionalExperience" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Experiência</button>
-    </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 4: Formação Acadêmica -->
-  <div class="form-step" data-step="4">
-    <div class="form-section">
-      <h3><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h3>
-      <div id="educationContainer">
-        <div class="education-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="institution1">Instituição*</label>
-              <input type="text" id="institution1" name="institution[]" required />
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-certificate"></i> Certificações
+            </h3>
+            <div id="certificationsContainer">
+                <div class="certification-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="certificationName1">Certificação</label>
+                            <input type="text" id="certificationName1" name="certificationName[]" />
+                        </div>
+                        <div class="form-group">
+                            <label for="certificationYear1">Ano</label>
+                            <input type="number" id="certificationYear1" name="certificationYear[]" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="degree1">Grau*</label>
-              <select id="degree1" name="degree[]" required>
-                <option value="">Selecione</option>
-                <option value="Ensino Médio">Ensino Médio</option>
-                <option value="Graduação">Graduação</option>
-                <option value="Pós-Graduação">Pós-Graduação</option>
-                <option value="MBA">MBA</option>
-                <option value="Mestrado">Mestrado</option>
-                <option value="Doutorado">Doutorado</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fieldOfStudy1">Área de Estudo*</label>
-              <input type="text" id="fieldOfStudy1" name="fieldOfStudy[]" required />
-            </div>
-            <div class="form-group">
-              <label for="educationYear1">Ano de Conclusão*</label>
-              <input type="number" id="educationYear1" name="educationYear[]" required />
-            </div>
-          </div>
+            <button type="button" id="addCertification" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Certificação
+            </button>
         </div>
-      </div>
-      <button type="button" id="addEducation" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Formação</button>
-    </div>
-    <div class="form-section">
-      <h3><i class="fas fa-certificate"></i> Certificações</h3>
-      <div id="certificationsContainer">
-        <div class="certification-entry">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="certificationName1">Certificação</label>
-              <input type="text" id="certificationName1" name="certificationName[]" />
-            </div>
-            <div class="form-group">
-              <label for="certificationYear1">Ano</label>
-              <input type="number" id="certificationYear1" name="certificationYear[]" />
-            </div>
-          </div>
+        <div class="form-navigation">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-next">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-      </div>
-      <button type="button" id="addCertification" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Certificação</button>
     </div>
-    <div class="form-navigation">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="button" class="btn btn-next">Próximo <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  <!-- Passo 5: Competências -->
-  <div class="form-step" data-step="5">
-    <div class="form-section">
-      <h3><i class="fas fa-tools"></i> Habilidades Técnicas</h3>
-      <div class="form-group">
-        <label>Selecione suas principais habilidades (8-12)*</label>
-        <div class="skills-grid">
-          {% for skill in professional_skills %}
-            <div class="skill-checkbox">
-              <input type="checkbox" id="proSkill{{ forloop.counter }}" name="proSkills" value="{{ skill }}" />
-              <label for="proSkill{{ forloop.counter }}">{{ skill }}</label>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="otherTechnicalSkills">Outras habilidades técnicas</label>
-        <input type="text" id="otherTechnicalSkills" name="otherTechnicalSkills" />
-      </div>
-    </div>
-    <div class="form-section">
-      <h3><i class="fas fa-users"></i> Habilidades Comportamentais</h3>
-      <div class="form-group">
-        <label>Selecione suas principais soft skills (5-8)*</label>
-        <div class="skills-grid">
-          <div class="skill-checkbox">
-            <input type="checkbox" id="softSkill1" name="softSkills[]" value="Comunicação" />
-            <label for="softSkill1">Comunicação</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="softSkill2" name="softSkills[]" value="Trabalho em equipe" />
-            <label for="softSkill2">Trabalho em equipe</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="softSkill3" name="softSkills[]" value="Empatia" />
-            <label for="softSkill3">Empatia</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="softSkill4" name="softSkills[]" value="Proatividade" />
-            <label for="softSkill4">Proatividade</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="softSkill5" name="softSkills[]" value="Resolução de problemas" />
-            <label for="softSkill5">Resolução de problemas</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="softSkill6" name="softSkills[]" value="Pensamento crítico" />
-            <label for="softSkill6">Pensamento crítico</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="softSkill7" name="softSkills[]" value="Gestão de tempo" />
-            <label for="softSkill7">Gestão de tempo</label>
-          </div>
-          <div class="skill-checkbox">
-            <input type="checkbox" id="softSkill8" name="softSkills[]" value="Adaptabilidade" />
-            <label for="softSkill8">Adaptabilidade</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3><i class="fas fa-language"></i> Idiomas</h3>
-      <div id="languagesContainer">
-        <div class="language-entry">
-          <div class="form-row">
+    <!-- Passo 5: Competências -->
+    <div class="form-step" data-step="5">
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-tools"></i> Habilidades Técnicas
+            </h3>
             <div class="form-group">
-              <label for="language1">Idioma*</label>
-              <input type="text" id="language1" name="language[]" required />
+                <label>Selecione suas principais habilidades (8-12)*</label>
+                <div class="skills-grid">
+                    {% for skill in professional_skills %}
+                        <div class="skill-checkbox">
+                            <input type="checkbox"
+                                   id="proSkill{{ forloop.counter }}"
+                                   name="proSkills"
+                                   value="{{ skill }}" />
+                            <label for="proSkill{{ forloop.counter }}">{{ skill }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="form-group">
-              <label for="proficiency1">Nível*</label>
-              <select id="proficiency1" name="proficiency[]" required>
-                <option value="Básico">Básico</option>
-                <option value="Intermediário">Intermediário</option>
-                <option value="Avançado">Avançado</option>
-                <option value="Fluente">Fluente</option>
-                <option value="Nativo">Nativo</option>
-              </select>
+                <label for="otherTechnicalSkills">Outras habilidades técnicas</label>
+                <input type="text" id="otherTechnicalSkills" name="otherTechnicalSkills" />
             </div>
-          </div>
         </div>
-      </div>
-      <button type="button" id="addLanguage" class="btn btn-add"><i class="fas fa-plus"></i> Adicionar Idioma</button>
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-users"></i> Habilidades Comportamentais
+            </h3>
+            <div class="form-group">
+                <label>Selecione suas principais soft skills (5-8)*</label>
+                <div class="skills-grid">
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="softSkill1"
+                               name="softSkills[]"
+                               value="Comunicação" />
+                        <label for="softSkill1">Comunicação</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="softSkill2"
+                               name="softSkills[]"
+                               value="Trabalho em equipe" />
+                        <label for="softSkill2">Trabalho em equipe</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox" id="softSkill3" name="softSkills[]" value="Empatia" />
+                        <label for="softSkill3">Empatia</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="softSkill4"
+                               name="softSkills[]"
+                               value="Proatividade" />
+                        <label for="softSkill4">Proatividade</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="softSkill5"
+                               name="softSkills[]"
+                               value="Resolução de problemas" />
+                        <label for="softSkill5">Resolução de problemas</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="softSkill6"
+                               name="softSkills[]"
+                               value="Pensamento crítico" />
+                        <label for="softSkill6">Pensamento crítico</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="softSkill7"
+                               name="softSkills[]"
+                               value="Gestão de tempo" />
+                        <label for="softSkill7">Gestão de tempo</label>
+                    </div>
+                    <div class="skill-checkbox">
+                        <input type="checkbox"
+                               id="softSkill8"
+                               name="softSkills[]"
+                               value="Adaptabilidade" />
+                        <label for="softSkill8">Adaptabilidade</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-section">
+            <h3>
+                <i class="fas fa-language"></i> Idiomas
+            </h3>
+            <div id="languagesContainer">
+                <div class="language-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="language1">Idioma*</label>
+                            <input type="text" id="language1" name="language[]" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="proficiency1">Nível*</label>
+                            <select id="proficiency1" name="proficiency[]" required>
+                                <option value="Básico">Básico</option>
+                                <option value="Intermediário">Intermediário</option>
+                                <option value="Avançado">Avançado</option>
+                                <option value="Fluente">Fluente</option>
+                                <option value="Nativo">Nativo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="addLanguage" class="btn btn-add">
+                <i class="fas fa-plus"></i> Adicionar Idioma
+            </button>
+        </div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-prev">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-file-export"></i> Gerar Currículo Profissional
+            </button>
+        </div>
     </div>
-    <div class="form-actions">
-      <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Anterior</button>
-      <button type="submit" class="btn btn-primary"><i class="fas fa-file-export"></i> Gerar Currículo Profissional</button>
-    </div>
-  </div>
 </form>

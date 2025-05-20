@@ -8,7 +8,8 @@ from .views import (
     delete_curriculum,
     interview_start,
     interview_simulation,
-    get_interviw_message
+    get_interview_message,
+    get_interview_messages
 )
 
 
@@ -23,5 +24,6 @@ urlpatterns = [
     path("curriculum/del/<slug>/", delete_curriculum, name="delete_curriculum"),
     path("interview/start/", interview_start, name="interview_start"),
     path("interview/simulation/<slug>/", interview_simulation, name="interview_simulation"),
-    path("interview/get-interview-message/<slug>/", get_interviw_message, name="get_interviw_message"),
+    path("interview/get-interview-message/<slug>/", get_interview_message, name="get_interviw_message"),
+    path("interview/get-interview-messages/<slug>/", get_interview_messages, name="get_interview_messages"),
 ]

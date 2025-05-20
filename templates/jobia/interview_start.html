@@ -1,87 +1,67 @@
 {% extends 'jobia/base_no_nav.html' %}
-
 {% load static compress cache %}
-
-{% block title %}
-  Simular Entrevista
-{% endblock %}
-
+{% block title %}Simular Entrevista{% endblock %}
 {% block extra_css %}
-  {% cache 3600 'aplhine-js-cache' %}
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  {% endcache %}
-  {% compress css %}
-  <link rel="stylesheet" href="{% static 'css/interview_start.css' %}" />
-  {% endcompress %}
+    {% cache 3600 'aplhine-js-cache' %}
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{% endcache %}
+{% compress css %}
+    <link rel="stylesheet" href="{% static 'css/interview_start.css' %}" />
+{% endcompress %}
 {% endblock %}
-
 {% block content %}
-  <div id="startCard" class="start-card" x-data="{ job_role: '', job_level: '', errors: {} }">
-    <div class="start-card-content">
-      <h2>Simulação de Entrevista</h2>
-      <div class="plan-features"></div>
-      <p class="disclaimer">Preencha correctamente os campos abaixo.</p>
-
-      <div class="form">
-        <div class="input-group">
-          <input
-            type="text"
-            id="job-role"
-            name="job_role"
-            x-model="job_role"
-            :class="errors.job_role ? 'input-error' : ''"
-            placeholder=""
-            required
-          />
-          <label for="job-role">Cargo</label>
-          <p x-show="errors.job_role" class="error-message">Por favor, preencha o cargo.</p>
+    <div id="startCard"
+         class="start-card"
+         x-data="{ job_role: '', job_level: '', errors: {} }">
+        <div class="start-card-content">
+            <h2>Simulação de Entrevista</h2>
+            <div class="plan-features"></div>
+            <p class="disclaimer">Preencha correctamente os campos abaixo.</p>
+            <div class="form">
+                <div class="input-group">
+                    <input type="text"
+                           id="job-role"
+                           name="job_role"
+                           x-model="job_role"
+                           :class="errors.job_role ? 'input-error' : ''"
+                           placeholder=""
+                           required />
+                    <label for="job-role">Cargo</label>
+                    <p x-show="errors.job_role" class="error-message">Por favor, preencha o cargo.</p>
+                </div>
+                <div class="input-group">
+                    <input type="text"
+                           id="job-level"
+                           name="job_level"
+                           x-model="job_level"
+                           :class="errors.job_level ? 'input-error' : ''"
+                           placeholder=""
+                           required />
+                    <label for="job-level">Nível</label>
+                    <p x-show="errors.job_level" class="error-message">Por favor, preencha o nível.</p>
+                </div>
+                <!-- Botões -->
+                <div class="btn-group">
+                    <button id="cancelBtn"
+                            class="btn btn-secondary"
+                            onclick="window.location.href='{% url 'dashboard' %}'">
+                        <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+                    </button>
+                    <button id="startBtn"
+                            class="btn btn-primary"
+                            @click.prevent=" errors = {}; if (!job_role) errors.job_role = true; if (!job_level) errors.job_level = true; if (Object.keys(errors).length === 0) { registerInterview() } ">
+                        <i class="fas fa-play"></i> Iniciar
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="input-group">
-          <input
-            type="text"
-            id="job-level"
-            name="job_level"
-            x-model="job_level"
-            :class="errors.job_level ? 'input-error' : ''"
-            placeholder=""
-            required
-          />
-          <label for="job-level">Nível</label>
-          <p x-show="errors.job_level" class="error-message">Por favor, preencha o nível.</p>
-        </div>
-
-        <!-- Botões -->
-        <div class="btn-group">
-          <button id="cancelBtn" class="btn btn-secondary" onclick="window.location.href='{% url 'dashboard' %}'">
-            <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
-          </button>
-          <button
-            id="startBtn"
-            class="btn btn-primary"
-            @click.prevent="
-              errors = {};
-              if (!job_role) errors.job_role = true;
-              if (!job_level) errors.job_level = true;
-              if (Object.keys(errors).length === 0) {
-                registerInterview()
-              }
-            "
-          >
-            <i class="fas fa-play"></i> Iniciar
-          </button>
-        </div>
-      </div>
     </div>
-  </div>
 {% endblock %}
-
 {% block extra_js %}
-    <script>
-        const csrft_token = "{{ csrf_token }}"
-    </script>
+    <script>const csrft_token = "{{ csrf_token }}"</script>
     {% compress js inline %}
-    <script>
-    
+        <script>
       function registerInterview() {
         const role = document.querySelector('#job-role').value
         const level = document.querySelector('#job-level').value
@@ -104,6 +84,6 @@
             window.location.href = '/interview/simulation/'+data.slug+'/'
         })
     }
-  </script>
-  {% endcompress%}
+        </script>
+    {% endcompress %}
 {% endblock %}
