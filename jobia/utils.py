@@ -40,7 +40,7 @@ def get_interview_system_message():
         "Espere a resposta do candidato antes de continuar. "
         "**Nunca antecipe as próximas perguntas.** "
         "Use Markdown para formatar. "
-        "Após a 10ª pergunta, apresente os resultados em JSON. "
+        "Após a 10ª pergunta, apresente os resultados com percentagens de aproveitamento. "
         "Fale apenas como entrevistador, sem responder pelo usuário."
     )
 

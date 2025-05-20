@@ -196,7 +196,7 @@ def get_interview_message(request, slug):
 
     messages_qs = InterviewMessage.objects.filter(interview=interview).order_by(
         "created_at"
-    )
+    ).values('sender', 'message')
 
     chat_history = []
 
