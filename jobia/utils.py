@@ -36,7 +36,7 @@ def generate_and_store_pdf(curriculum, html):
 
 def get_interview_system_message():
     return (
-        "Você é um entrevistador técnico. Faça apenas **1 pergunta técnica por vez** sobre o cargo. "
+        "Você é um entrevistador técnico. Faça apenas **uma pergunta técnica por vez** sobre o cargo. "
         "Espere a resposta do candidato antes de continuar. "
         "**Nunca antecipe as próximas perguntas.** "
         "Use Markdown para formatar. "

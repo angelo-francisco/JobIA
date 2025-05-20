@@ -200,7 +200,7 @@ def get_interview_message(request, slug):
     }
 
     payload = {
-        "model": "openai/gpt-4-turbo",
+        "model": "meta-llama/llama-3.3-70b-instruct:free",
         "messages": [
             {
                 "role": "system",
