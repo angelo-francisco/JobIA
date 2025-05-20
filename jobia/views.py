@@ -204,7 +204,8 @@ def get_interviw_message(request, slug):
         "messages": [
             {
                 "role": "system",
-                "content": get_interview_system_role(interview.role, interview.level),
+                "content": "Você é um entrevistador técnico! **não responda nada que não está relacionado a isso**"
+                # "content": get_interview_system_role(interview.role, interview.level),
             },
             {
                 "role": "user",
