@@ -194,6 +194,21 @@ def get_interview_message(request, slug):
 
     InterviewMessage.objects.create(interview=interview, sender="U", message=message)
 
+    messages_qs = InterviewMessage.objects.filter(interview=interview).order_by(
+        "created_at"
+    )
+
+    chat_history = []
+
+    chat_history.append({
+        "role": "system", 
+        "content": get_interview_system_message()
+    })
+
+    for msg in messages_qs:
+        role = "user" if msg.sender == "U" else "assistant"
+        chat_history.append({"role": role, "content": msg.message})
+
     headers = {
         "Authorization": f"Bearer {settings.AI_API_KEY}",
         "Content-Type": "application/json",
@@ -201,16 +216,7 @@ def get_interview_message(request, slug):
 
     payload = {
         "model": "meta-llama/llama-3.3-70b-instruct:free",
-        "messages": [
-            {
-                "role": "system",
-                "content": get_interview_system_message()
-            },
-            {
-                "role": "user",
-                "content": message,
-            },
-        ],
+        "messages": chat_history,
     }
 
     API_URL = "https://openrouter.ai/api/v1/chat/completions"
@@ -235,15 +241,17 @@ def get_interview_message(request, slug):
 @login_required
 def get_interview_messages(request, slug):
     interview = get_object_or_404(Interview, slug=slug)
-    
+
     if interview.user != request.user:
         return JsonResponse({"error": "Não autorizado"}, status=403)
-    
-    messages = InterviewMessage.objects.filter(interview=interview).order_by('created_at')
-    
-    formatted_messages = [{
-        'sender': 'user' if msg.sender == 'U' else 'ai',
-        'text': msg.message
-    } for msg in messages]
-    
+
+    messages = InterviewMessage.objects.filter(interview=interview).order_by(
+        "created_at"
+    )
+
+    formatted_messages = [
+        {"sender": "user" if msg.sender == "U" else "ai", "text": msg.message}
+        for msg in messages
+    ]
+
     return JsonResponse({"messages": formatted_messages})
