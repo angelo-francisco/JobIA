@@ -8,18 +8,21 @@
     <script defer src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/github.min.css">
-    <script defer
-            src="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 {% endcache %}
 {% compress css %}
     <link rel="stylesheet" href="{% static 'css/interview_start.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/interview_simulation.css' %}" />
 {% endcompress %}
 {% endblock %}
 {% block content %}
     <div class="chat-container" x-data="chatComponent()" x-init="initialize()">
+      <div class="header" style="">
         <h2>Simulação de Entrevista</h2>
+        <a class="btn btn-cancel" href="{% url 'dashboard' %}" style="text-decoration: none;">Cancelar</a>
+      </div>
         <div class="messages" id="messages">
             <template x-for="(msg, index) in messages" :key="index">
                 <div class="message"
@@ -88,7 +91,7 @@
             .then(res => res.json())
             .then(data => {
               this.messages = data.messages;
-              
+
               if (this.messages.length === 0 && !this.hasInitialMessage) {
                 setTimeout(() => {
                   this.userInput = "Podemos começar a entrevista para o cargo {{ interview.role }}, nivel {{ interview.level }}";
