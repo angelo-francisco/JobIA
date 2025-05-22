@@ -206,7 +206,7 @@ def get_interview_message(request, slug):
     })
 
     for msg in messages_qs:
-        role = "user" if msg.sender == "U" else "assistant"
+        role = "user" if msg["sender"] == "U" else "assistant"
         chat_history.append({"role": role, "content": msg.message})
 
     headers = {
