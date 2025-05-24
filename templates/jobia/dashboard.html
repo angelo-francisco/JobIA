@@ -132,68 +132,104 @@
 {% endblock %}
 {% block extra_js %}
   <script>
-    const csrft_token = '{{ csrf_token }}'  
-
-    document.querySelector('#new-curriculum-btn').addEventListener('click', () => {
-      window.location.href = '{% url 'new_curriculum' %}'
-    })
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const params = new URLSearchParams(window.location.search);
-      const upgradeModal = document.getElementById('upgradeModal');
-      const closeButtons = document.querySelectorAll('.close-modal-2');
+    const csrft_token = '{{ csrf_token }}'
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      const params = new URLSearchParams(window.location.search)
+      const upgradeModal = document.getElementById('upgradeModal')
+      const closeButtons = document.querySelectorAll('.close-modal-2')
+      const startCreationInput = document.querySelector('#curriculum-title')
+      const startCreationBtn = document.querySelector('#startBtn')
+      const errorShower = document.querySelector('.input-group-errors')
     
       if (params.get('upgrade_plan') === '1') {
-        upgradeModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        upgradeModal.style.display = 'flex'
+        document.body.style.overflow = 'hidden'
       }
     
-      closeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          upgradeModal.style.display = 'none';
-          document.body.style.overflow = 'auto';
-          history.replaceState(null, null, window.location.pathname);
-        });
-      });
+      closeButtons.forEach((button) => {
+        button.addEventListener('click', function () {
+          upgradeModal.style.display = 'none'
+          document.body.style.overflow = 'auto'
+          history.replaceState(null, null, window.location.pathname)
+        })
+      })
     
-      upgradeModal.addEventListener('click', function(e) {
+      upgradeModal.addEventListener('click', function (e) {
         if (e.target === upgradeModal) {
-          upgradeModal.style.display = 'none';
-          document.body.style.overflow = 'auto';
-          history.replaceState(null, null, window.location.pathname);
+          upgradeModal.style.display = 'none'
+          document.body.style.overflow = 'auto'
+          history.replaceState(null, null, window.location.pathname)
         }
-      });
-
-      document.querySelectorAll('.delete-btn')
-        .forEach(deleteBtn => {
-            deleteBtn.addEventListener('click', () => {
-                const slug = deleteBtn.dataset.slug
-                const type = deleteBtn.dataset.type
-                const card = document.querySelector(`#${type}-${slug}`)
-
-                if (document.querySelectorAll('.delete-btn').length == 1) {
-                  document.querySelector('.projects-grid').innerHTML = '<div class="no-curriculums">Você nâo possui currículos ou entrevistas.</div>'
-                }
-
-                card.remove()
-
-                fetch(`/${type}/del/${slug}/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrft_token
-                    }
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Falha ao enviar formulário');
-                        }
-                        return response.json();
-                    }).then(data => {
-                        console.log(data.status)
-                    })
+      })
+    
+      document.querySelectorAll('.delete-btn').forEach((deleteBtn) => {
+        deleteBtn.addEventListener('click', () => {
+          const slug = deleteBtn.dataset.slug
+          const type = deleteBtn.dataset.type
+          const card = document.querySelector(`#${type}-${slug}`)
+    
+          if (document.querySelectorAll('.delete-btn').length == 1) {
+            document.querySelector('.projects-grid').innerHTML = '<div class="no-curriculums">Você nâo possui currículos ou entrevistas.</div>'
+          }
+    
+          card.remove()
+    
+          fetch(`/${type}/del/${slug}/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrft_token
+            }
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('Falha ao enviar formulário')
+              }
+              return response.json()
             })
-        });
-    });
-    </script>
+            .then((data) => {
+              console.log(data.status)
+            })
+        })
+      })
+    
+      startCreationBtn.addEventListener('click', (e) => {
+        startCreationBtn.disabled = true
+        const curriculumTitle = startCreationInput.value.trim()
+    
+        if (!curriculumTitle) {
+          startCreationBtn.disabled = false
+          errorShower.innerHTML = 'Preencha o campo para começar, por favor.'
+        } else {
+          fetch('/curriculum/new/?create=1', {
+            method: 'POST',
+            body: JSON.stringify({ title: curriculumTitle }),
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrft_token
+            }
+          })
+            .then((response) => {
+              const contentType = response.headers.get('Content-Type') || ''
+    
+              if (contentType.includes('text/html')) {
+                window.location.href = '/workspace/?upgrade_plan=1'
+                return
+              } else {
+                return response.json()
+              }
+            })
+            .then((data) => {
+              if (data.slug) {
+                window.location.href = '/curriculum/new/?curriculum=' + data.slug
+              } else {
+                errorShower.innerHTML = data.error
+                startCreationBtn.disabled = false
+              }
+            })
+        }
+      })
+    })
+  </script>
 {% endblock %}

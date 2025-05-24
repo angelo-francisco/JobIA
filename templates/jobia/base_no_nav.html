@@ -1,31 +1,47 @@
 {% load static compress cache %}
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>
-            {% block title %}{% endblock %}
-            | JobAI
-        </title>
-        {% cache 84600 'google-fonts' %}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+      {% endblock %}| JobAI
+    </title>
+    {% cache 84600 'google-fonts' %}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     {% endcache %}
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-          rel="stylesheet" />
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     {% compress css %}
-        <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     {% endcompress %}
-    <link rel="shortcut icon"
-          href="{% static 'imgs/logo.png' %}"
-          type="image/x-icon" />
-    {% block extra_css %}{% endblock %}
-</head>
-<body>
-    {% block content %}{% endblock %}
-    {% block extra_js %}{% endblock %}
-</body>
+    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" />
+    {% block extra_css %}
+    {% endblock %}
+  </head>
+  <body>
+    <div class="upgrade-modal" id="errorModal">
+      <div class="upgrade-modal-content">
+        <div id="startCard" class="start-card">
+          <div class="start-card-content">
+            <i class="fas fa-file-plus upgrade-icon"></i>
+            <h2 style="color: red;">Errro ao gerar currículo!</h2>
+            <div class="plan-features"></div>
+            <div class="card-body-2" style="text-align: center;">Oops! Lamentamos a ocorrência de um erro interno. Tente mais tarde, por favor.
+                <p><strong>ERRO</strong> <span class="error-text-error-modal"></span></p>
+            </div>
+            <div class="btn-group">
+              <button id="cancelBtn" class="btn btn-secondary close-modal-btn-upgrade close-modal-btn" data-modal-id="curriculumModal" onclick="window.location.href='/workspace/'"><i class="fas fa-arrow-left"></i> Voltar ao Workspace</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+    {% block extra_js %}
+    {% endblock %}
+  </body>
 </html>

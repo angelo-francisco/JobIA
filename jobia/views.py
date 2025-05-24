@@ -1,6 +1,6 @@
 import requests
 from json import loads
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
@@ -30,19 +30,44 @@ def dashboard(request):
         "-created_at"
     )
     interviews = Interview.objects.filter(user=request.user)
-    return render(request, "jobia/dashboard.html", {"curriculums": curriculums, "interviews": interviews})
+    return render(
+        request,
+        "jobia/dashboard.html",
+        {"curriculums": curriculums, "interviews": interviews},
+    )
 
 
 @login_required
 @user_has_feature_access("max_curriculos")
 def new_curriculum(request):
+    create = request.GET.get("create", False)
+
+    if create == "1" and request.method == "POST":
+        title = loads(request.body).get("title", "").strip()
+
+        if not title:
+            return JsonResponse(
+                {"error": "Preencha o campo para prosseguir, por favor."}, status=400
+            )
+
+        curriculum = Curriculum.objects.create(user=request.user, title=title)
+        return JsonResponse({"slug": curriculum.slug}, status=201)
+
+    slug = request.GET.get("curriculum", "")
+
+    if not slug:
+        return redirect("dashboard")
+
+    curriculum = get_object_or_404(Curriculum, slug=slug, status__in="I")
     return render(request, "jobia/new_curriculum.html")
 
 
 @login_required
 @user_has_feature_access("max_curriculos")
 @require_POST
-def get_form_data(request):
+def get_form_data(request, slug):
+    curriculum = get_object_or_404(Curriculum, slug=slug)
+
     try:
         form_data = loads(request.body)
 
@@ -69,12 +94,11 @@ def get_form_data(request):
                 {"error": "Por favor, preencha todos os campos possíveis."}, status=400
             )
 
-        try:
-            user = User.objects.get(id=user_id)
-        except User.DoesNotExist:
-            return JsonResponse({"error": "Por favor, tenta mais tarde."}, status=400)
-
-        curriculum = Curriculum.objects.create(user=user, form_data=form_data)
+        if request.user != curriculum.user:
+            return JsonResponse({"error": "Esse currículo não é seu"}, status=400)
+        
+        curriculum.form_data = form_data
+        curriculum.save()
 
         return JsonResponse({"status": "created", "slug": curriculum.slug})
     except Exception as error:
@@ -89,20 +113,11 @@ def generate_curriculum(request, slug):
     except Curriculum.DoesNotExist:
         return JsonResponse({"error": "Currículo Inexistente"}, status=400)
 
-    new_name = request.GET.get("rename", "").strip()
-    if new_name:
-        curriculum.title = new_name
-        curriculum.save()
-
-        return JsonResponse({"status": "renamed"})
-
     if curriculum.status == "C":
         return JsonResponse({"error": "Currículo completo"}, status=400)
 
     if curriculum.user != request.user:
         return JsonResponse({"error": "Esse currículo não é seu"}, status=400)
-
-    print(f"Chave da api: {settings.AI_API_KEY}")
 
     try:
         headers = {
@@ -129,11 +144,8 @@ def generate_curriculum(request, slug):
 
         try:
             data = response.json()
-            print(f"Todos os dados: {data}")
             curriculum_html = data["choices"][0]["message"]["content"]
         except Exception as e:
-            print("Erro: ", e)
-            print("Erro ao processar resposta da IA:", response.text)
             return JsonResponse({"error": "Erro ao gerar currículo com IA"}, status=502)
 
         curriculum_html = curriculum_html.replace("```html", "").replace("```", "")

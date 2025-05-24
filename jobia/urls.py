@@ -21,7 +21,7 @@ urlpatterns = [
     path(
         "curriculum/generate/<slug>/", generate_curriculum, name="generate_curriculum"
     ),
-    path("curriculum/get-form-data/", get_form_data, name="get_form_data"),
+    path("curriculum/get-form-data/<slug>/", get_form_data, name="get_form_data"),
     path("curriculum/del/<slug>/", delete_curriculum, name="delete_curriculum"),
     path("interview/start/", interview_start, name="interview_start"),
     path("interview/del/<slug>/", delete_interview, name="delete_interview"),

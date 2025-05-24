@@ -17,34 +17,35 @@ function closeDashboard() {
 }
 
 function redirectTo(link) {
-    window.location.href=link
+    window.location.href = link
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     const exclusiveFeatures = document.querySelectorAll('.exclusive-feature');
-    const exclusiveModal = document.getElementById('exclusiveModal');
-    const featureNameElement = document.getElementById('featureName');
-    const closeModalButtons = document.querySelectorAll('.close-modal');
+    const closeModalButtons = document.querySelectorAll('.close-modal-btn');
+    const upgradeModal = document.getElementById('upgradeModal');
+    const curriculumModal = document.getElementById('curriculumModal');
+
 
     exclusiveFeatures.forEach(feature => {
         feature.addEventListener('click', function () {
-            const featureName = this.getAttribute('data-feature');
-            featureNameElement.textContent = featureName;
-            exclusiveModal.classList.add('active');
+            upgradeModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         });
     });
 
     closeModalButtons.forEach(button => {
         button.addEventListener('click', function () {
-            exclusiveModal.classList.remove('active');
+            const modal = document.getElementById(button.dataset.modalId)
+            modal.style.display = 'none';
         });
     });
 
-    exclusiveModal.addEventListener('click', function (e) {
-        if (e.target === this) {
-            this.classList.remove('active');
-        }
-    });
+    document.querySelector('#new-curriculum-btn')
+        .addEventListener('click', () => {
+            curriculumModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        })
 
 });
 

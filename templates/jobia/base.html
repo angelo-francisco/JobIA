@@ -24,23 +24,6 @@
     {% endblock %}
   </head>
   <body>
-    <div class="exclusive-modal" id="exclusiveModal">
-      <div class="modal-content">
-        <button class="close-modal">&times;</button>
-        <div class="modal-header">
-          <i class="fas fa-crown"></i>
-          <h3>Recurso Exclusivo</h3>
-        </div>
-        <div class="modal-body">
-          <p>
-            O recurso <span id="featureName"></span> está disponível apenas para os nossos assinantes.
-          </p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" id="upgradePlan" onclick="window.location.href = '/#pricing-section'">Atualizar Plano</button>
-        </div>
-      </div>
-    </div>
     <div class="upgrade-modal" id="upgradeModal">
       <div class="upgrade-modal-content">
         <div class="upgrade-card">
@@ -52,12 +35,46 @@
             <p>Para acessar esta funcionalidade, você precisa atualizar seu plano atual.</p>
           </div>
           <div class="upgrade-footer">
-            <button class="btn btn-secondary close-modal-btn-upgrade"><i class="fas fa-arrow-left"></i> Voltar ao Workspace</button>
+            <button class="btn btn-secondary close-modal-btn-upgrade close-modal-btn" data-modal-id="upgradeModal"><i class="fas fa-arrow-left"></i> Voltar ao Workspace</button>
             <a href="{% url 'home_page' %}#pricing-section" class="btn btn-primary"><i class="fas fa-gem"></i> Ver Planos</a>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="upgrade-modal" id="curriculumModal">
+        <div class="upgrade-modal-content">
+            <div id="startCard" class="start-card">
+                <div class="start-card-content">
+                    <i class="fas fa-file-plus upgrade-icon"></i>
+                    <h2>Gerar Novo Currículo</h2>
+                    <div class="plan-features"></div>
+                    <p class="disclaimer">
+                        Vamos guiá-lo através de um questionário inteligente. Pronto para começar?
+                    </p>
+                    <div class="card-body">
+                      <div class="input-group" style="margin-top: 15px;">
+                        <input type="text" placeholder="" id="curriculum-title" name="curriculum-title">
+                        <label for="curriculum-title">Título/Nome</label>
+                      </div>
+                      <div class="input-group-errors" style="color: gray;margin-top: 5px;">
+                        
+                      </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button id="cancelBtn" class="btn btn-secondary close-modal-btn-upgrade close-modal-btn" data-modal-id="curriculumModal">
+                            <i class="fas fa-arrow-left"></i> Voltar ao Workspace
+                        </button>
+                        <button id="startBtn" class="btn btn-primary">
+                            <i class="fas fa-play"></i> Iniciar Criação
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar">
       <div class="navbar-left">
         <div class="logo">
@@ -103,19 +120,19 @@
                   <span>Simulação de Entrevistas</span>
                 </li>
               {% else %}
-                <li class="list-item exclusive-feature" data-feature="Simulação de Entrevistas">
+                <li class="list-item exclusive-feature">
                   <i class="fas fa-comments item-icon"></i>
                   <span>Simulação de Entrevistas</span>
                   <i class="fas fa-crown exclusive-icon"></i>
                 </li>
               {% endif %}
               {% if limits.grupo_exclusivo %}
-                <li class="list-item" data-feature="Grupos Exclusivos">
+                <li class="list-item">
                   <i class="fas fa-users item-icon"></i>
                   <span>Grupos Exclusivos</span>
                 </li>
               {% else %}
-                <li class="list-item exclusive-feature" data-feature="Grupos Exclusivos">
+                <li class="list-item exclusive-feature">
                   <i class="fas fa-users item-icon"></i>
                   <span>Grupos Exclusivos</span>
                   <i class="fas fa-crown exclusive-icon"></i>
@@ -135,7 +152,7 @@
                   <span>Pedir Revisão de Currículo</span>
                 </li>
               {% else %}
-                <li class="list-item exclusive-feature" data-feature="Revisão de Currículo">
+                <li class="list-item exclusive-feature">
                   <i class="fas fa-edit item-icon"></i>
                   <span>Pedir Revisão de Currículo</span>
                   <i class="fas fa-crown exclusive-icon"></i>
@@ -147,7 +164,7 @@
                   <span>Carta de apresentação</span>
                 </li>
               {% else %}
-                <li class="list-item exclusive-feature" data-feature="Carta de apresentação">
+                <li class="list-item exclusive-feature">
                   <i class="fas fa-envelope-open-text item-icon"></i>
                   <span>Carta de apresentação</span>
                   <i class="fas fa-crown exclusive-icon"></i>
@@ -159,7 +176,7 @@
                   <span>Personal Branding</span>
                 </li>
               {% else %}
-                <li class="list-item exclusive-feature" data-feature="Personal Branding">
+                <li class="list-item exclusive-feature">
                   <i class="fas fa-bullhorn item-icon"></i>
                   <span>Personal Branding</span>
                   <i class="fas fa-crown exclusive-icon"></i>

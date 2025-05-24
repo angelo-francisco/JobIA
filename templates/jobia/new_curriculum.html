@@ -8,25 +8,6 @@
     {% endcompress %}
 {% endblock %}
 {% block content %}
-    <div id="startCard" class="start-card">
-        <div class="start-card-content">
-            <h2>Gerar Novo Currículo {{ request.user.subscription.plan.name }}</h2>
-            <div class="plan-features"></div>
-            <p class="disclaimer">
-                Vamos guiá-lo através de um questionário inteligente. Este processo levará aproximadamente 3-5 minutos.
-            </p>
-            <div class="btn-group">
-                <button id="cancelBtn"
-                        class="btn btn-secondary"
-                        onclick="window.location.href='{% url 'dashboard' %}'">
-                    <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
-                </button>
-                <button id="startBtn" class="btn btn-primary">
-                    <i class="fas fa-play"></i> Iniciar Criação
-                </button>
-            </div>
-        </div>
-    </div>
     <div id="curriculumModal"
          class="modal plan-{{ request.user.subscription.plan.name|lower }}">
         <div class="modal-content">
@@ -36,7 +17,7 @@
                      class="modal-logo" />
                 <div class="header-text">
                     <h2 style="color: white;">Currículo {{ request.user.subscription.plan.name }}</h2>
-                    <span class="subtitle" style="color: #ddd;">Preencha os campos para gerar seu currículo premium</span>
+                    <span class="subtitle" style="color: #ddd;">Preencha os campos para gerar seu currículo</span>
                 </div>
                 <div class="plan-badge">{{ request.user.subscription.plan.name }}</div>
             </div>

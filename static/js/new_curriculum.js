@@ -1,4 +1,4 @@
-
+const errorModal = document.querySelector('#errorModal')
 
 function initDynamicSections() {
     function setupDynamicSection({ buttonId, containerId, entryClass, allowRemove = true }) {
@@ -96,7 +96,6 @@ function initAddAchievements() {
             const input = clone.querySelector('input');
             input.value = '';
 
-            // Garante que o botão de remover funcione
             const removeBtn = clone.querySelector('.btn-remove-achievement');
             removeBtn.addEventListener('click', () => {
                 if (container.querySelectorAll('.achievement-entry').length > 1) {
@@ -108,7 +107,6 @@ function initAddAchievements() {
         });
     });
 
-    // Ativa os botões de remover já existentes
     document.querySelectorAll('.btn-remove-achievement').forEach(removeBtn => {
         removeBtn.addEventListener('click', () => {
             const container = removeBtn.closest('.achievement-container');
@@ -120,8 +118,6 @@ function initAddAchievements() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const startCard = document.getElementById('startCard');
-    const startBtn = document.getElementById('startBtn');
     const modal = document.getElementById('curriculumModal');
     const form = document.getElementById('curriculumForm');
 
@@ -136,18 +132,13 @@ document.addEventListener('DOMContentLoaded', function () {
     initDynamicSections()
     initAddAchievements()
 
-    startBtn.addEventListener('click', function () {
-        startCard.style.display = 'none';
-        modal.style.display = 'flex';
-
-        modal.scrollTo(0, 0);
-    });
+    modal.style.display = 'flex';
+    modal.scrollTo(0, 0);
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
         const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
         submitBtn.disabled = true;
 
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando...';
@@ -205,9 +196,10 @@ document.addEventListener('DOMContentLoaded', function () {
             plan: curriculumRawData.plan
         };
 
-        let slug = ''
+        const params = new URLSearchParams(window.location.search)
+        let slug = params.get('curriculum')
 
-        fetch('/curriculum/get-form-data/', {
+        fetch(`/curriculum/get-form-data/${slug}/`, {
             method: 'POST',
             body: JSON.stringify(allData),
             headers: {
@@ -215,9 +207,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 'X-CSRFToken': csrft_token
             }
         }).then(response => {
+            const contenttype = response.headers.get('Content-Type')
+
+            if (contenttype.includes('text/html')) {
+                window.location.href = '/workspace/'
+            }
+
             if (!response.ok) {
                 throw new Error('Falha ao enviar formulário');
             }
+
             return response.json();
         }).then(data => {
             slug = data.slug
@@ -230,71 +229,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     'X-CSRFToken': csrft_token
                 }
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Falha ao enviar formulário');
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    modal.style.display = 'none';
-                    startCard.style.display = 'flex';
-
-                    const btnGroup = document.querySelector('.btn-group');
-                    if (btnGroup) {
-                        btnGroup.style.display = 'flex';
-                        btnGroup.style.justifyContent = 'center';
-                        btnGroup.style.alignItems = 'center';
-                        btnGroup.style.flexDirection = 'column';
-                        btnGroup.innerHTML = `
-                            <input type="text" id="curriculumNameInput" class="name-input" placeholder="Digite o nome do currículo">
-                            <button id="saveCurriculumNameBtn" class="btn btn-primary mt-2">
-                                <i class="fas fa-save"></i> Salvar Nome
-                            </button>
-                            <span class="textloader">Currículo gerado com sucesso!</span>
-                            <a href="/workspace/" class="btn btn-secondary mt-2" style="text-decoration: none;">
-                                <i class="fas fa-tachometer-alt"></i> Voltar ao Dashboard
-                            </a>
-                        `;
-
-                        document.getElementById('saveCurriculumNameBtn').addEventListener('click', () => {
-                            const input = document.getElementById('curriculumNameInput');
-                            const newName = input.value.trim();
-
-                            if (!newName) {
-                                alert('Por favor, digite um nome para o currículo.');
-                                return;
-                            }
-
-                            fetch(`/curriculum/generate/${slug}/?rename=${encodeURI(newName)}`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRFToken': csrft_token,
-                                },
-                            })
-                                .then(response => {
-                                    if (!response.ok) throw new Error('Erro ao salvar o nome');
-                                    return response.json();
-                                })
-                                .then(data => {
-                                    window.location.href = "/dashboard/"
-                                })
-                                .catch(error => {
-                                    console.error(error);
-                                    alert('Erro ao salvar nome do currículo.');
-                                });
-                        });
-
+                    if (data.error) {
+                        errorModal.style.display = 'flex'
+                        document.querySelector('.error-text-error-modal')
+                            .innerHTML = data.error
+                    } else {
+                        window.location.href = '/workspace/'
                     }
                 })
-                .catch(error => {
-                    console.error('Error:', error);
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
-
-                    alert(`Erro: ${error.message}, tente novamente mais tarde.`);
-                });
         })
 
     });
