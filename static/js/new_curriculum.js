@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <i class="fas fa-save"></i> Salvar Nome
                             </button>
                             <span class="textloader">Currículo gerado com sucesso!</span>
-                            <a href="/dashboard/" class="btn btn-secondary mt-2" style="text-decoration: none;">
+                            <a href="/workspace/" class="btn btn-secondary mt-2" style="text-decoration: none;">
                                 <i class="fas fa-tachometer-alt"></i> Voltar ao Dashboard
                             </a>
                         `;
