@@ -37,7 +37,7 @@
         </svg>Novo Currículo
       </button>
       <div class="search-filter">
-        <input type="text" placeholder="Pesquisar currículos..." />
+        <input type="text" placeholder="Pesquisar currículos ou entrevistas..." />
         <select>
           <option value="">Todos</option>
           <option value="recentes">Mais recentes</option>
@@ -113,7 +113,7 @@
             </p>
           </div>
           <div class="card-footer">
-            <button class="btn-outline">
+            <button class="btn-outline" onclick="window.location.href='{% url 'interview_simulation' interview.slug %}'">
               {% if interview.ended_at %}
                  Ver Resumo
               {% else %}
