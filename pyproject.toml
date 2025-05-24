@@ -5,7 +5,7 @@ description = "JobIA, é sobre todos nós."
 authors = [
     {name = "angelo-francisco",email = "ics20080729@gmail.com "}
 ]
-license = {text = "ALL RIGHTS RESERVED BY JOBIA ENTERPRISE"}
+license = {text = "ALL RIGHTS RESERVED BY JOBAI ENTERPRISE"}
 readme = "README.md"
 requires-python = ">=3.13,<4.0.0"
 dependencies = [

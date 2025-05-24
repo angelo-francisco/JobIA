@@ -29,7 +29,8 @@ def dashboard(request):
     curriculums = Curriculum.objects.filter(user=request.user, status__in="C").order_by(
         "-created_at"
     )
-    return render(request, "jobia/dashboard.html", {"curriculums": curriculums})
+    interviews = Interview.objects.filter(user=request.user)
+    return render(request, "jobia/dashboard.html", {"curriculums": curriculums, "interviews": interviews})
 
 
 @login_required
@@ -194,16 +195,15 @@ def get_interview_message(request, slug):
 
     InterviewMessage.objects.create(interview=interview, sender="U", message=message)
 
-    messages_qs = InterviewMessage.objects.filter(interview=interview).order_by(
-        "created_at"
-    ).values('sender', 'message')
+    messages_qs = (
+        InterviewMessage.objects.filter(interview=interview)
+        .order_by("created_at")
+        .values("sender", "message")
+    )
 
     chat_history = []
 
-    chat_history.append({
-        "role": "system", 
-        "content": get_interview_system_message()
-    })
+    chat_history.append({"role": "system", "content": get_interview_system_message()})
 
     for msg in messages_qs:
         role = "user" if msg["sender"] == "U" else "assistant"
