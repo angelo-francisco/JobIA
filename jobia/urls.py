@@ -16,7 +16,7 @@ from .views import (
 
 urlpatterns = [
     path("", home_page, name="home_page"),
-    path("dashboard/", dashboard, name="dashboard"),
+    path("workspace/", dashboard, name="dashboard"),
     path("curriculum/new/", new_curriculum, name="new_curriculum"),
     path(
         "curriculum/generate/<slug>/", generate_curriculum, name="generate_curriculum"
