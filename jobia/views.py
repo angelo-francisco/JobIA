@@ -161,6 +161,20 @@ def delete_curriculum(request, slug):
 
 
 @login_required
+@require_POST
+def delete_interview(request, slug):
+    try:
+        interview = Interview.objects.get(slug=slug)
+    except Interview.DoesNotExist:
+        return JsonResponse({"status": "not_found"}, status=404)
+
+    if request.user == interview.user:
+        interview.delete()
+        return JsonResponse({"status": "deletado"})
+    return JsonResponse({"error": "Esta entrevista não foi feita por si"}, status=400)
+
+
+@login_required
 @user_has_feature_access("simulacoes_entrevista")
 def interview_start(request):
     if request.method == "POST":

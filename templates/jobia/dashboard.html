@@ -27,7 +27,7 @@
   <div class="workspace-container">
     <div class="workspace-header">
       <h1>Workspace</h1>
-      <p class="subtitle">Gerencie e simule seus currículos criados</p>
+      <p class="subtitle">Gerencie e simule seus currículos e entrevistas</p>
     </div>
     <div class="workspace-actions">
       <button class="btn-primary" id="new-curriculum-btn">
@@ -72,7 +72,7 @@
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
               </button>
-              <button class="icon-btn delete-btn" data-slug="{{ curriculum.slug }}" title="Apagar">
+              <button class="icon-btn delete-btn" data-slug="{{ curriculum.slug }}" data-type="curriculum" title="Apagar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -94,7 +94,7 @@
           <div class="card-header">
             <span class="favorite-icon" style="color: #333;font-weight: bold;">Entrevista {{ forloop.counter0 }}</span>
             <div class="card-actions">
-              <button class="icon-btn delete-btn" data-slug="{{ interview.slug }}" title="Apagar">
+              <button class="icon-btn delete-btn" data-slug="{{ interview.slug }}" data-type="interview" title="Apagar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -115,7 +115,7 @@
           <div class="card-footer">
             <button class="btn-outline" onclick="window.location.href='{% url 'interview_simulation' interview.slug %}'">
               {% if interview.ended_at %}
-                 Ver Resumo
+                Ver Resumo
               {% else %}
                 Continuar
               {% endif %}
@@ -168,15 +168,16 @@
         .forEach(deleteBtn => {
             deleteBtn.addEventListener('click', () => {
                 const slug = deleteBtn.dataset.slug
-                const card = document.querySelector(`#curriculum-${slug}`)
+                const type = deleteBtn.dataset.type
+                const card = document.querySelector(`#${type}-${slug}`)
 
                 if (document.querySelectorAll('.delete-btn').length == 1) {
-                  document.querySelector('.projects-grid').innerHTML = '<div class="no-curriculums">Você nâo possui currículos criados. Crie já!</div>'
+                  document.querySelector('.projects-grid').innerHTML = '<div class="no-curriculums">Você nâo possui currículos ou entrevistas.</div>'
                 }
 
                 card.remove()
 
-                fetch(`/curriculum/del/${slug}/`, {
+                fetch(`/${type}/del/${slug}/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
