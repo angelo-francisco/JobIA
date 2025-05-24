@@ -43,36 +43,28 @@
     </div>
 
     <div class="upgrade-modal" id="curriculumModal">
-        <div class="upgrade-modal-content">
-            <div id="startCard" class="start-card">
-                <div class="start-card-content">
-                    <i class="fas fa-file-plus upgrade-icon"></i>
-                    <h2>Gerar Novo Currículo</h2>
-                    <div class="plan-features"></div>
-                    <p class="disclaimer">
-                        Vamos guiá-lo através de um questionário inteligente. Pronto para começar?
-                    </p>
-                    <div class="card-body">
-                      <div class="input-group" style="margin-top: 15px;">
-                        <input type="text" placeholder="" id="curriculum-title" name="curriculum-title">
-                        <label for="curriculum-title">Título/Nome</label>
-                      </div>
-                      <div class="input-group-errors" style="color: gray;margin-top: 5px;">
-                        
-                      </div>
-                    </div>
-
-                    <div class="btn-group">
-                        <button id="cancelBtn" class="btn btn-secondary close-modal-btn-upgrade close-modal-btn" data-modal-id="curriculumModal">
-                            <i class="fas fa-arrow-left"></i> Voltar ao Workspace
-                        </button>
-                        <button id="startBtn" class="btn btn-primary">
-                            <i class="fas fa-play"></i> Iniciar Criação
-                        </button>
-                    </div>
-                </div>
+      <div class="upgrade-modal-content">
+        <div id="startCard" class="start-card">
+          <div class="start-card-content">
+            <i class="fas fa-file-plus upgrade-icon"></i>
+            <h2>Gerar Novo Currículo</h2>
+            <div class="plan-features"></div>
+            <p class="disclaimer">Vamos guiá-lo através de um questionário inteligente. Pronto para começar?</p>
+            <div class="input-group" style="margin-top: 15px;">
+              <div class="input-wrapper">
+                <input type="text" placeholder="" id="curriculum-title" name="curriculum-title" />
+                <label for="curriculum-title">Título/Nome</label>
+              </div>
             </div>
+            <div class="input-group-errors" style="color: gray;margin-top: 5px;"></div>
+
+            <div class="btn-group">
+              <button id="cancelBtn" class="btn btn-secondary close-modal-btn-upgrade close-modal-btn" data-modal-id="curriculumModal"><i class="fas fa-arrow-left"></i> Voltar ao Workspace</button>
+              <button id="startBtn" class="btn btn-primary"><i class="fas fa-play"></i> Iniciar Criação</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <nav class="navbar">
@@ -221,16 +213,15 @@
             </li>
           </ul>
         </div>
-        
-        {% if request.user.subscription.plan.name == "Essencial" %}
-        <div class="upgrade-banner">
-          <div class="crown-container">
-            <i class="fas fa-crown"></i>
-          </div>
-          <h4>Desbloqueie recursos exclusivos</h4>
-        </div>
-        {% endif %}
 
+        {% if request.user.subscription.plan.name == 'Essencial' %}
+          <div class="upgrade-banner">
+            <div class="crown-container">
+              <i class="fas fa-crown"></i>
+            </div>
+            <h4>Desbloqueie recursos exclusivos</h4>
+          </div>
+        {% endif %}
       </div>
     </div>
     <div class="panel-overlay" id="panelOverlay"></div>

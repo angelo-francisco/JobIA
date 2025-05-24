@@ -283,20 +283,23 @@
     }
 }
 
-.card-body {
-    width: 100%;
-}
-
 .input-group {
     width: 100%;
     display: flex;
-    gap: 12px;
+    flex-direction: column; /* empilha input + label se necessário */
+    gap: 8px;
     position: relative;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
-.input-group input {
-    flex: 1;
+/* Wrapper de input+label */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-wrapper input {
+    width: 100%;
     padding: 16px 20px;
     border-radius: 12px;
     border: 2px solid #e0e7ff;
@@ -306,40 +309,51 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
-.input-group input:focus {
+.input-wrapper input:focus {
     outline: none;
     border-color: #4f46e5;
     box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
 }
 
-.input-group label {
+.input-wrapper label {
     position: absolute;
-    left: 16px;
+    left: 20px;
     top: 16px;
     color: var(--text-muted, #6b7280);
     pointer-events: none;
     transition: all 0.25s ease;
-    background-color: transparent;
+    background-color: white;
     padding: 0 5px;
     font-size: 0.95rem;
 }
 
-.input-group input:focus+label,
-.input-group input:not(:placeholder-shown)+label {
-    top: -12px;
-    left: 12px;
-    font-size: 0.8rem;
+/* Flutuar o label se tiver foco ou texto */
+.input-wrapper input:focus + label,
+.input-wrapper input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 16px;
+    font-size: 0.75rem;
     color: var(--primary, #3b82f6);
-    background-color: white;
     font-weight: 600;
     padding: 0 6px;
 }
 
-@media (max-width: 528px) {
-    .card-body {
-        max-width: 250px;
+/* Responsividade */
+@media (max-width: 530px) {
+    .input-group {
+        padding: 0 10px;
+    }
+
+    .input-wrapper label {
+        left: 16px;
+    }
+
+    .input-wrapper input {
+        font-size: 0.95rem;
+        padding: 14px 16px;
     }
 }
+
 
 .upgrade-modal-content {
     width: 100%;
