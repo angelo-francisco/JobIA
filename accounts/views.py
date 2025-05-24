@@ -8,6 +8,7 @@ from django.contrib.auth import (
 )
 from django.contrib.auth import (
     login as django_login,
+    logout as django_logout
 )
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
@@ -116,4 +117,5 @@ def signup(request):
 
 
 def logout(request):
-    return render(request, "auth/logout.html")
+    django_logout(request)
+    return redirect("home_page")
