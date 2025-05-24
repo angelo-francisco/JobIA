@@ -40,10 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    document.getElementById('upgradePlan').addEventListener('click', function () {
-        window.location.href = '#planos';
-    });
-
     exclusiveModal.addEventListener('click', function (e) {
         if (e.target === this) {
             this.classList.remove('active');
